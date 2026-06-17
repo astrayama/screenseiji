@@ -61,9 +61,9 @@ export default function Hero() {
         {/* Subtitle */}
         <motion.p
           variants={item}
-          className="mx-auto mt-6 max-w-xl text-base leading-7 text-muted sm:text-lg"
+          className="mx-auto mt-6 max-w-2xl text-base leading-7 text-muted sm:text-lg"
         >
-          A space for seekers at the crossroads of anime, metaphysics, gaming, and inner work.
+          I help people see themselves clearly and evolve intentionally. A space for seekers at the crossroads of anime, metaphysics, gaming, and inner work.
         </motion.p>
 
         {/* CTAs */}

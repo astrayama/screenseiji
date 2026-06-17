@@ -93,6 +93,9 @@ export default function Philosophy() {
                 "Screen Sage lives at the crossroads where a tarot card, a character arc, and a physics equation all say the same thing."
               </p>
             </div>
+            <p className="mt-6 text-sm leading-7 text-muted">
+              Ultimately, this space is dedicated to the practices of <strong>self-awareness</strong>, <strong>self-improvement</strong>, and <strong>self-mastery</strong>. By converting ancient philosophy, modern psychology, and pop-culture stories into interactive tools and media, I help people see themselves clearly and evolve intentionally.
+            </p>
             <p className="mt-8 text-xs font-semibold uppercase tracking-[0.2em] text-muted/50">
               Evolved from Omniversal Seeker · <em>Seeker's Soliloquy</em>
             </p>

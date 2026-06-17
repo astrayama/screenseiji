@@ -50,8 +50,8 @@ export default function WhatIDo() {
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeading
           eyebrow="What I Do"
-          title="Stories are maps for living."
-          description="Tarot, video essays, gaming, and software — each is a different lens on the same question: how do we actually live?"
+          title="Tools for intentional evolution."
+          description="Tarot, video essays, gaming, and software — each is a vehicle for self-awareness, self-improvement, and self-mastery."
         />
 
         <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
