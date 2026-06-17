@@ -30,8 +30,8 @@ function ServiceCard({
             <a
               key={pill.label}
               href={pill.href}
-              target="_blank"
-              rel="noreferrer"
+              target={pill.href.startsWith('#') ? undefined : '_blank'}
+              rel={pill.href.startsWith('#') ? undefined : 'noreferrer'}
               className="inline-flex items-center gap-1 rounded-full border border-teal/25 bg-teal/8 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-teal transition-all hover:border-teal/50 hover:bg-teal/15"
             >
               {pill.label}

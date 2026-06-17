@@ -33,7 +33,7 @@ export const services = [
     description:
       'Indie apps and web tools built on philosophical frameworks — from the Norse world tree to Buddhist impermanence. Each tool is named after the concept it embodies.',
     pills: [
-      { label: 'All Apps', href: 'https://screenseiji.vercel.app/', icon: '↗' },
+      { label: 'All Apps', href: '#apps', icon: '↓' },
     ],
   },
 ]
