@@ -34,6 +34,7 @@ export const services = [
       'Indie apps and web tools built on philosophical frameworks — from the Norse world tree to Buddhist impermanence. Each tool is named after the concept it embodies.',
     pills: [
       { label: 'All Apps', href: '#apps', icon: '↓' },
+      { label: 'Build in Public', href: 'https://x.com/screenseiji', icon: '↗' },
     ],
   },
 ]
@@ -134,6 +135,7 @@ export const socialLinks = {
     { label: 'TikTok', handle: '@screenseiji', href: 'https://www.tiktok.com/@screenseiji' },
     { label: 'Instagram', handle: '@screenseiji', href: 'https://instagram.com/screenseiji' },
     { label: 'Threads', handle: '@screenseiji', href: 'https://threads.net/@screenseiji' },
+    { label: 'X / Twitter', handle: '@screenseiji', href: 'https://x.com/screenseiji' },
   ],
   listen: [
     { label: 'Spotify', handle: "Seeker's Soliloquy", href: 'https://open.spotify.com/show/2w5Gt1BLDsrcSjDyVIdbow' },
