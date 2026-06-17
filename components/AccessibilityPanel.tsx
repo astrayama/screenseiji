@@ -69,7 +69,7 @@ export default function AccessibilityPanel() {
           open ? 'text-gold border-gold/40' : 'text-muted hover:text-foreground',
         )}
       >
-        {open ? '✕ close' : '⚙ access'}
+        {open ? '✕ close' : '⚙ accessibility'}
       </button>
     </div>
   )

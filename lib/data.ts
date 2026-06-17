@@ -33,7 +33,7 @@ export const services = [
     description:
       'Indie apps and web tools built on philosophical frameworks — from the Norse world tree to Buddhist impermanence. Each tool is named after the concept it embodies.',
     pills: [
-      { label: 'All Apps', href: 'https://screenseiji.lovable.app/', icon: '↗' },
+      { label: 'All Apps', href: 'https://screenseiji.vercel.app/', icon: '↗' },
     ],
   },
 ]
@@ -144,7 +144,7 @@ export const socialLinks = {
     { label: 'Gumroad', handle: 'screenseiji', href: 'https://screenseiji.gumroad.com/' },
   ],
   tools: [
-    { label: 'App Hub', handle: 'screenseiji.lovable.app', href: 'https://screenseiji.lovable.app/' },
+    { label: 'App Hub', handle: 'screenseiji.vercel.app', href: 'https://screenseiji.vercel.app/' },
   ],
 }
 
