@@ -29,7 +29,7 @@ export default function Home() {
       </main>
       <footer className="border-t border-white/5 py-8 text-center">
         <p className="text-xs text-muted/40">
-          © {new Date().getFullYear()} Screen Sage · @screenseiji
+          © {new Date().getFullYear()} • made with ❤︎ by Screen Sage Studios · @screenseiji
         </p>
       </footer>
       <AccessibilityPanel />
