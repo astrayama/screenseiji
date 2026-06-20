@@ -136,6 +136,7 @@ export const socialLinks = {
     { label: 'Instagram', handle: '@screenseiji', href: 'https://instagram.com/screenseiji' },
     { label: 'Threads', handle: '@screenseiji', href: 'https://threads.net/@screenseiji' },
     { label: 'X / Twitter', handle: '@screenseiji', href: 'https://x.com/screenseiji' },
+    { label: 'Discord', handle: 'Join Community', href: 'https://discord.gg/2rFyT6nskc' },
   ],
   listen: [
     { label: 'Spotify', handle: "Seeker's Soliloquy", href: 'https://open.spotify.com/show/2w5Gt1BLDsrcSjDyVIdbow' },
@@ -144,6 +145,7 @@ export const socialLinks = {
   shop: [
     { label: 'Etsy', handle: 'ScreenSageStudios', href: 'https://etsy.com/shop/ScreenSageStudios' },
     { label: 'Gumroad', handle: 'screenseiji', href: 'https://screenseiji.gumroad.com/' },
+    { label: 'Ko-fi', handle: 'screenseiji', href: 'https://ko-fi.com/screenseiji' },
   ],
   tools: [
     { label: 'App Hub', handle: 'screenseiji.vercel.app', href: 'https://screenseiji.vercel.app/' },

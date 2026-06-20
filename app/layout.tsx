@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Cormorant_Garamond, Space_Grotesk } from 'next/font/google'
 import './globals.css'
 import { MotionPreferenceProvider } from '@/hooks/useMotionPreference'
+import KofiWidget from '@/components/KofiWidget'
 
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
@@ -38,6 +39,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <MotionPreferenceProvider>
           {children}
         </MotionPreferenceProvider>
+        <KofiWidget />
       </body>
     </html>
   )
