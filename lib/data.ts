@@ -6,7 +6,7 @@ export const services = [
       'Tarot as symbolic language for self-reflection — not prediction, but a mirror held up to what you already know. Available async (written/recorded) or live, scheduled sessions.',
     pills: [
       { label: 'Async Reading', href: 'https://screenseiji.gumroad.com/l/tarot-async', icon: '↗' },
-      { label: 'Book a Live Session', href: 'https://calendar.app.google/RXE5ud7NgcbC1j3F9', icon: '↗' },
+      // { label: 'Book a Live Session', href: 'https://calendar.app.google/RXE5ud7NgcbC1j3F9', icon: '↗' },
     ],
   },
   {
