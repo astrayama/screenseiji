@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Cormorant_Garamond, Space_Grotesk } from 'next/font/google'
+import Script from 'next/script'
 import './globals.css'
 import { MotionPreferenceProvider } from '@/hooks/useMotionPreference'
 import KofiWidget from '@/components/KofiWidget'
@@ -35,6 +36,21 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${cormorant.variable} ${spaceGrotesk.variable}`} suppressHydrationWarning>
+      <head>
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-K1LKGSZ47Y"
+        />
+        <Script id="google-analytics">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-K1LKGSZ47Y');
+          `}
+        </Script>
+      </head>
       <body className="antialiased" suppressHydrationWarning>
         <MotionPreferenceProvider>
           {children}
