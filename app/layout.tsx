@@ -4,6 +4,7 @@ import Script from 'next/script'
 import './globals.css'
 import { MotionPreferenceProvider } from '@/hooks/useMotionPreference'
 import KofiWidget from '@/components/KofiWidget'
+import { Analytics } from '@vercel/analytics/next'
 
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
@@ -56,6 +57,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
         </MotionPreferenceProvider>
         <KofiWidget />
+        <Analytics />
       </body>
     </html>
   )
