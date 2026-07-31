@@ -49,8 +49,14 @@ export interface AppNode {
   y: number
   r: number
   nameLines: string[]
+  /** Overrides the status colour to single a node out. */
+  accent?: string
+  /** Draw the label above the node instead of below (used for the star's apex). */
+  labelAbove?: boolean
 }
 
+// The five nodes sit on the points of a star (a pentagram widened to fill the
+// 800×430 viewBox): apex at top, then clockwise. Arcana takes the apex.
 export const apps: AppNode[] = [
   {
     id: 'yggdrasil',
@@ -58,7 +64,7 @@ export const apps: AppNode[] = [
     concept: 'The Norse world tree · journaling',
     href: 'https://yggdrasil-journal.lovable.app',
     status: 'live',
-    x: 140, y: 82, r: 12,
+    x: 115, y: 176, r: 12,
     nameLines: ['Yggdrasil'],
   },
   {
@@ -67,17 +73,19 @@ export const apps: AppNode[] = [
     concept: 'Buddhist impermanence · mood & energy tracking',
     href: 'https://anicca.lovable.app',
     status: 'live',
-    x: 398, y: 50, r: 14,
+    x: 685, y: 176, r: 14,
     nameLines: ['Anicca'],
   },
   {
-    id: 'mystic-ledger',
-    name: 'Mystic Ledger',
-    concept: 'Sacred memory · tarot journal',
-    href: 'https://mystic-ledger.lovable.app',
+    id: 'arcana',
+    name: 'Arcana',
+    concept: 'The mysteries · iOS tarot journal',
+    href: '/apps/arcana',
     status: 'live',
-    x: 658, y: 102, r: 12,
-    nameLines: ['Mystic', 'Ledger'],
+    x: 400, y: 67, r: 14,
+    nameLines: ['Arcana'],
+    accent: '#B385E0',
+    labelAbove: true,
   },
   {
     id: 'kairos',
@@ -85,49 +93,38 @@ export const apps: AppNode[] = [
     concept: 'Greek sacred time · scheduling & timing',
     href: '#',
     status: 'in-dev',
-    x: 732, y: 275, r: 11,
+    x: 576, y: 353, r: 11,
     nameLines: ['Kairos'],
   },
   {
-    id: 'equilibrium',
-    name: 'Equilibrium',
-    concept: 'Balance competing goals simultaneously',
-    href: 'https://my-equilibrium.lovable.app',
-    status: 'live',
-    x: 555, y: 358, r: 12,
-    nameLines: ['Equilibrium'],
-  },
-  {
-    id: 'predict-edge',
-    name: 'Predict the Edge',
-    concept: 'Sharpen intuition · self-scored forecasting',
-    href: 'https://predict-the-edge.lovable.app',
-    status: 'live',
-    x: 282, y: 372, r: 11,
-    nameLines: ['Predict', 'the Edge'],
-  },
-  {
-    id: 'spoonful',
-    name: 'Spoonful Steps',
-    concept: 'Neurodivergent-friendly · spoon-aware tasks',
-    href: 'https://spoonful-steps.lovable.app',
-    status: 'live',
-    x: 124, y: 295, r: 13,
-    nameLines: ['Spoonful', 'Steps'],
+    id: 'sunya',
+    name: 'Sunya',
+    concept: 'Buddhist emptiness · cross-platform breathwork',
+    href: '#',
+    status: 'in-dev',
+    x: 224, y: 353, r: 12,
+    nameLines: ['Sunya'],
   },
 ]
 
+// Each point links to the two points it is NOT adjacent to — the single stroke
+// that draws a five-pointed star.
 export const constellationEdges: [string, string][] = [
+  ['arcana', 'kairos'],
+  ['kairos', 'yggdrasil'],
   ['yggdrasil', 'anicca'],
-  ['anicca', 'mystic-ledger'],
-  ['mystic-ledger', 'kairos'],
-  ['kairos', 'equilibrium'],
-  ['equilibrium', 'predict-edge'],
-  ['predict-edge', 'spoonful'],
-  ['spoonful', 'yggdrasil'],
-  ['anicca', 'spoonful'],
-  ['mystic-ledger', 'equilibrium'],
+  ['anicca', 'sunya'],
+  ['sunya', 'arcana'],
 ]
+
+export const arcanaLinks = {
+  // PLACEHOLDER — swap for the real App Store URL once the app is live,
+  // then flip appStorePlaceholder to false.
+  appStoreUrl: 'https://apps.apple.com/app/id0000000000',
+  appStorePlaceholder: true,
+  supportEmail: 'screenseiji@proton.me',
+  discord: 'https://discord.gg/2rFyT6nskc',
+}
 
 export const socialLinks = {
   content: [

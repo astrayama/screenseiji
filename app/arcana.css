@@ -1,0 +1,98 @@
+/* ─── Arcana — cosmic-glass theme (scoped tokens for /apps/arcana) ── */
+@theme inline {
+  /* Palette — from the app's Theme.swift */
+  --color-arcana-ink:         #0D0B13;
+  --color-arcana-ink-deep:    #131020;
+  --color-arcana-text:        #F2EEF7;
+  --color-arcana-muted:       #A698B3;
+  --color-arcana-faint:       #8D81A3;
+  --color-arcana-gold:        #F6CE55;
+  --color-arcana-gold-deep:   #E0B23E;
+  --color-arcana-purple:      #B385E0;
+  --color-arcana-purple-deep: #9367CF;
+  --color-arcana-purple-soft: #C8A6EE;
+  --color-arcana-blue:        #66AACC;
+  --color-arcana-star:        #FFF2CC;
+  --color-arcana-stroke:      #422E6B;
+  --color-arcana-field:       #392D53;
+
+  --font-arcana-display: var(--font-playfair), Georgia, serif;
+  --font-arcana-body:    var(--font-nunito), system-ui, sans-serif;
+
+  --animate-arcana-float:   arcana-float 6s ease-in-out infinite;
+  --animate-arcana-glow:    arcana-glow 6s ease-in-out infinite;
+  --animate-arcana-spark:   arcana-spark 2.4s ease-in-out infinite;
+  --animate-arcana-twinkle: arcana-twinkle 4.5s ease-in-out infinite;
+  --animate-arcana-ring:    arcana-ring 4s linear infinite;
+}
+
+@keyframes arcana-float   { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-6px) } }
+@keyframes arcana-glow    { 0%,100% { box-shadow: 0 0 16px rgba(246,206,85,.22) } 50% { box-shadow: 0 0 30px rgba(246,206,85,.42) } }
+@keyframes arcana-spark   { 0%,100% { opacity: .3; transform: scale(1) } 50% { opacity: 1; transform: scale(1.2) } }
+@keyframes arcana-twinkle { 0%,100% { opacity: .12; transform: scale(.8) } 50% { opacity: .9; transform: scale(1.25) } }
+@keyframes arcana-shimmer { 0% { left: -100% } 100% { left: 100% } }
+@keyframes arcana-ring    { to { transform: rotate(360deg) } }
+
+/* Glass panel — wireframe .gp */
+.arcana-glass {
+  background: rgba(24, 22, 34, 0.62);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(66, 46, 107, 0.55);
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+/* Same look without backdrop-filter — for use inside the scaled PhoneFrame
+   (backdrop-filter inside a transform glitches in Safari) */
+.arcana-glass-flat {
+  background: rgba(24, 22, 34, 0.86);
+  border: 1px solid rgba(66, 46, 107, 0.55);
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Brand gradient text — wireframe .gtx */
+.arcana-gtx {
+  background: linear-gradient(90deg, #B385E0, #B561D1, #66AACC);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Kerned gold eyebrow — wireframe .eyb */
+.arcana-eyebrow {
+  font-family: var(--font-nunito), system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #F6CE55;
+}
+
+/* Gold CTA — wireframe .bgold */
+.arcana-btn-gold {
+  background: linear-gradient(135deg, #F6CE55, #E0B23E);
+  color: #1C1204;
+  border-radius: 15px;
+  box-shadow: 0 0 22px rgba(246, 206, 85, 0.26);
+}
+
+/* Shimmer sweep — wireframe .shimbtn */
+.arcana-shimmer { position: relative; overflow: hidden; }
+.arcana-shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  animation: arcana-shimmer 3s linear infinite;
+}
+
+/* Belt-and-braces motion kill switch for the Arcana subtree */
+@media (prefers-reduced-motion: reduce) {
+  .arcana-root *, .arcana-root *::before, .arcana-root *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

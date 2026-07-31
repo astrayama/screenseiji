@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./arcana.css";
 
 /* ─── Design Tokens ─────────────────────────────────── */
 @theme inline {
@@ -61,8 +62,8 @@
   50%     { opacity: 1;   transform: scale(1.015); }
 }
 @keyframes node-glow {
-  0%,100% { filter: drop-shadow(0 0 4px #24BFB280); }
-  50%     { filter: drop-shadow(0 0 10px #24BFB2B0); }
+  0%,100% { filter: drop-shadow(0 0 4px  var(--node-glow, #24BFB280)); }
+  50%     { filter: drop-shadow(0 0 10px var(--node-glow-strong, #24BFB2B0)); }
 }
 @keyframes shake {
   0%,100% { transform: translateX(0);   }
@@ -141,3 +142,10 @@ body {
 /* Responsive font-size bump triggered by AccessibilityPanel */
 .font-lg body { font-size: 18px; }
 .font-xl body { font-size: 20px; }
+
+/* Hide the Ko-fi overlay wherever KofiWidget sets this attribute (e.g. the
+   Arcana app pages) — applies no matter when Ko-fi injects its DOM. */
+body[data-hide-kofi] .floatingchat-container-wrap,
+body[data-hide-kofi] .floatingchat-container-wrap-mobi {
+  display: none !important;
+}
