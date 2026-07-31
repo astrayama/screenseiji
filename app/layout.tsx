@@ -22,6 +22,7 @@ const spaceGrotesk = Space_Grotesk({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://screenseiji.vercel.app'),
   title: 'Screen Sage — Where spirituality, science, and story collide',
   description:
     'A space for seekers at the crossroads of anime, metaphysics, gaming, and inner work. Tarot readings, philosophical video essays, and spiritual software tools.',

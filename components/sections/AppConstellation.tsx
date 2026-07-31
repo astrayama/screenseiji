@@ -1,11 +1,12 @@
 'use client'
 
 import { useRef, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useInView } from '@/hooks/useInView'
 import { cn } from '@/lib/utils'
 import SectionHeading from '@/components/SectionHeading'
-import { apps, constellationEdges } from '@/lib/data'
+import { apps, constellationEdges, type AppNode } from '@/lib/data'
 
 const VB_W = 800
 const VB_H = 430
@@ -14,7 +15,13 @@ function getNode(id: string) {
   return apps.find(a => a.id === id)!
 }
 
+// Per-node colour: an explicit accent wins, otherwise teal for live / gold for in-dev.
+function nodeAccent(app: AppNode) {
+  return app.accent ?? (app.status === 'live' ? '#24BFB2' : '#C9943C')
+}
+
 export default function AppConstellation() {
+  const router = useRouter()
   const { ref: sectionRef, inView } = useInView<HTMLDivElement>()
   const svgContainerRef = useRef<HTMLDivElement>(null)
   const [hovered, setHovered] = useState<string | null>(null)
@@ -31,7 +38,7 @@ export default function AppConstellation() {
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeading
           eyebrow="The App Universe"
-          title="Seven tools. One philosophy."
+          title="Five tools. One philosophy."
           description="Each app is named after the concept it embodies — a constellation of software built for seekers."
         />
 
@@ -47,7 +54,7 @@ export default function AppConstellation() {
           <svg
             viewBox={`0 0 ${VB_W} ${VB_H}`}
             className="w-full"
-            role="img"
+            role="group"
             aria-label="App constellation diagram"
           >
             <defs>
@@ -82,7 +89,7 @@ export default function AppConstellation() {
                   key={`${aId}-${bId}`}
                   x1={a.x} y1={a.y}
                   x2={b.x} y2={b.y}
-                  stroke={isActive ? '#24BFB2' : 'url(#line-grad)'}
+                  stroke={isActive && hoveredApp ? nodeAccent(hoveredApp) : 'url(#line-grad)'}
                   strokeWidth={isActive ? 1.2 : 0.8}
                   strokeOpacity={isActive ? 0.6 : 1}
                   className="transition-all duration-300"
@@ -94,11 +101,28 @@ export default function AppConstellation() {
             {apps.map(app => {
               const isHovered = hovered === app.id
               const isLive = app.status === 'live'
+              const accent = nodeAccent(app)
+              const activate = () => {
+                if (!isLive) return
+                if (app.href.startsWith('/')) router.push(app.href)
+                else window.open(app.href, '_blank')
+              }
               return (
                 <g
                   key={app.id}
                   className="cursor-pointer"
-                  onClick={() => { if (isLive) window.open(app.href, '_blank') }}
+                  role={isLive ? 'link' : undefined}
+                  tabIndex={isLive ? 0 : undefined}
+                  aria-label={`${app.name} — ${app.concept}${isLive ? '' : ' (in development)'}`}
+                  onClick={activate}
+                  onKeyDown={e => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault()
+                      activate()
+                    }
+                  }}
+                  onFocus={() => setHovered(app.id)}
+                  onBlur={() => setHovered(null)}
                   onMouseEnter={() => setHovered(app.id)}
                   onMouseLeave={() => setHovered(null)}
                 >
@@ -106,7 +130,7 @@ export default function AppConstellation() {
                   <circle
                     cx={app.x} cy={app.y}
                     r={app.r + 6}
-                    fill={isHovered ? (isLive ? '#24BFB2' : '#C9943C') : 'transparent'}
+                    fill={isHovered ? accent : 'transparent'}
                     fillOpacity={isHovered ? 0.08 : 0}
                     className="transition-all duration-300"
                   />
@@ -114,18 +138,22 @@ export default function AppConstellation() {
                   <circle
                     cx={app.x} cy={app.y}
                     r={app.r}
-                    fill={isHovered ? (isLive ? '#24BFB2' : '#C9943C') : '#0D1220'}
-                    stroke={isLive ? '#24BFB2' : '#C9943C'}
-                    strokeWidth={isHovered ? 1.5 : 1}
-                    strokeOpacity={isHovered ? 1 : 0.55}
+                    fill={isHovered ? accent : '#0D1220'}
+                    stroke={accent}
+                    strokeWidth={isHovered ? 1.5 : app.accent ? 1.6 : 1}
+                    strokeOpacity={isHovered ? 1 : app.accent ? 0.9 : 0.55}
                     filter={isHovered ? 'url(#node-glow-active)' : 'url(#node-glow)'}
                     className="transition-all duration-300 animate-node-glow"
+                    style={{
+                      '--node-glow': `${accent}80`,
+                      '--node-glow-strong': `${accent}B0`,
+                    } as React.CSSProperties}
                   />
                   {/* Center dot */}
                   <circle
                     cx={app.x} cy={app.y}
                     r={2.5}
-                    fill={isLive ? '#24BFB2' : '#C9943C'}
+                    fill={accent}
                     fillOpacity={isHovered ? 1 : 0.7}
                   />
                   {/* Labels */}
@@ -133,7 +161,9 @@ export default function AppConstellation() {
                     <text
                       key={li}
                       x={app.x}
-                      y={app.y + app.r + 14 + li * 12}
+                      y={app.labelAbove
+                        ? app.y - app.r - 10 - (app.nameLines.length - 1 - li) * 12
+                        : app.y + app.r + 14 + li * 12}
                       textAnchor="middle"
                       fontSize="10"
                       fontFamily="var(--font-space-grotesk), system-ui"
@@ -164,22 +194,19 @@ export default function AppConstellation() {
                   transform: 'translate(-50%, calc(-100% - 24px))',
                 }}
               >
-                <p className={cn(
-                  'font-display text-xl font-medium',
-                  hoveredApp.status === 'live' ? 'text-teal' : 'text-gold',
-                )}>
+                <p
+                  className="font-display text-xl font-medium"
+                  style={{ color: nodeAccent(hoveredApp) }}
+                >
                   {hoveredApp.name}
                 </p>
                 <p className="mt-1 text-xs leading-5 text-muted">{hoveredApp.concept}</p>
-                {hoveredApp.status === 'live' ? (
-                  <p className="mt-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-teal/70">
-                    → Open app
-                  </p>
-                ) : (
-                  <p className="mt-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-gold/70">
-                    In development
-                  </p>
-                )}
+                <p
+                  className="mt-2 text-[10px] font-semibold uppercase tracking-[0.14em] opacity-70"
+                  style={{ color: nodeAccent(hoveredApp) }}
+                >
+                  {hoveredApp.status === 'live' ? '→ Open app' : 'In development'}
+                </p>
               </motion.div>
             )}
           </AnimatePresence>
@@ -191,19 +218,20 @@ export default function AppConstellation() {
             <a
               key={app.id}
               href={app.status === 'live' ? app.href : undefined}
-              target="_blank"
-              rel="noreferrer"
+              target={app.href.startsWith('/') ? undefined : '_blank'}
+              rel={app.href.startsWith('/') ? undefined : 'noreferrer'}
               className={cn(
                 'glass rounded-2xl p-4 transition-all duration-200',
                 app.status === 'live'
                   ? 'hover:glass-teal hover:-translate-y-0.5'
                   : 'opacity-65 pointer-events-none',
               )}
+              style={app.accent ? { borderColor: `${app.accent}59` } : undefined}
             >
-              <p className={cn(
-                'font-display text-lg font-medium leading-tight',
-                app.status === 'live' ? 'text-teal' : 'text-gold',
-              )}>
+              <p
+                className="font-display text-lg font-medium leading-tight"
+                style={{ color: nodeAccent(app) }}
+              >
                 {app.name}
               </p>
               <p className="mt-1 text-xs leading-5 text-muted">{app.concept}</p>

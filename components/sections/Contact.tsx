@@ -9,7 +9,9 @@ import { Send } from 'lucide-react'
 export default function Contact() {
   const { ref, inView } = useInView<HTMLDivElement>()
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent'>('idle')
-  const [form, setForm] = useState({ name: '', email: '', message: '' })
+  const [error, setError] = useState<string | null>(null)
+  // `website` is the honeypot — hidden from people, filled in by bots.
+  const [form, setForm] = useState({ name: '', email: '', message: '', website: '' })
 
   const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setForm(v => ({ ...v, [k]: e.target.value }))
@@ -17,9 +19,26 @@ export default function Contact() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     setStatus('sending')
-    // Wire up Resend / Supabase here. For now, simulate a send.
-    await new Promise(r => setTimeout(r, 900))
-    setStatus('sent')
+    setError(null)
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
+      const data = await res.json().catch(() => ({}))
+
+      if (!res.ok) {
+        setError(data.error ?? 'Something went wrong. Please try again.')
+        setStatus('idle')
+        return
+      }
+      setStatus('sent')
+    } catch {
+      setError('Could not reach the server. Please check your connection and try again.')
+      setStatus('idle')
+    }
   }
 
   return (
@@ -51,6 +70,17 @@ export default function Contact() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="glass rounded-3xl p-6 sm:p-8 flex flex-col gap-5">
+                <div aria-hidden className="absolute left-[-9999px] top-0 h-0 w-0 overflow-hidden">
+                  <label>
+                    Website
+                    <input
+                      tabIndex={-1}
+                      autoComplete="off"
+                      value={form.website}
+                      onChange={set('website')}
+                    />
+                  </label>
+                </div>
                 <div className="grid gap-5 sm:grid-cols-2">
                   <div className="flex flex-col gap-2">
                     <label className="text-xs font-semibold uppercase tracking-[0.14em] text-muted/70">Name</label>
@@ -85,6 +115,11 @@ export default function Contact() {
                     placeholder="What's on your mind?"
                   />
                 </div>
+                {error && (
+                  <p role="alert" className="text-sm leading-6 text-amber">
+                    {error}
+                  </p>
+                )}
                 <button
                   type="submit"
                   disabled={status === 'sending'}
