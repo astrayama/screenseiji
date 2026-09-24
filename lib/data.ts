@@ -70,8 +70,8 @@ export const apps: AppNode[] = [
   {
     id: 'anicca',
     name: 'Anicca',
-    concept: 'Buddhist impermanence · mood & energy tracking',
-    href: 'https://anicca.lovable.app',
+    concept: 'Buddhist impermanence · iOS mood & energy journal',
+    href: '/apps/anicca',
     status: 'live',
     x: 685, y: 176, r: 14,
     nameLines: ['Anicca'],
@@ -117,7 +117,24 @@ export const constellationEdges: [string, string][] = [
   ['sunya', 'arcana'],
 ]
 
-export const arcanaLinks = {
+export interface AppLinks {
+  appStoreUrl: string
+  /** While true, the App Store badge renders as a non-link "Coming soon". */
+  appStorePlaceholder: boolean
+  supportEmail: string
+  discord: string
+}
+
+export const arcanaLinks: AppLinks = {
+  // PLACEHOLDER — swap for the real App Store URL once the app is live,
+  // then flip appStorePlaceholder to false.
+  appStoreUrl: 'https://apps.apple.com/app/id0000000000',
+  appStorePlaceholder: true,
+  supportEmail: 'screenseiji@proton.me',
+  discord: 'https://discord.gg/2rFyT6nskc',
+}
+
+export const aniccaLinks: AppLinks = {
   // PLACEHOLDER — swap for the real App Store URL once the app is live,
   // then flip appStorePlaceholder to false.
   appStoreUrl: 'https://apps.apple.com/app/id0000000000',

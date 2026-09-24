@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "./arcana.css";
+@import "./anicca.css";
 
 /* ─── Design Tokens ─────────────────────────────────── */
 @theme inline {
@@ -143,8 +144,8 @@ body {
 .font-lg body { font-size: 18px; }
 .font-xl body { font-size: 20px; }
 
-/* Hide the Ko-fi overlay wherever KofiWidget sets this attribute (e.g. the
-   Arcana app pages) — applies no matter when Ko-fi injects its DOM. */
+/* Hide the Ko-fi overlay wherever KofiWidget sets this attribute (the
+   /apps/* App Store pages) — applies no matter when Ko-fi injects its DOM. */
 body[data-hide-kofi] .floatingchat-container-wrap,
 body[data-hide-kofi] .floatingchat-container-wrap-mobi {
   display: none !important;
