@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useSyncExternalStore } from 'react'
 import { useMotionPreference } from '@/hooks/useMotionPreference'
 
 // Deterministic pseudo-random (avoids SSR/client hydration mismatch)
@@ -23,9 +23,8 @@ const STARS = Array.from({ length: 28 }, (_, i) => ({
 
 export default function SparkleBackground() {
   const { reduced } = useMotionPreference()
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => { setMounted(true) }, [])
+  // false during SSR + hydration, true afterwards — keeps the animated layer client-only.
+  const mounted = useSyncExternalStore(() => () => {}, () => true, () => false)
 
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 overflow-hidden -z-10">

@@ -1,12 +1,14 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useInView } from '@/hooks/useInView'
 import { cn } from '@/lib/utils'
 import SectionHeading from '@/components/SectionHeading'
-import { apps, constellationEdges, type AppNode } from '@/lib/data'
+import Modal from '@/components/Modal'
+import WaitlistForm from '@/components/WaitlistForm'
+import { apps, appStatusLabel, constellationEdges, type AppNode } from '@/lib/data'
 
 const VB_W = 800
 const VB_H = 430
@@ -15,15 +17,21 @@ function getNode(id: string) {
   return apps.find(a => a.id === id)!
 }
 
-// Per-node colour: an explicit accent wins, otherwise teal for live / gold for in-dev.
+const FLAGSHIP = apps.find(a => a.status === 'beta')!
+const LAB_APPS = apps.filter(a => a.status !== 'beta')
+
+// Per-node colour: gold for the flagship in beta, teal for everything in the lab.
 function nodeAccent(app: AppNode) {
-  return app.accent ?? (app.status === 'live' ? '#24BFB2' : '#C9943C')
+  return app.status === 'beta' ? '#E8B860' : '#24BFB2'
+}
+
+function isExternal(href: string) {
+  return !href.startsWith('/') && !href.startsWith('#')
 }
 
 export default function AppConstellation() {
   const router = useRouter()
   const { ref: sectionRef, inView } = useInView<HTMLDivElement>()
-  const svgContainerRef = useRef<HTMLDivElement>(null)
   const [hovered, setHovered] = useState<string | null>(null)
 
   const hoveredApp = hovered ? apps.find(a => a.id === hovered) : null
@@ -42,14 +50,13 @@ export default function AppConstellation() {
           description="Each app is named after the concept it embodies — a constellation of software built for seekers."
         />
 
+        {/* Flagship */}
+        <FlagshipCard />
+
         {/* Desktop: SVG constellation */}
         <div
-          ref={ref => {
-            // merge refs
-            ;(sectionRef as React.MutableRefObject<HTMLDivElement | null>).current = ref
-            ;(svgContainerRef as React.MutableRefObject<HTMLDivElement | null>).current = ref
-          }}
-          className={cn('relative mt-14 hidden sm:block reveal', inView && 'reveal-in')}
+          ref={sectionRef}
+          className={cn('relative mt-10 hidden sm:block reveal', inView && 'reveal-in')}
         >
           <svg
             viewBox={`0 0 ${VB_W} ${VB_H}`}
@@ -100,20 +107,21 @@ export default function AppConstellation() {
             {/* Nodes */}
             {apps.map(app => {
               const isHovered = hovered === app.id
-              const isLive = app.status === 'live'
+              const isFlagship = app.status === 'beta'
+              const { href } = app
               const accent = nodeAccent(app)
               const activate = () => {
-                if (!isLive) return
-                if (app.href.startsWith('/')) router.push(app.href)
-                else window.open(app.href, '_blank')
+                if (!href) return
+                if (isExternal(href)) window.open(href, '_blank')
+                else router.push(href)
               }
               return (
                 <g
                   key={app.id}
-                  className="cursor-pointer"
-                  role={isLive ? 'link' : undefined}
-                  tabIndex={isLive ? 0 : undefined}
-                  aria-label={`${app.name} — ${app.concept}${isLive ? '' : ' (in development)'}`}
+                  className={href ? 'cursor-pointer' : 'cursor-default'}
+                  role={href ? 'link' : undefined}
+                  tabIndex={href ? 0 : undefined}
+                  aria-label={`${app.name} — ${app.concept} (${appStatusLabel[app.status]})`}
                   onClick={activate}
                   onKeyDown={e => {
                     if (e.key === 'Enter' || e.key === ' ') {
@@ -140,8 +148,8 @@ export default function AppConstellation() {
                     r={app.r}
                     fill={isHovered ? accent : '#0D1220'}
                     stroke={accent}
-                    strokeWidth={isHovered ? 1.5 : app.accent ? 1.6 : 1}
-                    strokeOpacity={isHovered ? 1 : app.accent ? 0.9 : 0.55}
+                    strokeWidth={isHovered ? 1.5 : isFlagship ? 1.6 : 1}
+                    strokeOpacity={isHovered ? 1 : isFlagship ? 0.9 : 0.55}
                     filter={isHovered ? 'url(#node-glow-active)' : 'url(#node-glow)'}
                     className="transition-all duration-300 animate-node-glow"
                     style={{
@@ -205,28 +213,42 @@ export default function AppConstellation() {
                   className="mt-2 text-[10px] font-semibold uppercase tracking-[0.14em] opacity-70"
                   style={{ color: nodeAccent(hoveredApp) }}
                 >
-                  {hoveredApp.status === 'live' ? '→ Open app' : 'In development'}
+                  {appStatusLabel[hoveredApp.status]}
                 </p>
+                {hoveredApp.href && (
+                  <p className="mt-1 text-[10px] uppercase tracking-[0.14em] text-muted/60">→ Open</p>
+                )}
               </motion.div>
             )}
           </AnimatePresence>
+
+          {/* Legend */}
+          <div className="mt-6 flex justify-center gap-8 text-[10px] font-semibold uppercase tracking-[0.16em] text-muted/70">
+            <span className="flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-gold-bright shadow-gold" />
+              Flagship · in beta
+            </span>
+            <span className="flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full border border-teal/70" />
+              In the lab
+            </span>
+          </div>
         </div>
 
-        {/* Mobile: card grid */}
-        <div className="mt-12 grid grid-cols-2 gap-3 sm:hidden">
-          {apps.map(app => (
+        {/* Mobile: card grid (the flagship is featured above) */}
+        <div className="mt-6 grid grid-cols-2 gap-3 sm:hidden">
+          {LAB_APPS.map(app => (
             <a
               key={app.id}
-              href={app.status === 'live' ? app.href : undefined}
-              target={app.href.startsWith('/') ? undefined : '_blank'}
-              rel={app.href.startsWith('/') ? undefined : 'noreferrer'}
+              href={app.href}
+              target={app.href && isExternal(app.href) ? '_blank' : undefined}
+              rel={app.href && isExternal(app.href) ? 'noreferrer' : undefined}
               className={cn(
                 'glass rounded-2xl p-4 transition-all duration-200',
-                app.status === 'live'
+                app.href
                   ? 'hover:glass-teal hover:-translate-y-0.5'
                   : 'opacity-65 pointer-events-none',
               )}
-              style={app.accent ? { borderColor: `${app.accent}59` } : undefined}
             >
               <p
                 className="font-display text-lg font-medium leading-tight"
@@ -235,13 +257,57 @@ export default function AppConstellation() {
                 {app.name}
               </p>
               <p className="mt-1 text-xs leading-5 text-muted">{app.concept}</p>
-              {app.status === 'in-dev' && (
-                <p className="mt-2 text-[10px] font-semibold text-gold/60">Coming soon</p>
-              )}
+              <p className="mt-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-teal/70">
+                {appStatusLabel[app.status]}
+              </p>
             </a>
           ))}
         </div>
       </div>
     </section>
+  )
+}
+
+function FlagshipCard() {
+  const { ref, inView } = useInView<HTMLDivElement>()
+  const [waitlistOpen, setWaitlistOpen] = useState(false)
+
+  return (
+    <div
+      ref={ref}
+      className={cn(
+        'glass glass-gold mt-14 flex flex-col gap-6 rounded-3xl p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8 reveal',
+        inView && 'reveal-in',
+      )}
+    >
+      <div className="flex items-start gap-5">
+        <span
+          aria-hidden
+          className="mt-2 h-3 w-3 shrink-0 rounded-full bg-gold-bright shadow-gold animate-node-glow"
+          style={{ '--node-glow': '#E8B86080', '--node-glow-strong': '#E8B860B0' } as React.CSSProperties}
+        />
+        <div>
+          <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-gold">Flagship</p>
+          <h3 className="mt-1 font-display text-3xl font-light text-foreground sm:text-4xl">{FLAGSHIP.name}</h3>
+          <p className="mt-1 text-sm text-muted">{FLAGSHIP.concept}</p>
+        </div>
+      </div>
+      <button
+        type="button"
+        onClick={() => setWaitlistOpen(true)}
+        className="inline-flex items-center gap-2 self-start rounded-full border border-gold/40 bg-gold/10 px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.12em] text-gold-bright transition-all hover:border-gold hover:bg-gold/20 sm:self-auto"
+      >
+        {appStatusLabel[FLAGSHIP.status]}
+      </button>
+
+      <Modal
+        open={waitlistOpen}
+        onClose={() => setWaitlistOpen(false)}
+        eyebrow="Flagship · In beta"
+        title={`Join the ${FLAGSHIP.name} waitlist`}
+      >
+        <WaitlistForm appId={FLAGSHIP.id} appName={FLAGSHIP.name} />
+      </Modal>
+    </div>
   )
 }

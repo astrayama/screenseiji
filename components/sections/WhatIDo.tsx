@@ -6,39 +6,49 @@ import SectionHeading from '@/components/SectionHeading'
 import { services } from '@/lib/data'
 
 function ServiceCard({
-  icon, title, description, pills, index,
-}: typeof services[0] & { index: number }) {
+  icon, step, title, description, cta, index, isLast,
+}: typeof services[0] & { index: number; isLast: boolean }) {
   const { ref, inView } = useInView<HTMLDivElement>()
   const delay = Math.min(index * 80, 240)
+  const external = !cta.href.startsWith('#')
 
   return (
     <div
       ref={ref}
-      className={cn('glass rounded-3xl p-6 flex flex-col gap-4 transition-all duration-300 hover:-translate-y-1 hover:glass-gold reveal h-full', inView && 'reveal-in')}
+      className={cn('glass relative rounded-3xl p-6 flex flex-col gap-4 transition-all duration-300 hover:-translate-y-1 hover:glass-gold reveal h-full', inView && 'reveal-in')}
       style={{ transitionDelay: `${delay}ms` }}
     >
-      <span className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/8 bg-white/5 text-xl">
-        {icon}
-      </span>
+      <div className="flex items-start justify-between">
+        <span className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/8 bg-white/5 text-xl">
+          {icon}
+        </span>
+        <span aria-hidden className="font-display text-3xl font-light leading-none text-muted/30">
+          {String(index + 1).padStart(2, '0')}
+        </span>
+      </div>
       <div className="flex-1">
-        <h3 className="font-display text-2xl font-medium text-foreground">{title}</h3>
+        <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-gold">{step}</p>
+        <h3 className="mt-1 font-display text-2xl font-medium text-foreground">{title}</h3>
         <p className="mt-2 text-sm leading-6 text-muted">{description}</p>
       </div>
-      {pills && pills.length > 0 && (
-        <div className="flex flex-wrap gap-2 pt-1">
-          {pills.map(pill => (
-            <a
-              key={pill.label}
-              href={pill.href}
-              target={pill.href.startsWith('#') ? undefined : '_blank'}
-              rel={pill.href.startsWith('#') ? undefined : 'noreferrer'}
-              className="inline-flex items-center gap-1 rounded-full border border-teal/25 bg-teal/8 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-teal transition-all hover:border-teal/50 hover:bg-teal/15"
-            >
-              {pill.label}
-              <span className="opacity-60">{pill.icon}</span>
-            </a>
-          ))}
-        </div>
+      <a
+        href={cta.href}
+        target={external ? '_blank' : undefined}
+        rel={external ? 'noreferrer' : undefined}
+        className="inline-flex items-center gap-1 self-start rounded-full border border-teal/25 bg-teal/8 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-teal transition-all hover:border-teal/50 hover:bg-teal/15"
+      >
+        {cta.label}
+        <span className="opacity-60">{external ? '↗' : '↓'}</span>
+      </a>
+
+      {/* Journey arrow into the next pillar (desktop row only) */}
+      {!isLast && (
+        <span
+          aria-hidden
+          className="absolute -right-[15px] top-1/2 z-10 hidden -translate-y-1/2 text-sm text-gold/50 lg:block"
+        >
+          →
+        </span>
       )}
     </div>
   )
@@ -51,14 +61,16 @@ export default function WhatIDo() {
         <SectionHeading
           eyebrow="What I Do"
           title="Tools for intentional evolution."
-          description="Tarot, video essays, gaming, and software — each is a vehicle for self-awareness, self-improvement, and self-mastery."
+          description="Video essays, tarot, software, and gaming — each is a vehicle for self-awareness, self-improvement, and self-mastery."
         />
 
-        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <ol className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {services.map((s, i) => (
-            <ServiceCard key={s.title} {...s} index={i} />
+            <li key={s.title}>
+              <ServiceCard {...s} index={i} isLast={i === services.length - 1} />
+            </li>
           ))}
-        </div>
+        </ol>
       </div>
     </section>
   )
