@@ -77,11 +77,11 @@ const FEEDS = [
   {
     platform: 'Podcast',
     handle: "Seeker's Soliloquy",
-    description: 'The original solo monologue series — late-night Jungian psychology and pop culture philosophy. Available on Spotify and Apple Podcasts.',
-    href: 'https://open.spotify.com/show/2w5Gt1BLDsrcSjDyVIdbow',
+    description: 'The original solo monologue series — late-night Jungian psychology and pop culture philosophy. Available on YouTube, Spotify, and Apple Podcasts.',
+    href: 'https://www.youtube.com/playlist?list=PLZlIFoU5KENY',
     accentClass: 'text-green-400',
     borderClass: 'hover:border-green-400/25',
-    badge: 'legacy',
+    badge: undefined,
   },
 ]
 

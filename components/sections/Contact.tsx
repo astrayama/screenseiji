@@ -4,16 +4,23 @@ import { FormEvent, useState } from 'react'
 import { useInView } from '@/hooks/useInView'
 import { cn } from '@/lib/utils'
 import SectionHeading from '@/components/SectionHeading'
-import { Send } from 'lucide-react'
+import { ChevronDown, Send } from 'lucide-react'
+import { contactCategories, type ContactCategory } from '@/lib/data'
 
 export default function Contact() {
   const { ref, inView } = useInView<HTMLDivElement>()
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent'>('idle')
   const [error, setError] = useState<string | null>(null)
   // `website` is the honeypot — hidden from people, filled in by bots.
-  const [form, setForm] = useState({ name: '', email: '', message: '', website: '' })
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    category: contactCategories[0] as ContactCategory,
+    message: '',
+    website: '',
+  })
 
-  const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+  const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
     setForm(v => ({ ...v, [k]: e.target.value }))
 
   const handleSubmit = async (e: FormEvent) => {
@@ -53,7 +60,7 @@ export default function Contact() {
               description="Questions, collaboration ideas, tarot inquiries, or just a note — I read everything."
             />
             <p className="mt-8 font-display text-lg italic font-light text-foreground/60 leading-relaxed">
-              "I'll see you, fellow seeker."
+              &quot;I&apos;ll see you, fellow seeker.&quot;
             </p>
           </div>
 
@@ -66,7 +73,7 @@ export default function Contact() {
               <div className="glass rounded-3xl p-8 flex flex-col items-center justify-center gap-4 text-center min-h-[280px]">
                 <div className="text-3xl">✦</div>
                 <p className="font-display text-2xl font-light text-teal">Message received.</p>
-                <p className="text-sm text-muted">I'll be in touch soon.</p>
+                <p className="text-sm text-muted">I&apos;ll be in touch soon.</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="glass rounded-3xl p-6 sm:p-8 flex flex-col gap-5">
@@ -101,6 +108,26 @@ export default function Contact() {
                       onChange={set('email')}
                       className="glass rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-muted/40 outline-none focus:border-teal/35 transition-colors"
                       placeholder="you@example.com"
+                    />
+                  </div>
+                </div>
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="contact-category" className="text-xs font-semibold uppercase tracking-[0.14em] text-muted/70">Category</label>
+                  <div className="relative">
+                    <select
+                      id="contact-category"
+                      value={form.category}
+                      onChange={set('category')}
+                      className="glass w-full appearance-none rounded-xl px-4 py-3 pr-10 text-sm text-foreground outline-none focus:border-teal/35 transition-colors [&>option]:bg-surface [&>option]:text-foreground"
+                    >
+                      {contactCategories.map(c => (
+                        <option key={c} value={c}>{c}</option>
+                      ))}
+                    </select>
+                    <ChevronDown
+                      size={14}
+                      aria-hidden
+                      className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-muted/60"
                     />
                   </div>
                 </div>

@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
+import BrandMark from '@/components/BrandMark'
 
 const LINKS = [
   { label: 'Support', href: '/apps/arcana/support' },
@@ -50,8 +51,9 @@ export default function ArcanaHeader() {
           <span aria-hidden className="hidden h-4 w-px bg-arcana-stroke/60 sm:block" />
           <Link
             href="/"
-            className="hidden h-16 items-center text-arcana-faint transition-colors duration-200 hover:text-arcana-purple-soft sm:flex"
+            className="hidden h-16 items-center gap-2 text-arcana-faint transition-colors duration-200 hover:text-arcana-purple-soft sm:flex"
           >
+            <BrandMark height={16} />
             Screen Sage Studios
           </Link>
         </nav>

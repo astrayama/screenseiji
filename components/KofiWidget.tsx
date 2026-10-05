@@ -4,6 +4,10 @@ import { useEffect } from 'react'
 import Script from 'next/script'
 import { usePathname } from 'next/navigation'
 
+type KofiWindow = Window & {
+  kofiWidgetOverlay?: { draw: (username: string, options: Record<string, string>) => void }
+}
+
 export default function KofiWidget() {
   const pathname = usePathname()
   // Keep the floating donate button off the Arcana app pages —
@@ -28,10 +32,9 @@ export default function KofiWidget() {
           // Guard against double-draw: next/script can re-fire onLoad if the
           // component unmounts and remounts while the script is cached.
           const alreadyDrawn = document.querySelector('.floatingchat-container-wrap, .floatingchat-container-wrap-mobi')
-          // @ts-ignore
-          if (!alreadyDrawn && typeof window !== 'undefined' && window.kofiWidgetOverlay) {
-            // @ts-ignore
-            window.kofiWidgetOverlay.draw('screenseiji', {
+          const overlay = typeof window !== 'undefined' ? (window as KofiWindow).kofiWidgetOverlay : undefined
+          if (!alreadyDrawn && overlay) {
+            overlay.draw('screenseiji', {
               type: 'floating-chat',
               'floating-chat.donateButton.text': 'Support me',
               'floating-chat.donateButton.background-color': '#794bc4',

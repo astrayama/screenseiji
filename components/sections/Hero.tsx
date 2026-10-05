@@ -66,6 +66,14 @@ export default function Hero() {
           I help people see themselves clearly and evolve intentionally. A space for seekers at the crossroads of anime, metaphysics, gaming, and inner work.
         </motion.p>
 
+        {/* Orienting line — the path through the site */}
+        <motion.p
+          variants={item}
+          className="mx-auto mt-4 max-w-2xl font-display text-xl font-light italic text-gold-bright/90 sm:text-2xl"
+        >
+          Start with a story, go deeper with tarot, practice with the apps.
+        </motion.p>
+
         {/* CTAs */}
         <motion.div variants={item} className="mt-10 flex flex-wrap items-center justify-center gap-4">
           <a
