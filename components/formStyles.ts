@@ -1,5 +1,5 @@
 // Shared classes for the native forms that live inside <Modal> (tarot intake,
-// live booking, waitlist).
+// live booking, waitlist, studio project inquiry).
 
 export const FIELD =
   'w-full rounded-xl border border-white/10 bg-background/60 px-4 py-3 text-sm text-foreground placeholder:text-muted/40 outline-none transition-colors focus:border-teal/40'
@@ -8,3 +8,7 @@ export const LABEL = 'text-xs font-semibold uppercase tracking-[0.14em] text-mut
 
 export const PRIMARY_BUTTON =
   'flex items-center justify-center gap-2 rounded-full bg-gold px-7 py-3 text-sm font-semibold text-background transition-all hover:bg-gold-bright disabled:opacity-60'
+
+// The Studio (client web work) is styled apart from the brand: no gold.
+export const NEUTRAL_BUTTON =
+  'flex items-center justify-center gap-2 rounded-full bg-foreground px-6 py-2.5 text-sm font-semibold text-background transition-colors hover:bg-white disabled:opacity-60'

@@ -7,6 +7,7 @@ import BrandMark from '@/components/BrandMark'
 
 const NAV = [
   { label: 'What I Do', href: '#services'   },
+  { label: 'Websites',  href: '#studio'      },
   { label: 'Tarot',     href: '#tarot'       },
   { label: 'Apps',      href: '#apps'        },
   { label: 'Philosophy',href: '#philosophy'  },

@@ -22,12 +22,12 @@ export default function Home() {
       <main>
         <Hero />
         <WhatIDo />
+        {/* Client work — set apart from the brand, a compact banner right after the offerings */}
+        <Studio />
         <ContentFeed />
         <Tarot />
         <AppConstellation />
         <Shop />
-        {/* Client work — set apart from the brand, right after the offerings */}
-        <Studio />
         <Philosophy />
         <ConnectLinks />
         <Sanctum />
