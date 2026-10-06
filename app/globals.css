@@ -33,6 +33,7 @@
   --animate-spin-reverse:    spin-reverse 20s linear infinite;
   --animate-sanctum-pulse:   sanctum-pulse 3s ease-in-out infinite;
   --animate-node-glow:       node-glow 2.5s ease-in-out infinite;
+  --animate-marquee:         marquee 45s linear infinite;
 }
 
 /* ─── Keyframes ─────────────────────────────────────── */
@@ -65,6 +66,10 @@
 @keyframes node-glow {
   0%,100% { filter: drop-shadow(0 0 4px  var(--node-glow, #24BFB280)); }
   50%     { filter: drop-shadow(0 0 10px var(--node-glow-strong, #24BFB2B0)); }
+}
+/* Slides a doubled list left by one copy's width, so the loop is seamless. */
+@keyframes marquee {
+  to { transform: translateX(-50%); }
 }
 @keyframes shake {
   0%,100% { transform: translateX(0);   }

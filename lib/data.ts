@@ -309,15 +309,110 @@ export const socialLinks = {
   ],
 }
 
-// Client web work — deliberately kept apart from the Screen Sage brand.
-export const studio = {
-  featured: {
-    name: 'The Formless Guide',
-    href: 'https://theformlessguide.vercel.app/' as string | null,
-  },
-  // TODO(Bel): paste your web services page URL. Falls back to #contact until set.
-  servicesUrl: null as string | null,
+// ─── Studio: client web work ───────────────────────────────────────────────
+// Deliberately kept apart from the Screen Sage brand. Leads come in through the
+// project form (/api/project), which emails Isa.
+
+export interface StudioWork {
+  name: string
+  kind: 'Client site' | 'My own product'
+  description: string
+  /** Omitted when the piece is the page you're already on. */
+  href?: string
 }
+
+export const studio = {
+  headline: 'Websites for small businesses and more.',
+  subhead:
+    'Design, build, and launch — for small businesses, creators, and anyone with something to offer. Fast, accessible, and found on Google.',
+  // The scrolling ticker on the collapsed banner.
+  marquee: [
+    'Landing pages',
+    'Business websites',
+    'Booking & payments',
+    'SEO',
+    'Mobile-first',
+    'Accessible',
+    'Waitlists & email capture',
+    'Web apps',
+    'Redesigns',
+  ],
+  services: [
+    {
+      title: 'Landing page',
+      description: 'One focused page that turns visitors into calls, bookings, or sales.',
+      includes: ['Copy and layout help', 'Contact or booking form', 'Live on your own domain'],
+    },
+    {
+      title: 'Business website',
+      description: 'A multi-page home for your services, your story, and how to reach you.',
+      includes: ['Services, about & contact pages', 'SEO so customers find you', 'Easy to update later'],
+    },
+    {
+      title: 'Custom features',
+      description: 'Booking, payments, waitlists, or a full web app — built in, not bolted on.',
+      includes: ['Online booking calendars', 'Stripe checkout', 'Email capture & forms'],
+    },
+  ],
+  included: ['Mobile-first design', 'SEO', 'Accessibility', 'Fast hosting', 'Forms that email you', 'Analytics'],
+  work: [
+    {
+      name: 'The Formless Guide',
+      kind: 'Client site',
+      description: 'A website for a mindfulness and personal-growth practice.',
+      href: 'https://theformlessguide.vercel.app/',
+    },
+    {
+      name: 'Screen Sage',
+      kind: 'My own product',
+      description: 'The site you’re on — native booking calendar, Stripe checkout, and email forms.',
+    },
+    {
+      name: 'Arcana',
+      kind: 'My own product',
+      description: 'App Store marketing, support, and privacy pages for an iOS app.',
+      href: '/apps/arcana',
+    },
+    {
+      name: 'Yggdrasil',
+      kind: 'My own product',
+      description: 'A journaling web app with interactive visualizations and AI insights.',
+      href: 'https://yggdrasil-journal.lovable.app',
+    },
+  ] as StudioWork[],
+  process: [
+    { title: 'Tell me about it', body: 'Fill out the short project form — two minutes, no commitment.' },
+    { title: 'Proposal & quote', body: 'I reply with a plan, a timeline, and a quote for your project.' },
+    { title: 'Design & build', body: 'You see progress along the way and give feedback as it comes together.' },
+    { title: 'Launch', body: 'Your site goes live on your domain, ready for customers.' },
+  ],
+  email: 'screenseiji@proton.me',
+  // Discovery-call link (Cal.com, Calendly…). A "Book a call" button shows once set.
+  callUrl: null as string | null,
+}
+
+export const projectTypes = [
+  'New website',
+  'Redesign',
+  'Landing page',
+  'Booking / payments / custom feature',
+  'Not sure yet',
+] as const
+
+// These quietly signal Isa's price level — adjust to taste.
+export const budgetRanges = [
+  'Under $1,000',
+  '$1,000–$2,500',
+  '$2,500–$5,000',
+  '$5,000+',
+  'Not sure yet',
+] as const
+
+export const projectTimelines = ['ASAP', '1–3 months', '3+ months', 'Flexible'] as const
+
+export type ProjectType = (typeof projectTypes)[number]
+export type BudgetRange = (typeof budgetRanges)[number]
+export type ProjectTimeline = (typeof projectTimelines)[number]
 
 export const contactCategories = [
   'General question',

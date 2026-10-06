@@ -10,12 +10,14 @@ interface Props {
   eyebrow?: string
   title: string
   size?: 'md' | 'lg'
+  /** 'studio' drops the brand gold and serif for the client-work section. */
+  tone?: 'brand' | 'studio'
   children: React.ReactNode
 }
 
 // A native <dialog> shown with showModal(): focus trap, Esc-to-close and the
 // top layer come for free. Content only mounts while open, so forms start fresh.
-export default function Modal({ open, onClose, eyebrow, title, size = 'md', children }: Props) {
+export default function Modal({ open, onClose, eyebrow, title, size = 'md', tone = 'brand', children }: Props) {
   const ref = useRef<HTMLDialogElement>(null)
   const titleId = useId()
 
@@ -42,9 +44,21 @@ export default function Modal({ open, onClose, eyebrow, title, size = 'md', chil
         <div className="relative p-6 sm:p-8">
           <div className="pr-10">
             {eyebrow && (
-              <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-gold">{eyebrow}</p>
+              tone === 'studio' ? (
+                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-foreground/60">{eyebrow}</p>
+              ) : (
+                <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-gold">{eyebrow}</p>
+              )
             )}
-            <h3 id={titleId} className="mt-1 font-display text-3xl font-light leading-tight">{title}</h3>
+            <h3
+              id={titleId}
+              className={cn(
+                'mt-1 leading-tight',
+                tone === 'studio' ? 'text-2xl font-medium' : 'font-display text-3xl font-light',
+              )}
+            >
+              {title}
+            </h3>
           </div>
           <div className="mt-6">{children}</div>
           {/* Last in DOM order so showModal() focuses the first field, not this. */}
