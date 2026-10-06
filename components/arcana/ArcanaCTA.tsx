@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { useMotionPreference } from '@/hooks/useMotionPreference'
 import AppStoreBadge from '@/components/arcana/AppStoreBadge'
+import TestFlightButton from '@/components/arcana/TestFlightButton'
 import { arcanaHero } from '@/lib/arcana-content'
 
 const EASE = [0.25, 0.46, 0.45, 0.94] as [number, number, number, number]
@@ -24,7 +25,8 @@ export default function ArcanaCTA() {
         <p className="mt-6 font-arcana-display text-3xl italic leading-[1.3] text-arcana-text sm:text-4xl">
           “{arcanaHero.tagline}”
         </p>
-        <div className="mt-10 flex justify-center">
+        <div className="mt-10 flex flex-wrap justify-center gap-3">
+          <TestFlightButton />
           <AppStoreBadge />
         </div>
         <p className="mt-7 text-sm text-arcana-muted">

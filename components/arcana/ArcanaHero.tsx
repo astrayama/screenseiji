@@ -8,6 +8,7 @@ import PhoneFrame from '@/components/arcana/PhoneFrame'
 import TodayScreen from '@/components/arcana/screens/TodayScreen'
 import TarotCard from '@/components/arcana/TarotCard'
 import AppStoreBadge from '@/components/arcana/AppStoreBadge'
+import TestFlightButton from '@/components/arcana/TestFlightButton'
 import { arcanaHero } from '@/lib/arcana-content'
 import { arcanaLinks } from '@/lib/data'
 
@@ -76,8 +77,11 @@ export default function ArcanaHero() {
             ))}
           </motion.div>
 
-          <motion.div variants={item} className="mt-9 flex flex-wrap items-center gap-6">
-            <AppStoreBadge />
+          <motion.div variants={item} className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-4">
+            <div className="flex flex-wrap items-center gap-3">
+              <TestFlightButton />
+              <AppStoreBadge />
+            </div>
             <a
               href={arcanaLinks.discord}
               target="_blank"
