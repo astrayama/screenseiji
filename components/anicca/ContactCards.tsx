@@ -2,37 +2,35 @@
 
 import { Mail, MessageCircle } from 'lucide-react'
 import ContactCards, { type ContactCard, type ContactCardsClasses } from '@/components/app-pages/ContactCards'
-import { arcanaLinks } from '@/lib/data'
+import { aniccaLinks } from '@/lib/data'
 
 const CARDS: ContactCard[] = [
   {
     icon: Mail,
     title: 'Email',
-    value: arcanaLinks.supportEmail,
+    value: aniccaLinks.supportEmail,
     note: 'I read everything — usually answered within a day or two.',
-    href: `mailto:${arcanaLinks.supportEmail}`,
+    href: `mailto:${aniccaLinks.supportEmail}`,
     external: false,
-    className: 'hover:border-arcana-gold/50',
   },
   {
     icon: MessageCircle,
     title: 'Discord',
     value: 'Screen Sage community',
     note: 'Ask in the community, get answers fast.',
-    href: arcanaLinks.discord,
+    href: aniccaLinks.discord,
     external: true,
-    className: 'hover:border-arcana-purple/50',
   },
 ]
 
 const CLASSES: ContactCardsClasses = {
-  card: 'arcana-glass',
-  icon: 'border-arcana-stroke/60 bg-arcana-field/40 text-arcana-purple-soft group-hover:text-arcana-gold',
-  title: 'font-arcana-display text-arcana-text',
-  value: 'text-arcana-purple-soft',
-  note: 'text-arcana-muted',
+  card: 'anicca-card hover:shadow-[0_1px_2px_rgba(26,26,46,0.04),0_18px_40px_-14px_rgba(92,64,160,0.32)]',
+  icon: 'border-anicca-lavender/60 bg-anicca-lavender/20 text-anicca-violet group-hover:bg-anicca-violet group-hover:text-white',
+  title: 'font-anicca-display text-anicca-ink',
+  value: 'text-anicca-violet-deep',
+  note: 'text-anicca-muted',
 }
 
-export default function ArcanaContactCards() {
+export default function AniccaContactCards() {
   return <ContactCards cards={CARDS} classes={CLASSES} />
 }

@@ -1,0 +1,87 @@
+/* ─── Anicca — soft light theme (scoped tokens for /apps/anicca) ──── */
+@theme inline {
+  /* Palette — from the app (light-only) */
+  --color-anicca-bg:          #F5F0FA;
+  --color-anicca-ink:         #1A1A2E; /* primary text */
+  --color-anicca-body:        #4A4A66; /* running text on the page wash — #6B6B8A deepened for contrast */
+  --color-anicca-muted:       #6B6B8A; /* secondary text, on white cards only */
+  --color-anicca-faint:       #A0A0B8; /* decorative only — below text contrast */
+  --color-anicca-violet:      #7C5CBF; /* brand: fills, buttons, accents */
+  --color-anicca-violet-deep: #5E43A6; /* brand as text on the wash (AA) */
+  --color-anicca-lilac:       #A78BDA;
+  --color-anicca-lavender:    #C4A8FF;
+
+  --font-anicca-display: var(--font-fraunces), Georgia, serif;
+  --font-anicca-display--font-variation-settings: "SOFT" 60;
+  --font-anicca-body:    var(--font-figtree), system-ui, sans-serif;
+
+  --animate-anicca-float:   anicca-float 7s ease-in-out infinite;
+  --animate-anicca-breathe: anicca-breathe 6s ease-in-out infinite;
+}
+
+@keyframes anicca-float   { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-8px) } }
+@keyframes anicca-breathe { 0%,100% { transform: scale(1); opacity: .85 } 50% { transform: scale(1.25); opacity: 1 } }
+
+/* The section is light-only: repaint the page behind it (the site default is
+   dark), so overscroll and the mobile browser chrome match. */
+html:has(.anicca-root) { color-scheme: light; }
+body:has(.anicca-root) { background-color: #F5F0FA; color: #1A1A2E; }
+
+.anicca-root ::selection { background: rgba(196, 168, 255, 0.45); color: #1A1A2E; }
+
+.anicca-root :focus-visible {
+  outline: 2px solid #7C5CBF;
+  outline-offset: 3px;
+}
+
+/* Soft white card — the app's card surface */
+.anicca-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  box-shadow:
+    0 1px 2px rgba(26, 26, 46, 0.04),
+    0 12px 32px -12px rgba(92, 64, 160, 0.20);
+}
+
+/* Brand gradient text — violet stops only, so large type stays ≥ 3:1 */
+.anicca-gtx {
+  background: linear-gradient(90deg, #5E43A6, #7C5CBF 55%, #9A72D6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Kerned eyebrow */
+.anicca-eyebrow {
+  font-family: var(--font-figtree), system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #5E43A6;
+}
+
+.anicca-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(124, 92, 191, 0.22);
+  background: rgba(255, 255, 255, 0.7);
+  padding: 0.375rem 0.9rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #5E43A6;
+}
+
+/* Belt-and-braces motion kill switch for the Anicca subtree */
+@media (prefers-reduced-motion: reduce) {
+  .anicca-root *, .anicca-root *::before, .anicca-root *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

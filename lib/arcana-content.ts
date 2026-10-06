@@ -1,6 +1,8 @@
 // All copy for the Arcana pages (/apps/arcana). Marketing lines come from
 // the App Store screenshot set; in-app strings mirror the shipping app.
 
+import type { FaqItem } from '@/lib/app-content'
+
 export const arcanaHero = {
   eyebrow: 'ARCANA',
   headlineTop: 'Give your tarot cards',
@@ -64,11 +66,6 @@ export const arcanaFeatures: ArcanaFeature[] = [
     chips: ['Post 1:1', 'Story 9:16', 'Journal PDF'],
   },
 ]
-
-export interface FaqItem {
-  q: string
-  a: string
-}
 
 export const arcanaFaq: FaqItem[] = [
   {

@@ -3,7 +3,7 @@ import { Playfair_Display, Nunito } from 'next/font/google'
 import ArcanaBackground from '@/components/arcana/ArcanaBackground'
 import ArcanaHeader from '@/components/arcana/ArcanaHeader'
 import ArcanaFooter from '@/components/arcana/ArcanaFooter'
-import ArcanaMotion from '@/components/arcana/ArcanaMotion'
+import AppMotion from '@/components/app-pages/AppMotion'
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -34,7 +34,7 @@ export default function ArcanaLayout({ children }: { children: React.ReactNode }
     >
       <ArcanaBackground />
       <ArcanaHeader />
-      <ArcanaMotion>{children}</ArcanaMotion>
+      <AppMotion>{children}</AppMotion>
       <ArcanaFooter />
     </div>
   )
