@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils'
 import SectionHeading from '@/components/SectionHeading'
 import Modal from '@/components/Modal'
 import WaitlistForm from '@/components/WaitlistForm'
-import { apps, appStatusLabel, constellationEdges, type AppNode } from '@/lib/data'
+import { apps, appStatusText, constellationEdges, type AppNode } from '@/lib/data'
 
 const VB_W = 800
 const VB_H = 430
@@ -17,10 +17,13 @@ function getNode(id: string) {
   return apps.find(a => a.id === id)!
 }
 
-const FLAGSHIP = apps.find(a => a.status === 'beta')!
-const LAB_APPS = apps.filter(a => a.status !== 'beta')
+const FLAGSHIP = apps.find(a => a.flagship)!
+// Betas anyone can try right now get their own row under the flagship…
+const TRY_NOW = apps.filter(a => !a.flagship && a.tryUrl)
+// …so the mobile grid only needs the rest.
+const GRID_APPS = apps.filter(a => !a.flagship && !a.tryUrl)
 
-// Per-node colour: gold for the flagship in beta, teal for everything in the lab.
+// Per-node colour: gold for apps in beta, teal for everything in the lab.
 function nodeAccent(app: AppNode) {
   return app.status === 'beta' ? '#E8B860' : '#24BFB2'
 }
@@ -46,12 +49,17 @@ export default function AppConstellation() {
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeading
           eyebrow="The App Universe"
-          title="Five tools. One philosophy."
+          title="Seven tools. One philosophy."
           description="Each app is named after the concept it embodies — a constellation of software built for seekers."
         />
 
         {/* Flagship */}
         <FlagshipCard />
+        {TRY_NOW.length > 0 && (
+          <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {TRY_NOW.map((app, i) => <TryNowCard key={app.id} app={app} index={i} />)}
+          </div>
+        )}
 
         {/* Desktop: SVG constellation */}
         <div
@@ -79,11 +87,20 @@ export default function AppConstellation() {
                   <feMergeNode in="SourceGraphic" />
                 </feMerge>
               </filter>
-              <linearGradient id="line-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%"   stopColor="#24BFB2" stopOpacity="0" />
-                <stop offset="50%"  stopColor="#24BFB2" stopOpacity="0.35" />
-                <stop offset="100%" stopColor="#24BFB2" stopOpacity="0" />
-              </linearGradient>
+              {/* One gradient per edge, in user space from end to end: a shared
+                  objectBoundingBox gradient isn't painted on a perfectly
+                  horizontal line, whose bounding box has zero height. */}
+              {constellationEdges.map(([aId, bId]) => {
+                const a = getNode(aId)
+                const b = getNode(bId)
+                return (
+                  <linearGradient key={`${aId}-${bId}`} id={`edge-${aId}-${bId}`} gradientUnits="userSpaceOnUse" x1={a.x} y1={a.y} x2={b.x} y2={b.y}>
+                    <stop offset="0%"   stopColor="#24BFB2" stopOpacity="0" />
+                    <stop offset="50%"  stopColor="#24BFB2" stopOpacity="0.35" />
+                    <stop offset="100%" stopColor="#24BFB2" stopOpacity="0" />
+                  </linearGradient>
+                )
+              })}
             </defs>
 
             {/* Edges */}
@@ -96,7 +113,7 @@ export default function AppConstellation() {
                   key={`${aId}-${bId}`}
                   x1={a.x} y1={a.y}
                   x2={b.x} y2={b.y}
-                  stroke={isActive && hoveredApp ? nodeAccent(hoveredApp) : 'url(#line-grad)'}
+                  stroke={isActive && hoveredApp ? nodeAccent(hoveredApp) : `url(#edge-${aId}-${bId})`}
                   strokeWidth={isActive ? 1.2 : 0.8}
                   strokeOpacity={isActive ? 0.6 : 1}
                   className="transition-all duration-300"
@@ -107,7 +124,7 @@ export default function AppConstellation() {
             {/* Nodes */}
             {apps.map(app => {
               const isHovered = hovered === app.id
-              const isFlagship = app.status === 'beta'
+              const isFlagship = !!app.flagship
               const { href } = app
               const accent = nodeAccent(app)
               const activate = () => {
@@ -121,7 +138,7 @@ export default function AppConstellation() {
                   className={href ? 'cursor-pointer' : 'cursor-default'}
                   role={href ? 'link' : undefined}
                   tabIndex={href ? 0 : undefined}
-                  aria-label={`${app.name} — ${app.concept} (${appStatusLabel[app.status]})`}
+                  aria-label={`${app.name} — ${app.concept} (${appStatusText(app)})`}
                   onClick={activate}
                   onKeyDown={e => {
                     if (e.key === 'Enter' || e.key === ' ') {
@@ -186,58 +203,66 @@ export default function AppConstellation() {
             })}
           </svg>
 
-          {/* Floating tooltip */}
+          {/* Floating tooltip — the outer div positions and centres it above the
+              node; the inner motion.div only animates, because framer-motion
+              replaces any static transform on the element it animates. */}
           <AnimatePresence>
             {hoveredApp && tooltipPos && (
-              <motion.div
+              <div
                 key={hoveredApp.id}
-                initial={{ opacity: 0, scale: 0.92, y: 6 }}
-                animate={{ opacity: 1, scale: 1,    y: 0 }}
-                exit={{   opacity: 0, scale: 0.92, y: 4 }}
-                transition={{ duration: 0.18 }}
-                className="pointer-events-none absolute glass rounded-2xl px-5 py-4 shadow-panel w-56"
+                className="pointer-events-none absolute w-56"
                 style={{
-                  left: `${tooltipPos.x}%`,
+                  left: `clamp(7rem, ${tooltipPos.x}%, calc(100% - 7rem))`,
                   top:  `${tooltipPos.y}%`,
                   transform: 'translate(-50%, calc(-100% - 24px))',
                 }}
               >
-                <p
-                  className="font-display text-xl font-medium"
-                  style={{ color: nodeAccent(hoveredApp) }}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.92, y: 6 }}
+                  animate={{ opacity: 1, scale: 1,    y: 0 }}
+                  exit={{   opacity: 0, scale: 0.92, y: 4 }}
+                  transition={{ duration: 0.18 }}
+                  className="glass rounded-2xl px-5 py-4 shadow-panel"
                 >
-                  {hoveredApp.name}
-                </p>
-                <p className="mt-1 text-xs leading-5 text-muted">{hoveredApp.concept}</p>
-                <p
-                  className="mt-2 text-[10px] font-semibold uppercase tracking-[0.14em] opacity-70"
-                  style={{ color: nodeAccent(hoveredApp) }}
-                >
-                  {appStatusLabel[hoveredApp.status]}
-                </p>
-                {hoveredApp.href && (
-                  <p className="mt-1 text-[10px] uppercase tracking-[0.14em] text-muted/60">→ Open</p>
-                )}
-              </motion.div>
+                  <p
+                    className="font-display text-xl font-medium"
+                    style={{ color: nodeAccent(hoveredApp) }}
+                  >
+                    {hoveredApp.name}
+                  </p>
+                  <p className="mt-1 text-xs leading-5 text-muted">{hoveredApp.concept}</p>
+                  <p
+                    className="mt-2 text-[10px] font-semibold uppercase tracking-[0.14em] opacity-70"
+                    style={{ color: nodeAccent(hoveredApp) }}
+                  >
+                    {appStatusText(hoveredApp)}
+                  </p>
+                  {hoveredApp.href && (
+                    <p className="mt-1 text-[10px] uppercase tracking-[0.14em] text-muted/60">→ Open</p>
+                  )}
+                </motion.div>
+              </div>
             )}
           </AnimatePresence>
 
-          {/* Legend */}
-          <div className="mt-6 flex justify-center gap-8 text-[10px] font-semibold uppercase tracking-[0.16em] text-muted/70">
-            <span className="flex items-center gap-2">
-              <span className="h-2 w-2 rounded-full bg-gold-bright shadow-gold" />
-              Flagship · in beta
-            </span>
-            <span className="flex items-center gap-2">
-              <span className="h-2 w-2 rounded-full border border-teal/70" />
-              In the lab
-            </span>
-          </div>
+        </div>
+
+        {/* Legend — outside the star's container, whose height the tooltip's
+            top % is measured against, so it must match the SVG exactly. */}
+        <div className="mt-6 hidden justify-center gap-8 text-[10px] font-semibold uppercase tracking-[0.16em] text-muted/70 sm:flex">
+          <span className="flex items-center gap-2">
+            <span className="h-2 w-2 rounded-full bg-gold-bright shadow-gold" />
+            In beta
+          </span>
+          <span className="flex items-center gap-2">
+            <span className="h-2 w-2 rounded-full border border-teal/70" />
+            In the lab
+          </span>
         </div>
 
         {/* Mobile: card grid (the flagship is featured above) */}
-        <div className="mt-6 grid grid-cols-2 gap-3 sm:hidden">
-          {LAB_APPS.map(app => (
+        <div className="mt-6 grid grid-cols-2 gap-3 sm:hidden [&>*:last-child:nth-child(odd)]:col-span-2">
+          {GRID_APPS.map(app => (
             <a
               key={app.id}
               href={app.href}
@@ -258,7 +283,7 @@ export default function AppConstellation() {
               </p>
               <p className="mt-1 text-xs leading-5 text-muted">{app.concept}</p>
               <p className="mt-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-teal/70">
-                {appStatusLabel[app.status]}
+                {appStatusText(app)}
               </p>
             </a>
           ))}
@@ -297,7 +322,7 @@ function FlagshipCard() {
         onClick={() => setWaitlistOpen(true)}
         className="inline-flex items-center gap-2 self-start rounded-full border border-gold/40 bg-gold/10 px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.12em] text-gold-bright transition-all hover:border-gold hover:bg-gold/20 sm:self-auto"
       >
-        {appStatusLabel[FLAGSHIP.status]}
+        {appStatusText(FLAGSHIP)}
       </button>
 
       <Modal
@@ -308,6 +333,43 @@ function FlagshipCard() {
       >
         <WaitlistForm appId={FLAGSHIP.id} appName={FLAGSHIP.name} />
       </Modal>
+    </div>
+  )
+}
+
+function TryNowCard({ app, index }: { app: AppNode; index: number }) {
+  const { ref, inView } = useInView<HTMLDivElement>()
+
+  return (
+    <div
+      ref={ref}
+      className={cn('glass flex h-full flex-col gap-4 rounded-2xl p-6 reveal', inView && 'reveal-in')}
+      style={{ transitionDelay: `${index * 80}ms` }}
+    >
+      <div className="flex-1">
+        <p className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.22em] text-gold/80">
+          <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-gold-bright/80" />
+          Also in beta
+        </p>
+        <p className="mt-2 font-display text-2xl font-light text-foreground">{app.name}</p>
+        <p className="mt-1 text-sm leading-6 text-muted">{app.concept}</p>
+      </div>
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-3">
+        <a
+          href={app.tryUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-gold-bright transition-all hover:border-gold hover:bg-gold/20"
+        >
+          {appStatusText(app)}
+          <span className="opacity-70">↗</span>
+        </a>
+        {app.href && app.href !== app.tryUrl && (
+          <a href={app.href} className="text-xs font-semibold uppercase tracking-[0.12em] text-muted transition-colors hover:text-foreground">
+            Learn more
+          </a>
+        )}
+      </div>
     </div>
   )
 }

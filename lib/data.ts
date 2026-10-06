@@ -136,10 +136,21 @@ export const liveReading = {
   },
 }
 
+export const arcanaLinks = {
+  // PLACEHOLDER — swap for the real App Store URL once the app is live,
+  // then flip appStorePlaceholder to false.
+  appStoreUrl: 'https://apps.apple.com/app/id0000000000',
+  appStorePlaceholder: true,
+  // Public TestFlight beta — the "try it" link while the App Store listing is pending.
+  testflightUrl: 'https://testflight.apple.com/join/FZTcG7YT',
+  supportEmail: 'screenseiji@proton.me',
+  discord: 'https://discord.gg/2rFyT6nskc',
+}
+
 export type AppStatus = 'beta' | 'lab'
 
 export const appStatusLabel: Record<AppStatus, string> = {
-  beta: 'In beta — join the waitlist',
+  beta: 'In beta',
   lab: 'In the lab',
 }
 
@@ -149,8 +160,13 @@ export interface AppNode {
   concept: string
   /** Omitted while there's nothing public to open yet. */
   href?: string
-  /** 'beta' marks the flagship; everything else is still in the lab. */
   status: AppStatus
+  /** Specific status line, e.g. how to get into the beta. Defaults to appStatusLabel. */
+  statusNote?: string
+  /** Public beta anyone can try right now (e.g. TestFlight). */
+  tryUrl?: string
+  /** The featured app — gets the apex of the star and the flagship card. */
+  flagship?: boolean
   x: number
   y: number
   r: number
@@ -159,9 +175,15 @@ export interface AppNode {
   labelAbove?: boolean
 }
 
-// The five nodes sit on the points of a star (a pentagram widened to fill the
-// 800×430 viewBox): apex at top, then clockwise. Yggdrasil, the flagship,
-// takes the apex.
+export function appStatusText(app: AppNode) {
+  return app.statusNote ?? appStatusLabel[app.status]
+}
+
+// The seven nodes sit on the points of a seven-pointed star (a {7/3} heptagram
+// on an ellipse centred at 400,221 with radii 340×154, widened to fill the
+// 800×430 viewBox): apex at top, then clockwise. Yggdrasil, the flagship, takes
+// the apex; the two tarot apps, Arcana and Carta Luna, sit side by side.
+// Array order sets the order of the "Also in beta" cards.
 export const apps: AppNode[] = [
   {
     id: 'yggdrasil',
@@ -169,9 +191,44 @@ export const apps: AppNode[] = [
     concept: 'The Norse world tree · journaling',
     href: 'https://yggdrasil-journal.lovable.app',
     status: 'beta',
+    statusNote: 'In beta — join the waitlist',
+    flagship: true,
     x: 400, y: 67, r: 16,
     nameLines: ['Yggdrasil'],
     labelAbove: true,
+  },
+  {
+    id: 'arcana',
+    name: 'Arcana',
+    concept: 'The mysteries · iOS tarot journal',
+    href: '/apps/arcana',
+    status: 'beta',
+    statusNote: 'In beta — try it on TestFlight',
+    tryUrl: arcanaLinks.testflightUrl,
+    x: 134, y: 125, r: 13,
+    nameLines: ['Arcana'],
+  },
+  {
+    id: 'cartaluna',
+    name: 'Carta Luna',
+    concept: 'Card of the moon · mixed-reality tarot on Meta Quest',
+    href: 'https://cartaluna-mr.vercel.app',
+    status: 'beta',
+    statusNote: 'In beta — try it on Meta Quest',
+    tryUrl: 'https://cartaluna-mr.vercel.app',
+    x: 69, y: 255, r: 13,
+    nameLines: ['Carta Luna'],
+  },
+  {
+    id: 'lumenwright',
+    name: 'Lumenwright',
+    concept: 'Maker of light · VR & AR',
+    href: 'https://lumenwright-nu.vercel.app',
+    status: 'beta',
+    statusNote: 'In beta — try it in VR & AR',
+    tryUrl: 'https://lumenwright-nu.vercel.app',
+    x: 731, y: 255, r: 12,
+    nameLines: ['Lumenwright'],
   },
   {
     id: 'anicca',
@@ -179,24 +236,15 @@ export const apps: AppNode[] = [
     concept: 'Buddhist impermanence · mood & energy tracking',
     href: 'https://anicca.lovable.app',
     status: 'lab',
-    x: 685, y: 176, r: 13,
+    x: 666, y: 125, r: 13,
     nameLines: ['Anicca'],
-  },
-  {
-    id: 'arcana',
-    name: 'Arcana',
-    concept: 'The mysteries · iOS tarot journal',
-    href: '/apps/arcana',
-    status: 'lab',
-    x: 115, y: 176, r: 13,
-    nameLines: ['Arcana'],
   },
   {
     id: 'kairos',
     name: 'Kairos',
     concept: 'Greek sacred time · scheduling & timing',
     status: 'lab',
-    x: 576, y: 353, r: 11,
+    x: 548, y: 360, r: 11,
     nameLines: ['Kairos'],
   },
   {
@@ -204,29 +252,22 @@ export const apps: AppNode[] = [
     name: 'Sunya',
     concept: 'Buddhist emptiness · cross-platform breathwork',
     status: 'lab',
-    x: 224, y: 353, r: 12,
+    x: 252, y: 360, r: 12,
     nameLines: ['Sunya'],
   },
 ]
 
-// Each point links to the two points it is NOT adjacent to — the single stroke
-// that draws a five-pointed star.
+// Each point links to the point three steps around the ring — the single
+// stroke that draws a sharp seven-pointed star.
 export const constellationEdges: [string, string][] = [
   ['yggdrasil', 'kairos'],
   ['kairos', 'arcana'],
-  ['arcana', 'anicca'],
+  ['arcana', 'lumenwright'],
+  ['lumenwright', 'cartaluna'],
+  ['cartaluna', 'anicca'],
   ['anicca', 'sunya'],
   ['sunya', 'yggdrasil'],
 ]
-
-export const arcanaLinks = {
-  // PLACEHOLDER — swap for the real App Store URL once the app is live,
-  // then flip appStorePlaceholder to false.
-  appStoreUrl: 'https://apps.apple.com/app/id0000000000',
-  appStorePlaceholder: true,
-  supportEmail: 'screenseiji@proton.me',
-  discord: 'https://discord.gg/2rFyT6nskc',
-}
 
 export const socialLinks = {
   content: [
