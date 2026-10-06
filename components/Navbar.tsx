@@ -3,9 +3,11 @@
 import { useEffect, useState } from 'react'
 import { Menu, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import BrandMark from '@/components/BrandMark'
 
 const NAV = [
   { label: 'What I Do', href: '#services'   },
+  { label: 'Tarot',     href: '#tarot'       },
   { label: 'Apps',      href: '#apps'        },
   { label: 'Philosophy',href: '#philosophy'  },
   { label: 'Connect',   href: '#connect'     },
@@ -33,8 +35,9 @@ export default function Navbar() {
         {/* Logo */}
         <a
           href="#home"
-          className="font-display text-2xl font-light tracking-wide text-foreground transition-opacity hover:opacity-75"
+          className="flex items-center gap-2.5 font-display text-2xl font-light tracking-wide text-foreground transition-opacity hover:opacity-75"
         >
+          <BrandMark height={26} eager />
           Screen Sage
         </a>
 

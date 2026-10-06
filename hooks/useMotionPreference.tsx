@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useContext, useState, useSyncExternalStore } from 'react'
 
 interface MotionCtx {
   reduced: boolean
@@ -9,19 +9,26 @@ interface MotionCtx {
 
 const Ctx = createContext<MotionCtx>({ reduced: false, toggle: () => {} })
 
-export function MotionPreferenceProvider({ children }: { children: React.ReactNode }) {
-  const [reduced, setReduced] = useState(false)
+const QUERY = '(prefers-reduced-motion: reduce)'
 
-  useEffect(() => {
-    const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
-    setReduced(mq.matches)
-    const handler = (e: MediaQueryListEvent) => setReduced(e.matches)
-    mq.addEventListener('change', handler)
-    return () => mq.removeEventListener('change', handler)
-  }, [])
+function subscribe(onChange: () => void) {
+  const mq = window.matchMedia(QUERY)
+  mq.addEventListener('change', onChange)
+  return () => mq.removeEventListener('change', onChange)
+}
+
+export function MotionPreferenceProvider({ children }: { children: React.ReactNode }) {
+  const systemReduced = useSyncExternalStore(
+    subscribe,
+    () => window.matchMedia(QUERY).matches,
+    () => false,
+  )
+  // null = follow the OS setting; the accessibility panel toggle overrides it.
+  const [override, setOverride] = useState<boolean | null>(null)
+  const reduced = override ?? systemReduced
 
   return (
-    <Ctx.Provider value={{ reduced, toggle: () => setReduced(v => !v) }}>
+    <Ctx.Provider value={{ reduced, toggle: () => setOverride(!reduced) }}>
       {children}
     </Ctx.Provider>
   )

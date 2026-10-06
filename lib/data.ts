@@ -1,79 +1,185 @@
+// The four pillars, ordered as a journey: watch → go deeper → practice → rest.
+// Each pillar gets exactly one call to action.
 export const services = [
   {
-    icon: '🔮',
-    title: 'Tarot Readings',
-    description:
-      'Tarot as symbolic language for self-reflection — not prediction, but a mirror held up to what you already know. Available async (written/recorded) or live, scheduled sessions.',
-    pills: [
-      { label: 'Async Reading', href: 'https://screenseiji.gumroad.com/l/tarot-async', icon: '↗' },
-      // { label: 'Book a Live Session', href: 'https://calendar.app.google/RXE5ud7NgcbC1j3F9', icon: '↗' },
-    ],
-  },
-  {
     icon: '✦',
+    step: 'Watch',
     title: 'Video Essays',
     description:
       'Philosophical essays using anime, film, and games as entry points. Beloved characters externalize internal struggles in ways that lower our defenses — and let us absorb difficult ideas.',
-    pills: [
-      { label: 'YouTube', href: 'https://www.youtube.com/@screenseiji', icon: '↗' },
-    ],
+    cta: { label: 'Watch', href: 'https://www.youtube.com/@screenseiji' },
   },
   {
-    icon: '🎮',
-    title: 'Mindful Gaming',
+    icon: '🔮',
+    step: 'Go deeper',
+    title: 'Tarot Readings',
     description:
-      'Games are maps for living — not escapism. Cozy gaming as rest, restoration, and spiritual practice. Part of thegamehers: a community supporting women and marginalized creators in gaming.',
-    pills: [
-      { label: 'TikTok Lives', href: 'https://www.tiktok.com/@screenseiji', icon: '↗' },
-    ],
+      'Tarot as a symbolic language for self-reflection — not prediction, but a mirror held up to what you already know. Written, recorded, or live.',
+    cta: { label: 'Book a reading', href: '#tarot' },
   },
   {
     icon: '∞',
+    step: 'Practice daily',
     title: 'Software for Seekers',
     description:
       'Indie apps and web tools built on philosophical frameworks — from the Norse world tree to Buddhist impermanence. Each tool is named after the concept it embodies.',
-    pills: [
-      { label: 'All Apps', href: '#apps', icon: '↓' },
-      { label: 'Build in Public', href: 'https://x.com/screenseiji', icon: '↗' },
-    ],
+    cta: { label: 'Try the apps', href: '#apps' },
+  },
+  {
+    icon: '🎮',
+    step: 'Rest',
+    title: 'Mindful Gaming',
+    description:
+      'Games are maps for living — not escapism. Cozy gaming as rest, restoration, and spiritual practice.',
+    cta: { label: 'Hang out', href: 'https://www.tiktok.com/@screenseiji' },
   },
 ]
+
+// ─── Tarot readings ────────────────────────────────────────────────────────
+// Async packages go through a native intake form (emailed to Isa via
+// /api/reading), then the client is sent to the package's Stripe Payment Link.
+
+export type IntakePackageId = 'written' | 'video'
+
+export interface IntakePackage {
+  id: IntakePackageId
+  eyebrow: string
+  title: string
+  description: string
+  /** Short facts shown under the description. */
+  details: string[]
+  cta: string
+  price: string
+  priceUnit: string
+  /** Stripe Payment Link. While null, the confirmation says Isa will follow up by email. */
+  paymentUrl: string | null
+  /** Whether the intake form asks "Anything Isa should know?" */
+  notesField: boolean
+}
+
+export const intakePackages: Record<IntakePackageId, IntakePackage> = {
+  written: {
+    id: 'written',
+    eyebrow: 'Async · Written',
+    title: 'Written reading',
+    description: 'Isa answers your question in writing within 48 hours.',
+    details: ['A spread of 3–7 cards', 'Delivered within 48 hours'],
+    cta: 'Order a written reading',
+    price: '$10',
+    priceUnit: 'per spread',
+    paymentUrl: 'https://buy.stripe.com/5kQ28q41I2ZK70GaxO8EM02',
+    notesField: true,
+  },
+  video: {
+    id: 'video',
+    eyebrow: 'Async · Recorded',
+    title: 'Recorded video reading',
+    description: 'A personal video reading, recorded for you and delivered within 48 hours.',
+    details: ['About 5 minutes of video', 'Delivered within 48 hours'],
+    cta: 'Order a video reading',
+    price: '$18',
+    priceUnit: 'per spread',
+    paymentUrl: 'https://buy.stripe.com/6oUeVc8hYasc0Ci49q8EM03',
+    notesField: false,
+  },
+}
+
+// Live readings are requested natively on the site (/api/booking): the client
+// picks a format, a length and an open slot; Isa confirms by replying.
+
+export type LiveFormat = 'voice' | 'video' | 'vr'
+export type LiveTierId = '15' | '30' | '45'
+
+export interface LiveTier {
+  id: LiveTierId
+  label: string
+  price: string
+  /** How long the slot holds on the calendar. */
+  blockMinutes: number
+  /** Stripe Payment Link. While null, Isa sends payment details when she confirms. */
+  paymentUrl: string | null
+}
+
+/** [start, end) in 24h "HH:MM", wall-clock time in `availability.timeZone`. */
+export type TimeRange = [string, string]
+
+export const liveReading = {
+  eyebrow: 'Live · You pick the format',
+  title: 'Live reading',
+  description: 'A reading in real time, together. The format is yours to choose.',
+  formats: [
+    { id: 'voice' as LiveFormat, label: 'Voice call' },
+    { id: 'video' as LiveFormat, label: 'Video call' },
+    { id: 'vr' as LiveFormat, label: 'VR experience' },
+  ],
+  tiers: [
+    { id: '15', label: '15 min', price: '$25', blockMinutes: 15, paymentUrl: 'https://buy.stripe.com/6oU9AS0Pw9o85WC9tK8EM04' },
+    { id: '30', label: '30 min', price: '$35', blockMinutes: 30, paymentUrl: 'https://buy.stripe.com/14A00igOu8k41GmbBS8EM05' },
+    { id: '45', label: '45+ min', price: '$50', blockMinutes: 60, paymentUrl: 'https://buy.stripe.com/fZu9AS2XE6bW1GmgWc8EM06' },
+  ] as LiveTier[],
+  availability: {
+    // Taken from Isa's Mac (Eastern). Change here if readings run on another clock.
+    timeZone: 'America/New_York',
+    // Keyed by day of week, 0 = Sunday … 6 = Saturday. A slot must end by the range end.
+    weekly: {
+      0: [['13:00', '18:00']],
+      1: [['13:00', '18:00']],
+      2: [['13:00', '18:00']],
+      3: [['13:00', '18:00']],
+      4: [['12:00', '16:00']],
+      5: [['12:00', '16:00']],
+      6: [['13:00', '18:00']],
+    } as Record<number, TimeRange[]>,
+    slotStepMinutes: 30,
+    minNoticeHours: 24,
+    daysAhead: 21,
+  },
+}
+
+export type AppStatus = 'beta' | 'lab'
+
+export const appStatusLabel: Record<AppStatus, string> = {
+  beta: 'In beta — join the waitlist',
+  lab: 'In the lab',
+}
 
 export interface AppNode {
   id: string
   name: string
   concept: string
-  href: string
-  status: 'live' | 'in-dev'
+  /** Omitted while there's nothing public to open yet. */
+  href?: string
+  /** 'beta' marks the flagship; everything else is still in the lab. */
+  status: AppStatus
   x: number
   y: number
   r: number
   nameLines: string[]
-  /** Overrides the status colour to single a node out. */
-  accent?: string
   /** Draw the label above the node instead of below (used for the star's apex). */
   labelAbove?: boolean
 }
 
 // The five nodes sit on the points of a star (a pentagram widened to fill the
-// 800×430 viewBox): apex at top, then clockwise. Arcana takes the apex.
+// 800×430 viewBox): apex at top, then clockwise. Yggdrasil, the flagship,
+// takes the apex.
 export const apps: AppNode[] = [
   {
     id: 'yggdrasil',
     name: 'Yggdrasil',
     concept: 'The Norse world tree · journaling',
     href: 'https://yggdrasil-journal.lovable.app',
-    status: 'live',
-    x: 115, y: 176, r: 12,
+    status: 'beta',
+    x: 400, y: 67, r: 16,
     nameLines: ['Yggdrasil'],
+    labelAbove: true,
   },
   {
     id: 'anicca',
     name: 'Anicca',
     concept: 'Buddhist impermanence · iOS mood & energy journal',
     href: '/apps/anicca',
-    status: 'live',
-    x: 685, y: 176, r: 14,
+    status: 'lab',
+    x: 685, y: 176, r: 13,
     nameLines: ['Anicca'],
   },
   {
@@ -81,18 +187,15 @@ export const apps: AppNode[] = [
     name: 'Arcana',
     concept: 'The mysteries · iOS tarot journal',
     href: '/apps/arcana',
-    status: 'live',
-    x: 400, y: 67, r: 14,
+    status: 'lab',
+    x: 115, y: 176, r: 13,
     nameLines: ['Arcana'],
-    accent: '#B385E0',
-    labelAbove: true,
   },
   {
     id: 'kairos',
     name: 'Kairos',
     concept: 'Greek sacred time · scheduling & timing',
-    href: '#',
-    status: 'in-dev',
+    status: 'lab',
     x: 576, y: 353, r: 11,
     nameLines: ['Kairos'],
   },
@@ -100,8 +203,7 @@ export const apps: AppNode[] = [
     id: 'sunya',
     name: 'Sunya',
     concept: 'Buddhist emptiness · cross-platform breathwork',
-    href: '#',
-    status: 'in-dev',
+    status: 'lab',
     x: 224, y: 353, r: 12,
     nameLines: ['Sunya'],
   },
@@ -110,11 +212,11 @@ export const apps: AppNode[] = [
 // Each point links to the two points it is NOT adjacent to — the single stroke
 // that draws a five-pointed star.
 export const constellationEdges: [string, string][] = [
-  ['arcana', 'kairos'],
-  ['kairos', 'yggdrasil'],
-  ['yggdrasil', 'anicca'],
+  ['yggdrasil', 'kairos'],
+  ['kairos', 'arcana'],
+  ['arcana', 'anicca'],
   ['anicca', 'sunya'],
-  ['sunya', 'arcana'],
+  ['sunya', 'yggdrasil'],
 ]
 
 export interface AppLinks {
@@ -157,7 +259,6 @@ export const socialLinks = {
     { label: 'Apple Podcasts', handle: "Seeker's Soliloquy", href: 'https://podcasts.apple.com/us/podcast/seekers-soliloquy/id1818254857' },
   ],
   shop: [
-    { label: 'Etsy', handle: 'ScreenSageStudios', href: 'https://etsy.com/shop/ScreenSageStudios' },
     { label: 'Gumroad', handle: 'screenseiji', href: 'https://screenseiji.gumroad.com/' },
     { label: 'Ko-fi', handle: 'screenseiji', href: 'https://ko-fi.com/screenseiji' },
   ],
@@ -165,6 +266,25 @@ export const socialLinks = {
     { label: 'App Hub', handle: 'screenseiji.vercel.app', href: 'https://screenseiji.vercel.app/' },
   ],
 }
+
+// Client web work — deliberately kept apart from the Screen Sage brand.
+export const studio = {
+  featured: {
+    name: 'The Formless Guide',
+    href: 'https://theformlessguide.vercel.app/' as string | null,
+  },
+  // TODO(Bel): paste your web services page URL. Falls back to #contact until set.
+  servicesUrl: null as string | null,
+}
+
+export const contactCategories = [
+  'General question',
+  'Tarot reading inquiry',
+  'Collaboration',
+  'Client/project inquiry',
+] as const
+
+export type ContactCategory = (typeof contactCategories)[number]
 
 export const gatedLinks = [
   { label: 'GitHub', href: 'https://github.com/astrayama' },

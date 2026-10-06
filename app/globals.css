@@ -90,7 +90,7 @@ body {
 
 ::selection { background: rgba(201,148,60,0.25); }
 
-::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar { width: 4px; height: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: #1C2438; border-radius: 2px; }
 
@@ -139,6 +139,9 @@ body {
 }
 
 .shake { animation: shake 0.4s ease; }
+
+/* Lock page scroll behind an open modal dialog (tarot intake forms). */
+html:has(dialog[open]) { overflow: hidden; }
 
 /* Responsive font-size bump triggered by AccessibilityPanel */
 .font-lg body { font-size: 18px; }
