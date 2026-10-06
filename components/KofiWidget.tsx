@@ -10,18 +10,18 @@ type KofiWindow = Window & {
 
 export default function KofiWidget() {
   const pathname = usePathname()
-  // Keep the floating donate button off the Arcana app pages —
-  // they're App Store product/support URLs.
-  const onArcana = pathname?.startsWith('/apps/arcana') ?? false
+  // Keep the floating donate button off the app pages (/apps/arcana,
+  // /apps/anicca, …) — they're App Store product/support URLs.
+  const onAppPage = pathname?.startsWith('/apps/') ?? false
 
   // Ko-fi injects its overlay outside React (and possibly after this effect
   // runs, if the CDN script is still loading), so hide it declaratively via a
   // body attribute + CSS rule in globals.css rather than touching its DOM.
   useEffect(() => {
-    document.body.toggleAttribute('data-hide-kofi', onArcana)
-  }, [onArcana])
+    document.body.toggleAttribute('data-hide-kofi', onAppPage)
+  }, [onAppPage])
 
-  if (onArcana) return null
+  if (onAppPage) return null
 
   return (
     <Script
