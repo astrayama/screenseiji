@@ -37,7 +37,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${spaceGrotesk.variable}`} suppressHydrationWarning>
+    // data-scroll-behavior: Next turns off the CSS smooth scroll while it changes
+    // pages, so a <Link> lands at the new page's top instead of gliding there.
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      className={`${cormorant.variable} ${spaceGrotesk.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         <Script
           async
