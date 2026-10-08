@@ -158,3 +158,41 @@ body[data-hide-kofi] .floatingchat-container-wrap,
 body[data-hide-kofi] .floatingchat-container-wrap-mobi {
   display: none !important;
 }
+
+/* ─── Side Quests ────────────────────────────────────── */
+/* A framed quest-log card: a faint inner gold rule, like a page in a journal. */
+.quest-card { position: relative; }
+.quest-card::after {
+  content: '';
+  position: absolute;
+  inset: 7px;
+  border: 1px solid rgba(201,148,60,0.1);
+  border-radius: calc(1.5rem - 7px);
+  pointer-events: none;
+}
+
+/* A post-it in a quest's color (set --postit). CSS-only paper: a light sheen,
+   faint fibres, a curl at the bottom and a dog-eared corner. --tilt rotates it. */
+.postit {
+  --fold: 9px;
+  position: relative;
+  background-color: var(--postit);
+  background-image:
+    linear-gradient(225deg, rgba(7,9,15,0.55) 0 calc(var(--fold) * 0.7), rgba(0,0,0,0.22) calc(var(--fold) * 0.7) var(--fold), transparent var(--fold)),
+    linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 42%),
+    linear-gradient(to bottom, transparent 65%, rgba(0,0,0,0.09)),
+    repeating-linear-gradient(115deg, rgba(0,0,0,0.028) 0 1px, transparent 1px 4px),
+    repeating-linear-gradient(25deg, rgba(255,255,255,0.05) 0 1px, transparent 1px 5px);
+  box-shadow:
+    0 1px 1px rgba(0,0,0,0.3),
+    0 8px 14px -6px rgba(0,0,0,0.6);
+  transform: rotate(var(--tilt, 0deg));
+}
+.postit-mini { --fold: 5px; }
+@media (prefers-reduced-motion: no-preference) {
+  .postit { transition: transform 0.25s ease, box-shadow 0.25s ease; }
+  .postit-lift:hover {
+    transform: rotate(0deg) translateY(-2px);
+    box-shadow: 0 1px 1px rgba(0,0,0,0.3), 0 14px 20px -8px rgba(0,0,0,0.65);
+  }
+}
