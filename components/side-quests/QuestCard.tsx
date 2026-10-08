@@ -1,7 +1,7 @@
 import { ArrowUpRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import type { Quest, QuestStatus } from '@/lib/side-quests/parse'
-import { formatMediumDate } from '@/lib/side-quests/display'
+import { formatMediumDate, localHref } from '@/lib/side-quests/display'
 import InlineText from './InlineText'
 
 const STATUS: Record<QuestStatus, { label: string; className: string }> = {
@@ -59,20 +59,26 @@ export default function QuestCard({ quest }: { quest: Quest }) {
         )}
       </dl>
 
-      {quest.link && (
-        // mt-auto pins the button to the card's bottom so it lines up across the row.
-        <div className="mt-auto pt-7">
-          <a
-            href={quest.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 rounded-full border border-gold/40 px-4 py-2 text-sm font-medium text-gold transition-all hover:border-gold hover:bg-gold/10"
-          >
-            View project
-            <ArrowUpRight size={15} aria-hidden />
-          </a>
-        </div>
-      )}
+      {quest.link && <ProjectLink link={quest.link} />}
     </article>
+  )
+}
+
+// Pages on this site (e.g. /apps/arcana) open in place; everything else in a new tab.
+function ProjectLink({ link }: { link: string }) {
+  const local = localHref(link)
+  return (
+    // mt-auto pins the button to the card's bottom so it lines up across the row.
+    <div className="mt-auto pt-7">
+      <a
+        href={local ?? link}
+        target={local ? undefined : '_blank'}
+        rel={local ? undefined : 'noopener noreferrer'}
+        className="inline-flex items-center gap-1.5 rounded-full border border-gold/40 px-4 py-2 text-sm font-medium text-gold transition-all hover:border-gold hover:bg-gold/10"
+      >
+        View project
+        {!local && <ArrowUpRight size={15} aria-hidden />}
+      </a>
+    </div>
   )
 }

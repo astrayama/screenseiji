@@ -13,8 +13,13 @@ import Sanctum from '@/components/sections/Sanctum'
 import Contact from '@/components/sections/Contact'
 import Studio from '@/components/sections/Studio'
 import SiteFooter from '@/components/SiteFooter'
+import SideQuestsBanner from '@/components/sections/SideQuestsBanner'
+import { loadSideQuests } from '@/lib/side-quests/load'
+import { activeByRecency } from '@/lib/side-quests/parse'
 
 export default function Home() {
+  const { tagline, quests } = loadSideQuests()
+
   return (
     <>
       <SparkleBackground />
@@ -27,6 +32,8 @@ export default function Home() {
         <ContentFeed />
         <Tarot />
         <AppConstellation />
+        {/* What's being built right now — the way into /side-quests */}
+        <SideQuestsBanner tagline={tagline} quests={activeByRecency(quests)} />
         <Shop />
         <Philosophy />
         <ConnectLinks />

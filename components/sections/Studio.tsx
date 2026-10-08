@@ -8,6 +8,7 @@ import { track } from '@/lib/track'
 import { cn } from '@/lib/utils'
 import BrandMark from '@/components/BrandMark'
 import Modal from '@/components/Modal'
+import Marquee from '@/components/Marquee'
 import ProjectInquiryForm from '@/components/studio/ProjectInquiryForm'
 import { NEUTRAL_BUTTON } from '@/components/formStyles'
 
@@ -19,42 +20,6 @@ const OUTLINE_BUTTON =
   'inline-flex items-center gap-1.5 rounded-full border border-white/15 px-4 py-2.5 text-sm text-foreground/85 transition-colors hover:border-white/35 hover:text-foreground'
 const MONO_LABEL = 'font-mono text-[10px] uppercase tracking-[0.2em] text-foreground/50'
 const BOX = 'rounded-lg border border-white/10 bg-background/40 p-5'
-
-function MarqueeList({ items, hidden }: { items: string[]; hidden?: boolean }) {
-  return (
-    <ul aria-hidden={hidden || undefined} className="flex shrink-0 items-center">
-      {items.map(item => (
-        <li key={item} className="flex items-center gap-8 pr-8">
-          <span className="whitespace-nowrap">{item}</span>
-          <span aria-hidden className="text-foreground/25">/</span>
-        </li>
-      ))}
-    </ul>
-  )
-}
-
-function Marquee({ items }: { items: string[] }) {
-  const { reduced } = useMotionPreference()
-  const text = 'font-mono text-[11px] uppercase tracking-[0.2em] text-foreground/50'
-
-  if (reduced) {
-    return (
-      <ul className={cn('mx-auto flex max-w-7xl flex-wrap gap-x-6 gap-y-2 px-5 sm:px-8', text)}>
-        {items.map(item => <li key={item}>{item}</li>)}
-      </ul>
-    )
-  }
-
-  return (
-    <div className={cn('group overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]', text)}>
-      {/* Two identical copies; the second is decorative so the list is read once. */}
-      <div className="flex w-max animate-marquee group-hover:[animation-play-state:paused]">
-        <MarqueeList items={items} />
-        <MarqueeList items={items} hidden />
-      </div>
-    </div>
-  )
-}
 
 function WorkCard({ name, kind, description, href }: StudioWork) {
   const external = href?.startsWith('http')
@@ -136,7 +101,10 @@ export default function Studio() {
       </div>
 
       <div className="pb-8">
-        <Marquee items={studio.marquee} />
+        <Marquee
+          items={studio.marquee.map(item => ({ key: item, content: item }))}
+          className="font-mono text-[11px] uppercase tracking-[0.2em] text-foreground/50"
+        />
       </div>
 
       {/* Details — grid-rows 0fr→1fr animates to the content's natural height.

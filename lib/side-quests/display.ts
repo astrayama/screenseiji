@@ -206,6 +206,14 @@ export function noteColors(hex: string): { paper: string; text: '#10131C' } {
   return { paper: '#ffffff', text: DARK_TEXT }
 }
 
+const SITE_HOST = 'screenseiji.vercel.app'
+
+/** A quest link to this site as an in-site path (opened in the same tab), else undefined. */
+export function localHref(link: string): string | undefined {
+  const url = new URL(link)
+  return url.hostname === SITE_HOST ? `${url.pathname}${url.search}${url.hash}` : undefined
+}
+
 const TILTS = [-2.5, 1.5, -1, 2.5, -2, 1]
 
 /** A post-it's rotation in degrees: stable per date, and neighbors never match. */
