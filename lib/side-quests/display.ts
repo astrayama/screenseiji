@@ -162,24 +162,48 @@ export function groupByQuest(entries: DayEntry[]): { quest: string; color: strin
 }
 
 const DARK_TEXT = '#10131C'
-const LIGHT_TEXT = '#FFFFFF'
 
-function luminance(hex: string): number {
+function channels(hex: string): number[] {
   const h = hex.replace('#', '')
   const full = h.length === 3 ? [...h].map(c => c + c).join('') : h
-  const [r, g, b] = [0, 2, 4].map(i => {
-    const c = parseInt(full.slice(i, i + 2), 16) / 255
+  return [0, 2, 4].map(i => parseInt(full.slice(i, i + 2), 16))
+}
+
+function luminance(hex: string): number {
+  const [r, g, b] = channels(hex).map(v => {
+    const c = v / 255
     return c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4
   })
   return 0.2126 * r + 0.7152 * g + 0.0722 * b
 }
 
-/** Whichever of dark or white text has more WCAG contrast on `hex`. */
-export function textColorOn(hex: string): '#10131C' | '#FFFFFF' {
-  const bg = luminance(hex)
-  const onDark = (bg + 0.05) / (luminance(DARK_TEXT) + 0.05)
-  const onLight = 1.05 / (bg + 0.05)
-  return onDark >= onLight ? DARK_TEXT : LIGHT_TEXT
+/** WCAG contrast ratio between two colors (1–21). */
+export function contrastRatio(a: string, b: string): number {
+  const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x)
+  return (hi + 0.05) / (lo + 0.05)
+}
+
+/** Mixes `amount` (0–1) of `with` into `hex`, in sRGB. */
+export function mixColors(hex: string, withHex: string, amount: number): string {
+  const a = channels(hex)
+  const b = channels(withHex)
+  return `#${a.map((v, i) => Math.round(v + (b[i] - v) * amount).toString(16).padStart(2, '0')).join('')}`
+}
+
+/**
+ * Paper and ink for a post-it that carries text. Quest colors are Bel's choice,
+ * so the paper is lightened just enough for dark ink to stay at WCAG AA (4.5:1)
+ * even where the paper curls darker (12% shade). The sheen only lightens, which
+ * helps dark ink, so it needs no allowance.
+ */
+export function noteColors(hex: string): { paper: string; text: '#10131C' } {
+  for (let step = 0; step <= 20; step++) {
+    const paper = mixColors(hex, '#ffffff', step / 20)
+    if (contrastRatio(DARK_TEXT, mixColors(paper, '#000000', 0.12)) >= 4.5) {
+      return { paper: step === 0 ? hex.toLowerCase() : paper, text: DARK_TEXT }
+    }
+  }
+  return { paper: '#ffffff', text: DARK_TEXT }
 }
 
 const TILTS = [-2.5, 1.5, -1, 2.5, -2, 1]

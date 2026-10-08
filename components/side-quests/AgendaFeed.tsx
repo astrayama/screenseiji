@@ -47,7 +47,7 @@ export default function AgendaFeed({ entriesByDate, today }: Props) {
                     {day.entries.map((entry, i) => (
                       <li key={i}>
                         <PostIt variant="note" color={entry.color} tilt={tilt(day.date, i) * 0.4}>
-                          <p className="text-[10px] font-semibold uppercase tracking-[0.18em] opacity-75">{entry.quest}</p>
+                          <p className="text-[10px] font-semibold uppercase tracking-[0.18em]">{entry.quest}</p>
                           <p className="mt-1 text-sm leading-6">
                             <InlineText text={entry.text} />
                           </p>
