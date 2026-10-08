@@ -12,7 +12,7 @@ import ConnectLinks from '@/components/sections/ConnectLinks'
 import Sanctum from '@/components/sections/Sanctum'
 import Contact from '@/components/sections/Contact'
 import Studio from '@/components/sections/Studio'
-import BrandMark from '@/components/BrandMark'
+import SiteFooter from '@/components/SiteFooter'
 
 export default function Home() {
   return (
@@ -33,12 +33,7 @@ export default function Home() {
         <Sanctum />
         <Contact />
       </main>
-      <footer className="border-t border-white/5 py-8 text-center">
-        <BrandMark height={22} className="mx-auto mb-3 opacity-80" />
-        <p className="text-xs text-muted/40">
-          © {new Date().getFullYear()} • made with ❤︎ by Screen Sage Studios · @screenseiji
-        </p>
-      </footer>
+      <SiteFooter />
       <AccessibilityPanel />
     </>
   )
