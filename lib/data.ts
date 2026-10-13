@@ -172,12 +172,24 @@ export const appStatusLabel: Record<AppStatus, string> = {
   lab: 'In the lab',
 }
 
+/** A labelled link, for apps with more than one public version. */
+export interface LabeledLink {
+  label: string
+  href: string
+}
+
 export interface AppNode {
   id: string
   name: string
   concept: string
+  /** One or two sentences on what it does — the /apps directory and llms.txt. */
+  summary: string
+  /** Where it runs, in plain words. */
+  platform: string
   /** Omitted while there's nothing public to open yet. */
   href?: string
+  /** Every public version, labelled, when there's more than one (href is the primary). */
+  links?: LabeledLink[]
   status: AppStatus
   /** Specific status line, e.g. how to get into the beta. Defaults to appStatusLabel. */
   statusNote?: string
@@ -197,6 +209,10 @@ export function appStatusText(app: AppNode) {
   return app.statusNote ?? appStatusLabel[app.status]
 }
 
+// Yggdrasil has two public versions: the MVP and v1, still in development.
+const YGGDRASIL_MVP = 'https://yggdrasil-journal.lovable.app'
+const YGGDRASIL_V1 = 'https://yggdrasil-dev-168739896450.us-central1.run.app'
+
 // The seven nodes sit on the points of a seven-pointed star (a {7/3} heptagram
 // on an ellipse centred at 400,221 with radii 340×154, widened to fill the
 // 800×430 viewBox): apex at top, then clockwise. Yggdrasil, the flagship, takes
@@ -207,7 +223,14 @@ export const apps: AppNode[] = [
     id: 'yggdrasil',
     name: 'Yggdrasil',
     concept: 'The Norse world tree · journaling',
-    href: 'https://yggdrasil-journal.lovable.app',
+    summary:
+      'An AI-powered journal that shows you the shape of your own growth: an emotion timeline, a Living Tree where values and goals grow as branches, and hidden connections between entries.',
+    platform: 'Web',
+    href: YGGDRASIL_MVP,
+    links: [
+      { label: 'MVP', href: YGGDRASIL_MVP },
+      { label: 'v1 (in development)', href: YGGDRASIL_V1 },
+    ],
     status: 'beta',
     statusNote: 'In beta — join the waitlist',
     flagship: true,
@@ -219,6 +242,9 @@ export const apps: AppNode[] = [
     id: 'arcana',
     name: 'Arcana',
     concept: 'The mysteries · iOS tarot journal',
+    summary:
+      'A warm, quiet tarot journal for iPhone: log every pull and spread in seconds, with meaning hints for all 78 cards.',
+    platform: 'iPhone',
     href: '/apps/arcana',
     status: 'beta',
     statusNote: 'In beta — try it on TestFlight',
@@ -230,6 +256,9 @@ export const apps: AppNode[] = [
     id: 'cartaluna',
     name: 'Carta Luna',
     concept: 'Card of the moon · mixed-reality tarot on Meta Quest',
+    summary:
+      'A mixed-reality tarot table for Meta Quest 3: shuffle with your hands, read in a night-sky sanctum, and share readings with others in the room.',
+    platform: 'Meta Quest',
     href: 'https://cartaluna-mr.vercel.app',
     status: 'beta',
     statusNote: 'In beta — try it on Meta Quest',
@@ -241,6 +270,8 @@ export const apps: AppNode[] = [
     id: 'lumenwright',
     name: 'Lumenwright',
     concept: 'Maker of light · VR & AR',
+    summary: 'A hand-tracked VR & AR experiment asking whether willpower can be a game mechanic.',
+    platform: 'VR & AR',
     href: 'https://lumenwright-nu.vercel.app',
     status: 'beta',
     statusNote: 'In beta — try it in VR & AR',
@@ -252,6 +283,9 @@ export const apps: AppNode[] = [
     id: 'anicca',
     name: 'Anicca',
     concept: 'Buddhist impermanence · iOS mood & energy journal',
+    summary:
+      'A calm mood & energy journal for iPhone: name how you feel and see it across seven energy centers, from Root to Crown.',
+    platform: 'iPhone',
     href: '/apps/anicca',
     status: 'lab',
     x: 666, y: 125, r: 13,
@@ -261,6 +295,8 @@ export const apps: AppNode[] = [
     id: 'kairos',
     name: 'Kairos',
     concept: 'Greek sacred time · scheduling & timing',
+    summary: 'A tool for scheduling and timing, named for the Greek idea of the right moment.',
+    platform: 'Platform TBA',
     status: 'lab',
     x: 548, y: 360, r: 11,
     nameLines: ['Kairos'],
@@ -269,6 +305,8 @@ export const apps: AppNode[] = [
     id: 'sunya',
     name: 'Sunya',
     concept: 'Buddhist emptiness · cross-platform breathwork',
+    summary: 'Cross-platform breathwork, named for the Buddhist idea of emptiness.',
+    platform: 'Cross-platform',
     status: 'lab',
     x: 252, y: 360, r: 12,
     nameLines: ['Sunya'],
@@ -287,31 +325,48 @@ export const constellationEdges: [string, string][] = [
   ['sunya', 'yggdrasil'],
 ]
 
+export interface SocialLink {
+  label: string
+  handle: string
+  href: string
+  /** A profile that is this brand, as opposed to an invite or a page on this site. */
+  profile?: boolean
+}
+
 export const socialLinks = {
   content: [
-    { label: 'YouTube', handle: '@screenseiji', href: 'https://www.youtube.com/@screenseiji' },
-    { label: 'TikTok', handle: '@screenseiji', href: 'https://www.tiktok.com/@screenseiji' },
-    { label: 'Instagram', handle: '@screenseiji', href: 'https://instagram.com/screenseiji' },
-    { label: 'Threads', handle: '@screenseiji', href: 'https://threads.net/@screenseiji' },
-    { label: 'X / Twitter', handle: '@screenseiji', href: 'https://x.com/screenseiji' },
+    { label: 'YouTube', handle: '@screenseiji', href: 'https://www.youtube.com/@screenseiji', profile: true },
+    { label: 'TikTok', handle: '@screenseiji', href: 'https://www.tiktok.com/@screenseiji', profile: true },
+    { label: 'Instagram', handle: '@screenseiji', href: 'https://instagram.com/screenseiji', profile: true },
+    { label: 'Threads', handle: '@screenseiji', href: 'https://threads.net/@screenseiji', profile: true },
+    { label: 'X / Twitter', handle: '@screenseiji', href: 'https://x.com/screenseiji', profile: true },
     { label: 'Discord', handle: 'Join Community', href: 'https://discord.gg/2rFyT6nskc' },
   ],
   listen: [
-    { label: 'Spotify', handle: "Seeker's Soliloquy", href: 'https://open.spotify.com/show/2w5Gt1BLDsrcSjDyVIdbow' },
-    { label: 'Apple Podcasts', handle: "Seeker's Soliloquy", href: 'https://podcasts.apple.com/us/podcast/seekers-soliloquy/id1818254857' },
+    { label: 'Spotify', handle: "Seeker's Soliloquy", href: 'https://open.spotify.com/show/2w5Gt1BLDsrcSjDyVIdbow', profile: true },
+    { label: 'Apple Podcasts', handle: "Seeker's Soliloquy", href: 'https://podcasts.apple.com/us/podcast/seekers-soliloquy/id1818254857', profile: true },
   ],
   shop: [
-    { label: 'Gumroad', handle: 'screenseiji', href: 'https://screenseiji.gumroad.com/' },
-    { label: 'Ko-fi', handle: 'screenseiji', href: 'https://ko-fi.com/screenseiji' },
+    { label: 'Gumroad', handle: 'screenseiji', href: 'https://screenseiji.gumroad.com/', profile: true },
+    { label: 'Ko-fi', handle: 'screenseiji', href: 'https://ko-fi.com/screenseiji', profile: true },
   ],
   tools: [
-    { label: 'App Hub', handle: 'screenseiji.vercel.app', href: 'https://screenseiji.vercel.app/' },
+    { label: 'App Hub', handle: 'All seven apps', href: '/apps' },
   ],
-}
+} satisfies Record<string, SocialLink[]>
+
+/**
+ * The public profiles that are this brand — search engines read them as the
+ * same entity (structured data sameAs, rel="me"). Invites like Discord aren't.
+ */
+export const profileLinks = Object.values(socialLinks)
+  .flat()
+  .filter((link: SocialLink) => link.profile)
 
 // ─── Studio: client web work ───────────────────────────────────────────────
-// Deliberately kept apart from the Screen Sage brand. Leads come in through the
-// project form (/api/project), which emails Isa.
+// Websites for small businesses, offered by Screen Sage Studios — styled apart
+// from the brand sections, but part of it (and of its SEO: see /websites).
+// Leads come in through the project form (/api/project), which emails Isa.
 
 export interface StudioWork {
   name: string
@@ -319,6 +374,8 @@ export interface StudioWork {
   description: string
   /** Omitted when the piece is the page you're already on. */
   href?: string
+  /** Extra labelled versions, shown under the description. */
+  links?: LabeledLink[]
 }
 
 export const studio = {
@@ -377,7 +434,11 @@ export const studio = {
       name: 'Yggdrasil',
       kind: 'My own product',
       description: 'A journaling web app with interactive visualizations and AI insights.',
-      href: 'https://yggdrasil-journal.lovable.app',
+      href: YGGDRASIL_MVP,
+      links: [
+        { label: 'MVP', href: YGGDRASIL_MVP },
+        { label: 'v1', href: YGGDRASIL_V1 },
+      ],
     },
   ] as StudioWork[],
   process: [
@@ -422,11 +483,6 @@ export const contactCategories = [
 ] as const
 
 export type ContactCategory = (typeof contactCategories)[number]
-
-export const gatedLinks = [
-  { label: 'GitHub', href: 'https://github.com/astrayama' },
-  { label: 'Devpost', href: 'https://devpost.com/isabiiil' },
-]
 
 export const philosophyItems = [
   {

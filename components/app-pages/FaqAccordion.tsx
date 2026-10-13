@@ -1,11 +1,10 @@
 'use client'
 
 import { useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
 import { useInView } from '@/hooks/useInView'
-import { useMotionPreference } from '@/hooks/useMotionPreference'
 import { cn } from '@/lib/utils'
 import type { FaqItem } from '@/lib/app-content'
+import Collapsible from '@/components/Collapsible'
 
 /** Theme hooks for each app's skin; behaviour and layout stay shared. */
 export interface FaqAccordionClasses {
@@ -38,7 +37,6 @@ function FaqPanel({
 }: Omit<FaqAccordionProps, 'items'> & { item: FaqItem; index: number }) {
   const [open, setOpen] = useState(index === 0)
   const { ref, inView } = useInView<HTMLDivElement>()
-  const { reduced } = useMotionPreference()
   const panelId = `${idPrefix}-${index}`
 
   return (
@@ -75,21 +73,10 @@ function FaqPanel({
         </span>
       </button>
 
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            key="content"
-            id={panelId}
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: reduced ? 0 : 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="overflow-hidden"
-          >
-            <p className={classes.answer}>{item.a}</p>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Always in the HTML, collapsed or not, so every answer can be indexed */}
+      <Collapsible id={panelId} open={open}>
+        <p className={classes.answer}>{item.a}</p>
+      </Collapsible>
     </div>
   )
 }

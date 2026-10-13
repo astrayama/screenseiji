@@ -40,23 +40,29 @@ export default function Hero() {
         initial={reduced ? false : 'hidden'}
         animate="show"
       >
-        {/* Eyebrow */}
-        <motion.p
-          variants={item}
-          className="mb-6 text-xs font-semibold uppercase tracking-[0.28em] text-gold"
-        >
-          Screen Sage
-        </motion.p>
+        {/* One h1 for the brand and the tagline, so the page's main heading
+            names it. A plain h1: the spans still take their place in the
+            container's stagger, since variants pass through plain elements. */}
+        <h1>
+          {/* Eyebrow */}
+          <motion.span
+            variants={item}
+            className="mb-6 block text-xs font-semibold uppercase tracking-[0.28em] text-gold"
+          >
+            Screen Sage
+          </motion.span>
+          <span className="sr-only"> — </span>
 
-        {/* Main tagline */}
-        <motion.h1
-          variants={item}
-          className="font-display font-light leading-[1.08] text-foreground text-glow-gold"
-          style={{ fontSize: 'clamp(2.6rem, 7vw, 5.5rem)' }}
-        >
-          Where spirituality,<br className="hidden sm:block" />{' '}
-          science, and story collide.
-        </motion.h1>
+          {/* Main tagline */}
+          <motion.span
+            variants={item}
+            className="block font-display font-light leading-[1.08] text-foreground text-glow-gold"
+            style={{ fontSize: 'clamp(2.6rem, 7vw, 5.5rem)' }}
+          >
+            Where spirituality,<br className="hidden sm:block" />{' '}
+            science, and story collide.
+          </motion.span>
+        </h1>
 
         {/* Subtitle */}
         <motion.p

@@ -1,5 +1,5 @@
 // Live ET clock badge for the GitHub profile README.
-// Served at https://screenseiji.vercel.app/api/clock — renders the current
+// Served at /api/clock on the live site — renders the current
 // America/New_York time as a shields-style SVG badge on every request.
 // GitHub's image proxy refreshes it about once a minute (see Cache-Control).
 

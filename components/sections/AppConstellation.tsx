@@ -121,35 +121,38 @@ export default function AppConstellation() {
               )
             })}
 
-            {/* Nodes */}
+            {/* Nodes — real SVG links, so crawlers and keyboards can follow them */}
             {apps.map(app => {
               const isHovered = hovered === app.id
               const isFlagship = !!app.flagship
               const { href } = app
               const accent = nodeAccent(app)
-              const activate = () => {
-                if (!href) return
-                if (isExternal(href)) window.open(href, '_blank')
-                else router.push(href)
+              const external = !!href && isExternal(href)
+              const hover = {
+                'aria-label': `${app.name} — ${app.concept} (${appStatusText(app)})`,
+                onFocus: () => setHovered(app.id),
+                onBlur: () => setHovered(null),
+                onMouseEnter: () => setHovered(app.id),
+                onMouseLeave: () => setHovered(null),
               }
+              const Node = href ? 'a' : 'g'
               return (
-                <g
+                <Node
                   key={app.id}
                   className={href ? 'cursor-pointer' : 'cursor-default'}
-                  role={href ? 'link' : undefined}
-                  tabIndex={href ? 0 : undefined}
-                  aria-label={`${app.name} — ${app.concept} (${appStatusText(app)})`}
-                  onClick={activate}
-                  onKeyDown={e => {
-                    if (e.key === 'Enter' || e.key === ' ') {
+                  {...(href && {
+                    href,
+                    target: external ? '_blank' : undefined,
+                    rel: external ? 'noreferrer' : undefined,
+                    // In-site pages go through the client router; modified and
+                    // middle clicks keep the browser's own new-tab behaviour.
+                    onClick: (e: React.MouseEvent) => {
+                      if (external || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return
                       e.preventDefault()
-                      activate()
-                    }
-                  }}
-                  onFocus={() => setHovered(app.id)}
-                  onBlur={() => setHovered(null)}
-                  onMouseEnter={() => setHovered(app.id)}
-                  onMouseLeave={() => setHovered(null)}
+                      router.push(href)
+                    },
+                  })}
+                  {...hover}
                 >
                   {/* Outer glow ring */}
                   <circle
@@ -198,7 +201,7 @@ export default function AppConstellation() {
                       {line}
                     </text>
                   ))}
-                </g>
+                </Node>
               )
             })}
           </svg>
@@ -288,6 +291,15 @@ export default function AppConstellation() {
             </a>
           ))}
         </div>
+
+        <div className="mt-10 text-center">
+          <a
+            href="/apps"
+            className="text-sm font-semibold text-gold transition-colors hover:text-gold-bright"
+          >
+            Explore all seven apps →
+          </a>
+        </div>
       </div>
     </section>
   )
@@ -315,6 +327,21 @@ function FlagshipCard() {
           <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-gold">Flagship</p>
           <h3 className="mt-1 font-display text-3xl font-light text-foreground sm:text-4xl">{FLAGSHIP.name}</h3>
           <p className="mt-1 text-sm text-muted">{FLAGSHIP.concept}</p>
+          {FLAGSHIP.links && (
+            <p className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-xs font-semibold uppercase tracking-[0.12em]">
+              {FLAGSHIP.links.map(link => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-muted transition-colors hover:text-gold-bright"
+                >
+                  {link.label} <span aria-hidden className="opacity-70">↗</span>
+                </a>
+              ))}
+            </p>
+          )}
         </div>
       </div>
       <button

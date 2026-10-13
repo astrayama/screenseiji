@@ -1,5 +1,6 @@
 import { intakePackages, type IntakePackageId } from '@/lib/data'
 import { EMAIL_RE, escapeHtml, sendToIsa, str } from '@/lib/email'
+import { SITE_HOST } from '@/lib/site'
 
 // Intake for async tarot readings. Emails the request to Isa; the browser then
 // sends the client on to the package's Stripe Payment Link.
@@ -78,7 +79,7 @@ export async function POST(request: Request) {
         <p style="margin:20px 0 4px;color:#666">Anything Isa should know</p>
         <div style="white-space:pre-wrap;border-left:3px solid #24BFB2;padding-left:16px">${escapeHtml(clean.notes)}</div>` : ''}
         <p style="margin-top:24px;color:#666">${escapeHtml(paymentNote)}</p>
-        <p style="margin-top:28px;font-size:12px;color:#999">Sent from the tarot intake form at screenseiji.vercel.app — just hit reply.</p>
+        <p style="margin-top:28px;font-size:12px;color:#999">Sent from the tarot intake form at ${SITE_HOST} — just hit reply.</p>
       </div>
     `,
   })

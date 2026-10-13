@@ -58,19 +58,24 @@ export default function AniccaHero() {
           animate="visible"
           style={reduced ? undefined : { opacity: textOpacity }}
         >
-          <motion.p variants={item} className="anicca-eyebrow flex items-center gap-3 text-[13px]">
-            <ChakraDots size={7} gap={4} breathe={!reduced} />
-            {aniccaHero.eyebrow}
-          </motion.p>
+          {/* The app's name and headline share one h1 (a plain one, so both
+              spans keep their place in the stagger). */}
+          <h1>
+            <motion.span variants={item} className="anicca-eyebrow flex items-center gap-3 text-[13px]">
+              <ChakraDots size={7} gap={4} breathe={!reduced} />
+              {aniccaHero.eyebrow}
+            </motion.span>
+            <span className="sr-only"> — </span>
 
-          <motion.h1
-            variants={item}
-            className="mt-5 font-anicca-display text-5xl leading-[1.06] text-anicca-ink sm:text-6xl lg:text-[66px]"
-          >
-            {aniccaHero.headlineTop}
-            <br />
-            <span className="anicca-gtx">{aniccaHero.headlineGradient}</span>
-          </motion.h1>
+            <motion.span
+              variants={item}
+              className="mt-5 block font-anicca-display text-5xl leading-[1.06] text-anicca-ink sm:text-6xl lg:text-[66px]"
+            >
+              {aniccaHero.headlineTop}
+              <br />
+              <span className="anicca-gtx">{aniccaHero.headlineGradient}</span>
+            </motion.span>
+          </h1>
 
           <motion.p variants={item} className="mt-6 max-w-md text-base leading-7 text-anicca-body sm:text-lg sm:leading-8">
             {aniccaHero.sub}

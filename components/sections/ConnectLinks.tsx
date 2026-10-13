@@ -3,7 +3,7 @@
 import { useInView } from '@/hooks/useInView'
 import { cn } from '@/lib/utils'
 import SectionHeading from '@/components/SectionHeading'
-import { socialLinks } from '@/lib/data'
+import { socialLinks, type SocialLink } from '@/lib/data'
 import { ExternalLink } from 'lucide-react'
 
 const CATEGORIES = [
@@ -14,7 +14,7 @@ const CATEGORIES = [
 ]
 
 function CategoryColumn({ cat, index }: { cat: typeof CATEGORIES[number]; index: number }) {
-  const links = socialLinks[cat.key]
+  const links: SocialLink[] = socialLinks[cat.key]
   const { ref, inView } = useInView<HTMLDivElement>()
   return (
     <div
@@ -26,27 +26,33 @@ function CategoryColumn({ cat, index }: { cat: typeof CATEGORIES[number]; index:
         {cat.label}
       </p>
       <div className="flex flex-col gap-2.5">
-        {links.map(link => (
-          <a
-            key={link.label}
-            href={link.href}
-            target="_blank"
-            rel="noreferrer"
-            className={cn(
-              'glass group flex items-center justify-between rounded-2xl px-4 py-3.5 transition-all duration-200',
-              cat.border,
-            )}
-          >
-            <div>
-              <p className="text-sm font-semibold text-foreground">{link.label}</p>
-              <p className="text-[11px] text-muted/70">{link.handle}</p>
-            </div>
-            <ExternalLink
-              size={12}
-              className="shrink-0 text-muted/30 transition-all group-hover:text-muted/70"
-            />
-          </a>
-        ))}
+        {links.map(link => {
+          // Pages on this site (like the app hub) open in place; profiles open in a new tab.
+          const external = !link.href.startsWith('/')
+          return (
+            <a
+              key={link.label}
+              href={link.href}
+              target={external ? '_blank' : undefined}
+              rel={external ? (link.profile ? 'me noreferrer' : 'noreferrer') : undefined}
+              className={cn(
+                'glass group flex items-center justify-between rounded-2xl px-4 py-3.5 transition-all duration-200',
+                cat.border,
+              )}
+            >
+              <div>
+                <p className="text-sm font-semibold text-foreground">{link.label}</p>
+                <p className="text-[11px] text-muted/70">{link.handle}</p>
+              </div>
+              {external && (
+                <ExternalLink
+                  size={12}
+                  className="shrink-0 text-muted/30 transition-all group-hover:text-muted/70"
+                />
+              )}
+            </a>
+          )
+        })}
       </div>
     </div>
   )

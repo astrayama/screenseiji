@@ -1,5 +1,6 @@
 import { budgetRanges, projectTimelines, projectTypes } from '@/lib/data'
 import { EMAIL_RE, escapeHtml, sendToIsa, str } from '@/lib/email'
+import { SITE_HOST } from '@/lib/site'
 
 // Studio project inquiries — website leads from the "Start a project" form.
 // Emailed to Isa only: they're deliberately not saved to Resend Contacts, which
@@ -82,7 +83,7 @@ export async function POST(request: Request) {
             .join('')}
         </table>
         <div style="white-space:pre-wrap;border-left:3px solid #1a1a1a;padding-left:16px">${escapeHtml(clean.message)}</div>
-        <p style="margin-top:28px;font-size:12px;color:#999">Sent from the Studio project form at screenseiji.vercel.app — just hit reply.</p>
+        <p style="margin-top:28px;font-size:12px;color:#999">Sent from the Studio project form at ${SITE_HOST} — just hit reply.</p>
       </div>
     `,
   })

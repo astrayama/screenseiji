@@ -2,6 +2,7 @@ import { ArrowUpRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import type { Quest, QuestStatus } from '@/lib/side-quests/parse'
 import { formatMediumDate, localHref } from '@/lib/side-quests/display'
+import { LOCAL_HOSTS } from '@/lib/site'
 import InlineText from './InlineText'
 
 const STATUS: Record<QuestStatus, { label: string; className: string }> = {
@@ -66,7 +67,7 @@ export default function QuestCard({ quest }: { quest: Quest }) {
 
 // Pages on this site (e.g. /apps/arcana) open in place; everything else in a new tab.
 function ProjectLink({ link }: { link: string }) {
-  const local = localHref(link)
+  const local = localHref(link, LOCAL_HOSTS)
   return (
     // mt-auto pins the button to the card's bottom so it lines up across the row.
     <div className="mt-auto pt-7">

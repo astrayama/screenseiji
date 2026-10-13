@@ -14,20 +14,26 @@ import Contact from '@/components/sections/Contact'
 import Studio from '@/components/sections/Studio'
 import SiteFooter from '@/components/SiteFooter'
 import SideQuestsBanner from '@/components/sections/SideQuestsBanner'
+import JsonLd from '@/components/JsonLd'
 import { loadSideQuests } from '@/lib/side-quests/load'
 import { activeByRecency } from '@/lib/side-quests/parse'
+import { pageMetadata } from '@/lib/seo'
+import { homeGraph } from '@/lib/structured-data'
+
+export const metadata = pageMetadata('home')
 
 export default function Home() {
   const { tagline, quests } = loadSideQuests()
 
   return (
     <>
+      <JsonLd data={homeGraph()} />
       <SparkleBackground />
       <Navbar />
       <main>
         <Hero />
         <WhatIDo />
-        {/* Client work — set apart from the brand, a compact banner right after the offerings */}
+        {/* Websites for small businesses — styled apart, a compact banner right after the offerings */}
         <Studio />
         <ContentFeed />
         <Tarot />

@@ -1,26 +1,17 @@
-import type { Metadata } from 'next'
 import Link from 'next/link'
+import JsonLd from '@/components/JsonLd'
 import ContactCards from '@/components/anicca/ContactCards'
 import FaqAccordion from '@/components/anicca/FaqAccordion'
-import { aniccaApp } from '@/lib/anicca-content'
-import { aniccaOpenGraph } from '../shared-metadata'
+import { aniccaApp, aniccaFaq } from '@/lib/anicca-content'
+import { pageMetadata } from '@/lib/seo'
+import { faqPage, pageGraph } from '@/lib/structured-data'
 
-const DESCRIPTION = 'Help, FAQs, and contact for Anicca — the mood & energy journal by Screen Sage Studios.'
-
-export const metadata: Metadata = {
-  title: 'Support',
-  description: DESCRIPTION,
-  openGraph: {
-    ...aniccaOpenGraph,
-    title: 'Support · Anicca',
-    description: DESCRIPTION,
-    url: '/apps/anicca/support',
-  },
-}
+export const metadata = pageMetadata('aniccaSupport')
 
 export default function AniccaSupportPage() {
   return (
     <main className="mx-auto max-w-4xl px-5 pb-24 pt-32 sm:px-8 sm:pt-36">
+      <JsonLd data={pageGraph('aniccaSupport', [faqPage('aniccaSupport', aniccaFaq)])} />
       <p className="anicca-eyebrow">Support</p>
       <h1 className="mt-3 font-anicca-display text-4xl leading-[1.1] text-anicca-ink sm:text-5xl">
         How can we help?

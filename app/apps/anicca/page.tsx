@@ -1,24 +1,32 @@
-import type { Metadata } from 'next'
 import AniccaHero from '@/components/anicca/AniccaHero'
 import AniccaFeatures from '@/components/anicca/AniccaFeatures'
 import AniccaPricing from '@/components/anicca/AniccaPricing'
 import AniccaCTA from '@/components/anicca/AniccaCTA'
-import { aniccaOpenGraph } from './shared-metadata'
+import JsonLd from '@/components/JsonLd'
+import { aniccaLinks } from '@/lib/data'
+import { aniccaApp, aniccaPlans } from '@/lib/anicca-content'
+import { pageMetadata } from '@/lib/seo'
+import { mobileApplication, pageGraph } from '@/lib/structured-data'
 
-export const metadata: Metadata = {
-  description:
-    'A calm mood & energy journal for iPhone. Name how you feel in your own words — matched on-device — see it across seven energy centers, and notice your patterns over time.',
-  openGraph: {
-    ...aniccaOpenGraph,
-    title: 'Anicca — Read your energy. Understand yourself.',
-    description: 'A calm mood & energy journal for iPhone, across seven energy centers from Root to Crown.',
-    url: '/apps/anicca',
-  },
-}
+export const metadata = pageMetadata('anicca')
+
+const APP = mobileApplication({
+  key: 'anicca',
+  name: 'Anicca',
+  version: aniccaApp.version,
+  requires: aniccaApp.requires,
+  installUrl: aniccaLinks.appStorePlaceholder ? undefined : aniccaLinks.appStoreUrl,
+  offers: aniccaPlans.map(plan => ({
+    name: plan.name,
+    price: plan.price,
+    description: [plan.cadence && `${plan.price}${plan.cadence}`, plan.yearly, plan.blurb].filter(Boolean).join(' · '),
+  })),
+})
 
 export default function AniccaPage() {
   return (
     <main>
+      <JsonLd data={pageGraph('anicca', [APP], 'WebPage', { mainEntity: { '@id': APP['@id'] } })} />
       <AniccaHero />
       <AniccaFeatures />
       <AniccaPricing />
