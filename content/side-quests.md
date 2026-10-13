@@ -25,6 +25,14 @@
 - **2026-10-04:** Added a guided recording session.
 - **2026-10-07:** Demo Shorts in production — strongest construct in the
   first 3 seconds, ending on "what construct should I build next?"
+- **2026-10-10:** Hand signs now drive the game: summon, sculpt and strike, plus a fist
+  to the chest to charge a shot.
+- **2026-10-11:** The Hollows got a look: dark void shards that crack, flake and shatter when hit.
+- **2026-10-11:** First real runs: Hollows close in on the arena in waves, with a meter,
+  combos and a HUD.
+- **2026-10-12:** Playtest fixes: punches aim where the fist goes, the Chain crushes,
+  walls fade out, and a high-contrast arena for accessibility.
+- **2026-10-12:** Mixed reality room mode: Hollows crack out of the walls of your actual room.
 
 ## Arcana
 - **Status:** active
@@ -49,6 +57,10 @@
 - **2026-09-29:** Hands-on cards: pinch, fist, twist, shake to shuffle. All 78 cards written.
 - **2026-10-01:** Readings can be shared with others in the room.
 - **2026-10-02:** Renamed Carta Luna and live at cartaluna-mr.vercel.app; guests can shuffle too.
+- **2026-10-11:** Press Next: guests can step a reading along one card at a time, and they
+  hear when the reader's headset has fallen asleep.
+- **2026-10-11:** A new welcome page with two ways in (in your headset, or with a friend)
+  and a moon-and-card loading screen.
 
 ## Duality
 - **Status:** active
