@@ -47,20 +47,25 @@ export default function ArcanaHero() {
           animate="visible"
           style={reduced ? undefined : { opacity: textOpacity }}
         >
-          <motion.p variants={item} className="arcana-eyebrow text-[13px]">
-            <span aria-hidden className="animate-arcana-spark mr-2 inline-block text-arcana-star">✦</span>
-            {arcanaHero.eyebrow}
-            <span aria-hidden className="animate-arcana-spark ml-2 inline-block text-arcana-star" style={{ animationDelay: '1.2s' }}>✦</span>
-          </motion.p>
+          {/* The app's name and headline share one h1 (a plain one, so both
+              spans keep their place in the stagger). */}
+          <h1>
+            <motion.span variants={item} className="arcana-eyebrow block text-[13px]">
+              <span aria-hidden className="animate-arcana-spark mr-2 inline-block text-arcana-star">✦</span>
+              {arcanaHero.eyebrow}
+              <span aria-hidden className="animate-arcana-spark ml-2 inline-block text-arcana-star" style={{ animationDelay: '1.2s' }}>✦</span>
+            </motion.span>
+            <span className="sr-only"> — </span>
 
-          <motion.h1
-            variants={item}
-            className="mt-5 font-arcana-display text-5xl leading-[1.08] sm:text-6xl lg:text-[64px]"
-          >
-            {arcanaHero.headlineTop}
-            <br />
-            <span className="arcana-gtx">{arcanaHero.headlineGradient}</span>
-          </motion.h1>
+            <motion.span
+              variants={item}
+              className="mt-5 block font-arcana-display text-5xl leading-[1.08] sm:text-6xl lg:text-[64px]"
+            >
+              {arcanaHero.headlineTop}
+              <br />
+              <span className="arcana-gtx">{arcanaHero.headlineGradient}</span>
+            </motion.span>
+          </h1>
 
           <motion.p variants={item} className="mt-6 max-w-md text-base leading-7 text-arcana-muted sm:text-lg sm:leading-8">
             {arcanaHero.sub}

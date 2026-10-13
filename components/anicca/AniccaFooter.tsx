@@ -28,6 +28,16 @@ export default function AniccaFooter() {
         </a>
         <Link href="/" className="transition-colors hover:text-anicca-violet-deep">Screen Sage</Link>
       </nav>
+      <p className="mt-4 text-[13px] text-anicca-body">
+        More from Screen Sage Studios:{' '}
+        <Link href="/apps/arcana" className="font-semibold text-anicca-violet-deep transition-colors hover:text-anicca-ink">
+          Arcana
+        </Link>
+        {' · '}
+        <Link href="/apps" className="font-semibold text-anicca-violet-deep transition-colors hover:text-anicca-ink">
+          All apps
+        </Link>
+      </p>
       <p className="mt-5 text-xs text-anicca-body">
         © {new Date().getFullYear()} Screen Sage Studios
       </p>

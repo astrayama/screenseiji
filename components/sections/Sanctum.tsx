@@ -4,21 +4,47 @@ import { useRef, useState } from 'react'
 import { AnimatePresence, motion, useAnimation } from 'framer-motion'
 import { useInView } from '@/hooks/useInView'
 import { cn } from '@/lib/utils'
-import { gatedLinks } from '@/lib/data'
 import { ExternalLink, Lock } from 'lucide-react'
 
 type State = 'locked' | 'attempting' | 'unlocked' | 'wrong'
+
+interface GatedLink {
+  label: string
+  href: string
+}
+
+// Checked on the server (app/api/sanctum): the password and the links it
+// unlocks never ship in this file's JS. Resolves to the links, or null.
+async function enter(password: string): Promise<GatedLink[] | null> {
+  try {
+    const res = await fetch('/api/sanctum', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password }),
+    })
+    if (!res.ok) return null
+    const data = await res.json()
+    return Array.isArray(data.links) ? data.links : null
+  } catch {
+    return null
+  }
+}
 
 export default function Sanctum() {
   const { ref, inView } = useInView<HTMLElement>()
   const [state, setState] = useState<State>('locked')
   const [password, setPassword]     = useState('')
   const [showInput, setShowInput]   = useState(false)
+  const [links, setLinks]           = useState<GatedLink[]>([])
   const inputRef = useRef<HTMLInputElement>(null)
   const ringControls = useAnimation()
 
   const handleAttempt = async () => {
-    if (password.trim() === 'seeker23') {
+    if (state === 'attempting' || !password.trim()) return
+    setState('attempting')
+    const unlocked = await enter(password.trim())
+    if (unlocked) {
+      setLinks(unlocked)
       setState('unlocked')
     } else {
       setState('wrong')
@@ -135,7 +161,8 @@ export default function Sanctum() {
                       />
                       <button
                         onClick={handleAttempt}
-                        className="rounded-full bg-gold/15 px-5 py-2.5 text-sm font-medium text-gold transition-all hover:bg-gold/25"
+                        disabled={state === 'attempting'}
+                        className="rounded-full bg-gold/15 px-5 py-2.5 text-sm font-medium text-gold transition-all hover:bg-gold/25 disabled:opacity-50"
                       >
                         Enter
                       </button>
@@ -168,7 +195,7 @@ export default function Sanctum() {
                 </p>
 
                 <div className="flex flex-wrap justify-center gap-4">
-                  {gatedLinks.map(link => (
+                  {links.map(link => (
                     <a
                       key={link.label}
                       href={link.href}

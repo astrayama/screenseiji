@@ -1,29 +1,21 @@
-import type { Metadata } from 'next'
 import LegalDocument from '@/components/anicca/LegalDocument'
+import JsonLd from '@/components/JsonLd'
 import { aniccaTerms } from '@/lib/anicca-content'
-import { aniccaOpenGraph } from '../shared-metadata'
+import { pageMetadata } from '@/lib/seo'
+import { pageGraph } from '@/lib/structured-data'
 
-const DESCRIPTION =
-  'The terms for using Anicca: what it is (and isn’t), your account, subscriptions, and your content.'
-
-export const metadata: Metadata = {
-  title: 'Terms of Use',
-  description: DESCRIPTION,
-  openGraph: {
-    ...aniccaOpenGraph,
-    title: 'Terms of Use · Anicca',
-    description: DESCRIPTION,
-    url: '/apps/anicca/terms',
-  },
-}
+export const metadata = pageMetadata('aniccaTerms')
 
 export default function AniccaTermsPage() {
   return (
-    <LegalDocument
-      eyebrow="Terms"
-      title="Terms of Use"
-      doc={aniccaTerms}
-      aside={{ prompt: 'Questions about these terms?', label: 'Visit support →', href: '/apps/anicca/support' }}
-    />
+    <>
+      <JsonLd data={pageGraph('aniccaTerms')} />
+      <LegalDocument
+        eyebrow="Terms"
+        title="Terms of Use"
+        doc={aniccaTerms}
+        aside={{ prompt: 'Questions about these terms?', label: 'Visit support →', href: '/apps/anicca/support' }}
+      />
+    </>
   )
 }

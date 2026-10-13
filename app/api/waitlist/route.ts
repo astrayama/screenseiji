@@ -1,5 +1,6 @@
 import { apps } from '@/lib/data'
 import { EMAIL_RE, escapeHtml, saveContact, sendToIsa, str } from '@/lib/email'
+import { SITE_HOST } from '@/lib/site'
 
 // App waitlist signups. Each one is saved to Isa's Resend Contacts list (so she
 // can export it or email everyone at launch) and announced to her inbox. Either
@@ -55,7 +56,7 @@ export async function POST(request: Request) {
         <p style="margin:0 0 4px"><strong>${escapeHtml(clean.name || '(no name given)')}</strong></p>
         <p style="margin:0 0 20px;color:#666">${escapeHtml(clean.email)}</p>
         <p style="margin:0;color:#666">${escapeHtml(listNote)}</p>
-        <p style="margin-top:28px;font-size:12px;color:#999">Sent from the waitlist form at screenseiji.vercel.app.</p>
+        <p style="margin-top:28px;font-size:12px;color:#999">Sent from the waitlist form at ${SITE_HOST}.</p>
       </div>
     `,
   })

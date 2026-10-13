@@ -86,14 +86,20 @@ function PackageCard({ icon: Icon, eyebrow, title, description, details, price, 
   )
 }
 
-export default function Tarot() {
+interface TarotProps {
+  /** The home page links on to /tarot; the /tarot page itself doesn't. */
+  showMoreLink?: boolean
+  className?: string
+}
+
+export default function Tarot({ showMoreLink = true, className = 'section-pad' }: TarotProps) {
   const [dialog, setDialog] = useState<IntakePackageId | 'live' | null>(null)
   const close = () => setDialog(null)
   const activePackage = dialog && dialog !== 'live' ? intakePackages[dialog] : null
   const { written, video } = intakePackages
 
   return (
-    <section id="tarot" className="section-pad">
+    <section id="tarot" className={className}>
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeading
           eyebrow="Tarot Readings"
@@ -183,6 +189,15 @@ export default function Tarot() {
             ))}
           </ol>
         </div>
+
+        {showMoreLink && (
+          <a
+            href="/tarot"
+            className="mt-8 inline-block text-sm font-semibold text-gold transition-colors hover:text-gold-bright"
+          >
+            More about tarot readings →
+          </a>
+        )}
       </div>
 
       <Modal

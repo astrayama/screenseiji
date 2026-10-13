@@ -1,16 +1,15 @@
-import type { Metadata } from 'next'
 import Link from 'next/link'
+import JsonLd from '@/components/JsonLd'
 import { arcanaPrivacy } from '@/lib/arcana-content'
+import { pageMetadata } from '@/lib/seo'
+import { pageGraph } from '@/lib/structured-data'
 
-export const metadata: Metadata = {
-  title: 'Privacy Policy',
-  description:
-    'How Arcana handles your data: local-first storage, optional sync, and no tracking — ever.',
-}
+export const metadata = pageMetadata('arcanaPrivacy')
 
 export default function ArcanaPrivacyPage() {
   return (
     <main className="mx-auto max-w-3xl px-5 pb-24 pt-32 sm:px-8 sm:pt-36">
+      <JsonLd data={pageGraph('arcanaPrivacy')} />
       <p className="arcana-eyebrow">
         <span aria-hidden>✦</span> Privacy
       </p>

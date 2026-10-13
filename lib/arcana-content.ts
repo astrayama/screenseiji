@@ -3,6 +3,11 @@
 
 import type { FaqItem } from '@/lib/app-content'
 
+export const arcanaApp = {
+  version: '1.0.0',
+  requires: 'iOS 17',
+}
+
 export const arcanaHero = {
   eyebrow: 'ARCANA',
   headlineTop: 'Give your tarot cards',

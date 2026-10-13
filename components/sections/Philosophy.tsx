@@ -1,16 +1,17 @@
 'use client'
 
-import { useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { useId, useState } from 'react'
 import { useInView } from '@/hooks/useInView'
 import { cn } from '@/lib/utils'
 import { philosophyItems } from '@/lib/data'
+import Collapsible from '@/components/Collapsible'
 
 function PhilosophyPanel({
   symbol, title, body, index,
 }: typeof philosophyItems[0] & { index: number }) {
   const [open, setOpen] = useState(index === 0)
   const { ref, inView } = useInView<HTMLDivElement>()
+  const panelId = useId()
 
   return (
     <div
@@ -20,9 +21,12 @@ function PhilosophyPanel({
     >
       <button
         onClick={() => setOpen(v => !v)}
+        aria-expanded={open}
+        aria-controls={panelId}
         className="group flex w-full items-start gap-5 py-6 text-left"
       >
         <span
+          aria-hidden
           className={cn(
             'font-display text-4xl font-light leading-none transition-colors duration-300 sm:text-5xl',
             open ? 'text-gold text-glow-gold' : 'text-muted/50 group-hover:text-muted',
@@ -38,27 +42,16 @@ function PhilosophyPanel({
             {title}
           </p>
         </div>
-        <span className={cn('mt-2 shrink-0 text-lg transition-all duration-300', open ? 'text-gold rotate-45' : 'text-muted/40')}>
+        <span aria-hidden className={cn('mt-2 shrink-0 text-lg transition-all duration-300', open ? 'text-gold rotate-45' : 'text-muted/40')}>
           +
         </span>
       </button>
 
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            key="content"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{   height: 0, opacity: 0 }}
-            transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="overflow-hidden"
-          >
-            <p className="pb-7 pl-[3.75rem] pr-6 text-base leading-8 text-muted sm:text-lg">
-              {body}
-            </p>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <Collapsible id={panelId} open={open}>
+        <p className="pb-7 pl-[3.75rem] pr-6 text-base leading-8 text-muted sm:text-lg">
+          {body}
+        </p>
+      </Collapsible>
     </div>
   )
 }
@@ -99,6 +92,12 @@ export default function Philosophy() {
             <p className="mt-8 text-xs font-semibold uppercase tracking-[0.2em] text-muted/50">
               Evolved from Omniversal Seeker · <em>Seeker&apos;s Soliloquy</em>
             </p>
+            <a
+              href="/about"
+              className="mt-6 inline-block text-sm font-semibold text-gold transition-colors hover:text-gold-bright"
+            >
+              About Screen Sage Studios →
+            </a>
           </div>
 
           {/* Right: accordion */}

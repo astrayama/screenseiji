@@ -4,7 +4,7 @@ import AniccaBackground from '@/components/anicca/AniccaBackground'
 import AniccaHeader from '@/components/anicca/AniccaHeader'
 import AniccaFooter from '@/components/anicca/AniccaFooter'
 import AppMotion from '@/components/app-pages/AppMotion'
-import { aniccaOpenGraph } from './shared-metadata'
+import { PAGES } from '@/lib/routes'
 
 // Fraunces with its "soft" axis for display — rounded, unhurried serifs —
 // over Figtree, a clear and friendly sans for reading.
@@ -22,20 +22,11 @@ const figtree = Figtree({
   display: 'swap',
 })
 
-const DESCRIPTION =
-  'A calm mood & energy journal for iPhone. Check in with how you feel, see it across seven energy centers from Root to Crown, and notice your patterns over time.'
-
+// Pages set their own metadata from lib/routes.ts; these are fallbacks.
 export const metadata: Metadata = {
   title: {
-    default: 'Anicca — Read your energy. Understand yourself.',
+    absolute: PAGES.anicca.title,
     template: '%s · Anicca',
-  },
-  description: DESCRIPTION,
-  openGraph: {
-    ...aniccaOpenGraph,
-    title: 'Anicca — Read your energy. Understand yourself.',
-    description: DESCRIPTION,
-    url: '/apps/anicca',
   },
 }
 

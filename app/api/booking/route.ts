@@ -1,6 +1,7 @@
 import { liveReading } from '@/lib/data'
 import { formatSlot, getSlots, isValidTimeZone } from '@/lib/booking'
 import { EMAIL_RE, escapeHtml, sendToIsa, str } from '@/lib/email'
+import { SITE_HOST } from '@/lib/site'
 
 // Live-reading requests. The requested time is re-checked against Isa's weekly
 // hours, then emailed to her with a calendar file. She confirms by replying —
@@ -91,7 +92,7 @@ export async function POST(request: Request) {
     'PRODID:-//Screen Sage//Live reading//EN',
     'METHOD:PUBLISH',
     'BEGIN:VEVENT',
-    `UID:${start}-${crypto.randomUUID()}@screenseiji.vercel.app`,
+    `UID:${start}-${crypto.randomUUID()}@${SITE_HOST}`,
     `DTSTAMP:${icsDate(Date.now())}`,
     `DTSTART:${icsDate(start)}`,
     `DTEND:${icsDate(start + tier.blockMinutes * 60_000)}`,
@@ -126,7 +127,7 @@ export async function POST(request: Request) {
         </table>
         <p style="margin-top:20px;color:#666">${escapeHtml(paymentNote)}</p>
         <p style="margin:4px 0 0;color:#666">The attached calendar file adds the slot to your calendar.</p>
-        <p style="margin-top:28px;font-size:12px;color:#999">Sent from the live booking form at screenseiji.vercel.app — just hit reply.</p>
+        <p style="margin-top:28px;font-size:12px;color:#999">Sent from the live booking form at ${SITE_HOST} — just hit reply.</p>
       </div>
     `,
     attachments: [{ filename: 'live-reading.ics', content: Buffer.from(ics), contentType: 'text/calendar' }],

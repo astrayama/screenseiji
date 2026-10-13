@@ -20,6 +20,16 @@ export default function ArcanaFooter() {
         </a>
         <Link href="/" className="transition-colors hover:text-arcana-purple-soft">Screen Sage</Link>
       </nav>
+      <p className="mt-4 text-[13px] text-arcana-faint">
+        More from Screen Sage Studios:{' '}
+        <Link href="/apps/anicca" className="font-semibold text-arcana-muted transition-colors hover:text-arcana-text">
+          Anicca
+        </Link>
+        {' · '}
+        <Link href="/apps" className="font-semibold text-arcana-muted transition-colors hover:text-arcana-text">
+          All apps
+        </Link>
+      </p>
       <p className="mt-5 text-xs text-arcana-faint">
         © {new Date().getFullYear()} Screen Sage Studios · Rider–Waite–Smith imagery is in the public domain.
       </p>

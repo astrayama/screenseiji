@@ -6,18 +6,19 @@ import { Menu, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import BrandMark from '@/components/BrandMark'
 
-// Section links start with "/" so they also work from sub-pages like /side-quests.
+// Pages get their own links (each is a search landing page); home sections
+// start with "/" so they also work from sub-pages like /side-quests.
 // They're plain <a> on purpose: the browser handles "/#section" natively (smooth
 // in-page scroll on the home page, a full load that lands on the section from
 // elsewhere). Next's client router can double the hash ("/#philosophy#tarot") on
 // these, and a same-route <Link> wouldn't reset the Side Quests tab from #log.
 const NAV = [
   { label: 'What I Do',   href: '/#services'    },
-  { label: 'Websites',    href: '/#studio'      },
-  { label: 'Tarot',       href: '/#tarot'       },
-  { label: 'Apps',        href: '/#apps'        },
+  { label: 'Websites',    href: '/websites'     },
+  { label: 'Tarot',       href: '/tarot'        },
+  { label: 'Apps',        href: '/apps'         },
   { label: 'Side Quests', href: '/side-quests'  },
-  { label: 'Philosophy',  href: '/#philosophy'  },
+  { label: 'About',       href: '/about'        },
   { label: 'Connect',     href: '/#connect'     },
 ]
 

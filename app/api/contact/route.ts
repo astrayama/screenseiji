@@ -1,5 +1,6 @@
 import { contactCategories, type ContactCategory } from '@/lib/data'
 import { EMAIL_RE, escapeHtml, sendToIsa, str } from '@/lib/email'
+import { SITE_HOST } from '@/lib/site'
 
 const LIMITS = { name: 100, email: 200, message: 5000 }
 
@@ -52,7 +53,7 @@ export async function POST(request: Request) {
         <p style="margin:0 0 4px;color:#666">${escapeHtml(clean.email)}</p>
         <p style="margin:0 0 20px;color:#666">Category: <strong>${escapeHtml(clean.category)}</strong></p>
         <div style="white-space:pre-wrap;border-left:3px solid #C9943C;padding-left:16px">${escapeHtml(clean.message)}</div>
-        <p style="margin-top:28px;font-size:12px;color:#999">Sent from the contact form at screenseiji.vercel.app — just hit reply.</p>
+        <p style="margin-top:28px;font-size:12px;color:#999">Sent from the contact form at ${SITE_HOST} — just hit reply.</p>
       </div>
     `,
   })

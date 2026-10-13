@@ -1,17 +1,17 @@
-import type { Metadata } from 'next'
 import Link from 'next/link'
+import JsonLd from '@/components/JsonLd'
 import ContactCards from '@/components/arcana/ContactCards'
 import FaqAccordion from '@/components/arcana/FaqAccordion'
+import { arcanaApp, arcanaFaq } from '@/lib/arcana-content'
+import { pageMetadata } from '@/lib/seo'
+import { faqPage, pageGraph } from '@/lib/structured-data'
 
-export const metadata: Metadata = {
-  title: 'Support',
-  description:
-    'Help, FAQs, and contact for Arcana — the tarot journal by Screen Sage Studios.',
-}
+export const metadata = pageMetadata('arcanaSupport')
 
 export default function ArcanaSupportPage() {
   return (
     <main className="mx-auto max-w-4xl px-5 pb-24 pt-32 sm:px-8 sm:pt-36">
+      <JsonLd data={pageGraph('arcanaSupport', [faqPage('arcanaSupport', arcanaFaq)])} />
       <p className="arcana-eyebrow">
         <span aria-hidden>✦</span> Support
       </p>
@@ -45,7 +45,7 @@ export default function ArcanaSupportPage() {
       </div>
 
       <p className="mt-10 text-center text-xs text-arcana-faint">
-        Arcana 1.0.0 · Requires iOS 17 or later
+        Arcana {arcanaApp.version} · Requires {arcanaApp.requires} or later
       </p>
     </main>
   )
