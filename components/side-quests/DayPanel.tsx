@@ -19,7 +19,7 @@ export default function DayPanel({ date, entries, onClose }: Props) {
       <div className="space-y-7">
         {groupByQuest(entries).map(group => (
           <section key={group.quest}>
-            <h4 className="flex items-center gap-2.5 text-xs font-semibold uppercase tracking-[0.18em] text-foreground">
+            <h4 className="flex items-center gap-2.5 font-eyebrow text-xs font-semibold uppercase tracking-[0.2em] text-plum-900">
               <span aria-hidden className="postit postit-mini h-3.5 w-3.5 rounded-[2px]" style={{ '--postit': group.color } as React.CSSProperties} />
               {group.quest}
             </h4>

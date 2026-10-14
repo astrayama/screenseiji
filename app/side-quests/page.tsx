@@ -1,9 +1,11 @@
-import SparkleBackground from '@/components/SparkleBackground'
+import SkyBackground from '@/components/SkyBackground'
 import Navbar from '@/components/Navbar'
 import AccessibilityPanel from '@/components/AccessibilityPanel'
 import SiteFooter from '@/components/SiteFooter'
 import SideQuestsView from '@/components/side-quests/SideQuestsView'
 import JsonLd from '@/components/JsonLd'
+import { Sparkle } from '@/components/brand/SkyArt'
+import { PAGE_EYEBROW, PAGE_TITLE, PAGE_TITLE_SIZE } from '@/components/ui'
 import { loadSideQuests } from '@/lib/side-quests/load'
 import { pageMetadata } from '@/lib/seo'
 import { pageGraph } from '@/lib/structured-data'
@@ -17,17 +19,13 @@ export default function SideQuestsPage() {
   return (
     <>
       <JsonLd data={pageGraph('sideQuests')} />
-      <SparkleBackground />
+      <SkyBackground />
       <Navbar />
       <main className="mx-auto max-w-6xl px-5 pb-24 pt-32 sm:px-8 sm:pt-40">
-        <header className="max-w-3xl">
-          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.28em] text-gold">Side Quests</p>
-          <h1
-            className="font-display font-light leading-[1.1] text-foreground text-glow-gold"
-            style={{ fontSize: 'clamp(2.25rem, 5.5vw, 4rem)' }}
-          >
-            {tagline}
-          </h1>
+        <header className="relative max-w-3xl">
+          <Sparkle className="-top-6 right-0 h-5 w-5 text-orchid sm:-right-10 sm:h-6 sm:w-6" twinkle />
+          <p className={PAGE_EYEBROW}>Side Quests</p>
+          <h1 className={PAGE_TITLE} style={PAGE_TITLE_SIZE}>{tagline}</h1>
         </header>
         <SideQuestsView quests={quests} entriesByDate={entriesByDate} />
       </main>

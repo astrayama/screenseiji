@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { PAGES, type PageKey } from '@/lib/routes'
+import { PAGES, type PageEntry, type PageKey } from '@/lib/routes'
 import { SITE_NAME } from '@/lib/site'
 
 /**
@@ -11,11 +11,13 @@ import { SITE_NAME } from '@/lib/site'
  * page, and twitter:* is filled in from openGraph by Next.
  */
 export function pageMetadata(key: PageKey): Metadata {
-  const { path, title, description } = PAGES[key]
+  const { path, title, description, noindex } = PAGES[key] as PageEntry
   return {
     title: { absolute: title },
     description,
     alternates: { canonical: path },
+    // Overrides the site-wide "index, follow" (robots and googlebot) in app/layout.tsx.
+    ...(noindex && { robots: { index: false, follow: false, googleBot: { index: false, follow: false } } }),
     openGraph: {
       type: 'website',
       siteName: SITE_NAME,

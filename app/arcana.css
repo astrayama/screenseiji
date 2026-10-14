@@ -96,3 +96,6 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+/* The site's body is pastel; behind the Arcana pages (overscroll, bounce) it stays night-dark. */
+body:has(.arcana-root) { background-color: #0D0B13; }

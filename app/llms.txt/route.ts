@@ -1,5 +1,5 @@
 import { apps, appStatusText, intakePackages, liveReading, profileLinks, studio } from '@/lib/data'
-import { PAGES } from '@/lib/routes'
+import { indexablePages } from '@/lib/routes'
 import { FOUNDER, HANDLE, ORG_NAME, SITE_NAME, TAGLINE, absoluteUrl } from '@/lib/site'
 
 // /llms.txt — a plain-text map of the site for AI assistants (llmstxt.org),
@@ -10,7 +10,7 @@ const link = (href: string) => (href.startsWith('/') ? absoluteUrl(href) : href)
 
 function body() {
   const { written, video } = intakePackages
-  const pages = Object.values(PAGES)
+  const pages = indexablePages().map(([, page]) => page)
 
   return [
     `# ${ORG_NAME}`,

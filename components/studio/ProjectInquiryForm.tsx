@@ -5,16 +5,16 @@ import { ChevronDown, Send } from 'lucide-react'
 import { postForm } from '@/lib/postForm'
 import { track } from '@/lib/track'
 import { cn } from '@/lib/utils'
-import { FIELD, LABEL, NEUTRAL_BUTTON } from '@/components/formStyles'
+import { FIELD, FORM_ERROR, LABEL, NEUTRAL_BUTTON } from '@/components/formStyles'
 import {
   budgetRanges, projectTimelines, projectTypes,
   type BudgetRange, type ProjectTimeline, type ProjectType,
 } from '@/lib/data'
 
-// The brand's teal focus ring swapped for a neutral one, to match the Studio.
-const STUDIO_FIELD = cn(FIELD, 'focus:border-white/35')
+// The calm skin's squarer corners, to match its buttons.
+const STUDIO_FIELD = cn(FIELD, 'rounded-lg')
 
-const Optional = () => <span className="normal-case tracking-normal text-muted/50">(optional)</span>
+const Optional = () => <span className="font-normal text-plum-500">(optional)</span>
 
 function Select<T extends string>({
   id, label, value, options, onChange,
@@ -27,11 +27,11 @@ function Select<T extends string>({
           id={id}
           value={value}
           onChange={e => onChange(e.target.value as T)}
-          className={cn(STUDIO_FIELD, 'appearance-none pr-10 [&>option]:bg-surface [&>option]:text-foreground')}
+          className={cn(STUDIO_FIELD, 'appearance-none pr-10')}
         >
           {options.map(o => <option key={o} value={o}>{o}</option>)}
         </select>
-        <ChevronDown size={14} aria-hidden className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-muted/60" />
+        <ChevronDown size={14} aria-hidden className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-plum-700" />
       </div>
     </div>
   )
@@ -71,9 +71,9 @@ export default function ProjectInquiryForm() {
   if (status === 'sent') {
     return (
       <div role="status" className="flex flex-col items-center gap-3 py-4 text-center">
-        <p className="text-2xl font-medium text-foreground">Got it — thank you.</p>
-        <p className="text-sm leading-6 text-muted">
-          I’ll reply to <span className="text-foreground">{form.email}</span> with next steps.
+        <p className="text-2xl font-bold text-plum-900">Got it — thank you.</p>
+        <p className="text-sm leading-6 text-plum-700">
+          I’ll reply to <span className="font-bold text-plum-900">{form.email}</span> with next steps.
         </p>
       </div>
     )
@@ -117,10 +117,10 @@ export default function ProjectInquiryForm() {
         />
       </div>
       {error && (
-        <p role="alert" className="text-sm leading-6 text-amber">{error}</p>
+        <p role="alert" className={FORM_ERROR}>{error}</p>
       )}
       <div className="flex flex-col-reverse items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-xs leading-5 text-muted/70">No commitment — I’ll reply with next steps.</p>
+        <p className="text-xs leading-5 text-plum-500">No commitment — I’ll reply with next steps.</p>
         <button type="submit" disabled={status === 'sending'} className={NEUTRAL_BUTTON}>
           {status === 'sending' ? 'Sending…' : 'Send inquiry'}
           <Send size={13} />

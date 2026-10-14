@@ -1,19 +1,15 @@
-import SparkleBackground from '@/components/SparkleBackground'
+import SkyBackground from '@/components/SkyBackground'
 import Navbar from '@/components/Navbar'
 import AccessibilityPanel from '@/components/AccessibilityPanel'
-import Hero from '@/components/sections/Hero'
-import WhatIDo from '@/components/sections/WhatIDo'
-import ContentFeed from '@/components/sections/ContentFeed'
-import Tarot from '@/components/sections/Tarot'
-import AppConstellation from '@/components/sections/AppConstellation'
-import Shop from '@/components/sections/Shop'
-import Philosophy from '@/components/sections/Philosophy'
-import ConnectLinks from '@/components/sections/ConnectLinks'
-import Sanctum from '@/components/sections/Sanctum'
-import Contact from '@/components/sections/Contact'
-import Studio from '@/components/sections/Studio'
 import SiteFooter from '@/components/SiteFooter'
-import SideQuestsBanner from '@/components/sections/SideQuestsBanner'
+import Hero from '@/components/home/Hero'
+import Watch from '@/components/home/Watch'
+import Practice from '@/components/home/Practice'
+import Reflect from '@/components/home/Reflect'
+import Build from '@/components/home/Build'
+import MeetIsa from '@/components/home/MeetIsa'
+import JoinJourney from '@/components/home/JoinJourney'
+import Contact from '@/components/home/Contact'
 import JsonLd from '@/components/JsonLd'
 import { loadSideQuests } from '@/lib/side-quests/load'
 import { activeByRecency } from '@/lib/side-quests/parse'
@@ -22,28 +18,27 @@ import { homeGraph } from '@/lib/structured-data'
 
 export const metadata = pageMetadata('home')
 
+// Refreshes the latest video from the YouTube feed (lib/youtube.ts) hourly.
+export const revalidate = 3600
+
+// Each section is a short teaser that ends with one next step and hands off
+// to its own page: /apps, /tarot, /websites, /about, /side-quests.
 export default function Home() {
-  const { tagline, quests } = loadSideQuests()
+  const { quests } = loadSideQuests()
 
   return (
     <>
       <JsonLd data={homeGraph()} />
-      <SparkleBackground />
+      <SkyBackground />
       <Navbar />
       <main>
         <Hero />
-        <WhatIDo />
-        {/* Websites for small businesses — styled apart, a compact banner right after the offerings */}
-        <Studio />
-        <ContentFeed />
-        <Tarot />
-        <AppConstellation />
-        {/* What's being built right now — the way into /side-quests */}
-        <SideQuestsBanner tagline={tagline} quests={activeByRecency(quests)} />
-        <Shop />
-        <Philosophy />
-        <ConnectLinks />
-        <Sanctum />
+        <Watch />
+        <Practice />
+        <Reflect />
+        <Build />
+        <MeetIsa quest={activeByRecency(quests)[0]} />
+        <JoinJourney />
         <Contact />
       </main>
       <SiteFooter />

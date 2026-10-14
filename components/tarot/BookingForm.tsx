@@ -6,7 +6,8 @@ import { cn } from '@/lib/utils'
 import { liveReading, type LiveFormat, type LiveTierId } from '@/lib/data'
 import { getSlots } from '@/lib/booking'
 import { postForm } from '@/lib/postForm'
-import { FIELD, LABEL, PRIMARY_BUTTON } from '@/components/formStyles'
+import { FIELD, FORM_ERROR, LABEL, PRIMARY_BUTTON } from '@/components/formStyles'
+import { TEXT_LINK } from '@/components/ui'
 
 export const FORMAT_ICONS: Record<LiveFormat, LucideIcon> = { voice: Phone, video: Video, vr: Glasses }
 
@@ -27,8 +28,8 @@ function Choice({ name, value, checked, onChange, className, children }: {
   return (
     <label
       className={cn(
-        'cursor-pointer rounded-xl border px-3 py-2.5 text-sm transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-teal/50',
-        checked ? 'border-gold/60 bg-gold/10 text-foreground' : 'border-white/10 bg-background/40 text-muted hover:border-white/25 hover:text-foreground',
+        'cursor-pointer rounded-xl border-[1.5px] px-3 py-2.5 text-sm transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-plum-500 has-[:focus-visible]:ring-offset-2 has-[:focus-visible]:ring-offset-cloud has-[:disabled]:cursor-not-allowed has-[:disabled]:opacity-45',
+        checked ? 'border-plum-900 bg-plum-900 text-cloud' : 'border-mist bg-cloud text-plum-900 hover:border-lilac hover:bg-glow/50',
         className,
       )}
     >
@@ -38,7 +39,7 @@ function Choice({ name, value, checked, onChange, className, children }: {
   )
 }
 
-export default function BookingForm({ onClose }: { onClose: () => void }) {
+export default function BookingForm() {
   const id = useId()
   const [format, setFormat] = useState<LiveFormat | null>(null)
   const [tierId, setTierId] = useState<LiveTierId | null>(null)
@@ -72,13 +73,6 @@ export default function BookingForm({ onClose }: { onClose: () => void }) {
 
   // Close the native dialog synchronously — it hands focus back to its opener,
   // which would otherwise undo the jump — then scroll to the contact form.
-  const goToContact = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault()
-    e.currentTarget.closest('dialog')?.close()
-    onClose()
-    document.getElementById('contact')?.scrollIntoView()
-  }
-
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     if (!format || !tier || slot === null) {
@@ -101,27 +95,27 @@ export default function BookingForm({ onClose }: { onClose: () => void }) {
   if (status === 'sent' && tier && slot !== null) {
     return (
       <div role="status" className="flex flex-col items-center gap-3 py-4 text-center">
-        <div className="text-3xl text-gold">✦</div>
-        <p className="font-display text-2xl font-light text-teal">Request sent.</p>
-        <p className="text-sm text-foreground">
+        <span aria-hidden className="text-3xl text-orchid">✦</span>
+        <p className="font-display text-[2rem] font-medium leading-tight text-plum-900">Request sent.</p>
+        <p className="text-[15px] font-semibold leading-6 text-plum-900">
           {formatLabel} · {tier.label} · {tier.price}
           <br />
-          {fullLabel(slot)} <span className="text-muted">(your time)</span>
+          {fullLabel(slot)} <span className="font-normal text-plum-700">(your time)</span>
         </p>
-        <p className="text-sm leading-6 text-muted">Isa will reply by email to confirm your time.</p>
+        <p className="text-[15px] leading-6 text-plum-700">Isa will reply by email to confirm your time.</p>
         {tier.paymentUrl ? (
           <>
             <a
               href={tier.paymentUrl}
-              className="mt-2 inline-flex items-center gap-2 rounded-full bg-gold px-6 py-2.5 text-sm font-semibold text-background transition-all hover:bg-gold-bright"
+              className={cn(PRIMARY_BUTTON, 'mt-2')}
             >
               Continue to payment
-              <ArrowUpRight size={14} />
+              <ArrowUpRight size={15} aria-hidden />
             </a>
-            <p className="text-xs text-muted/70">Use the same email at checkout so Isa can match it to your booking.</p>
+            <p className="text-[13px] leading-5 text-plum-700">Use the same email at checkout so Isa can match it to your booking.</p>
           </>
         ) : (
-          <p className="text-sm leading-6 text-muted">She’ll include payment details when she confirms.</p>
+          <p className="text-[15px] leading-6 text-plum-700">She’ll include payment details when she confirms.</p>
         )}
       </div>
     )
@@ -136,8 +130,8 @@ export default function BookingForm({ onClose }: { onClose: () => void }) {
             const Icon = FORMAT_ICONS[f.id]
             return (
               <Choice key={f.id} name={`${id}-format`} value={f.label} checked={format === f.id} onChange={() => setFormat(f.id)} className="flex flex-col items-center gap-1.5 py-3 text-center">
-                <Icon size={18} className={format === f.id ? 'text-gold' : ''} />
-                <span className="text-xs font-medium sm:text-sm">{f.label}</span>
+                <Icon size={18} aria-hidden />
+                <span className="text-xs font-bold sm:text-sm">{f.label}</span>
               </Choice>
             )
           })}
@@ -149,8 +143,8 @@ export default function BookingForm({ onClose }: { onClose: () => void }) {
         <div className="grid grid-cols-3 gap-2">
           {liveReading.tiers.map(t => (
             <Choice key={t.id} name={`${id}-tier`} value={`${t.label} ${t.price}`} checked={tierId === t.id} onChange={() => setTierId(t.id)} className="text-center">
-              <span className="block font-medium text-foreground">{t.label}</span>
-              <span className="block text-xs text-gold">{t.price}</span>
+              <span className="block font-bold">{t.label}</span>
+              <span className="block text-xs font-semibold">{t.price}</span>
             </Choice>
           ))}
         </div>
@@ -159,11 +153,12 @@ export default function BookingForm({ onClose }: { onClose: () => void }) {
       <fieldset className="flex min-w-0 flex-col gap-3">
         <legend className={cn(LABEL, 'mb-2')}>Day &amp; time</legend>
         {!tier ? (
-          <p className="text-sm text-muted/70">Pick a length to see open times.</p>
+          <p className="text-sm text-plum-700">Pick a length to see open times.</p>
         ) : days.length === 0 ? (
-          <p className="text-sm leading-6 text-muted">
+          <p className="text-sm leading-6 text-plum-700">
             No open times in the next few weeks.{' '}
-            <a href="#contact" onClick={goToContact} className="text-teal underline-offset-4 hover:underline">Send a note</a>{' '}
+            {/* eslint-disable-next-line @next/next/no-html-link-for-pages -- hash link to the home page's contact form (see Navbar); leaving the page closes the dialog */}
+            <a href="/#contact" className={TEXT_LINK}>Send a note</a>{' '}
             and Isa will find a time with you.
           </p>
         ) : (
@@ -176,8 +171,8 @@ export default function BookingForm({ onClose }: { onClose: () => void }) {
                   onClick={() => setPickedDay(key)}
                   aria-pressed={key === activeDay?.[0]}
                   className={cn(
-                    'shrink-0 rounded-full border px-3.5 py-1.5 text-xs font-medium transition-colors',
-                    key === activeDay?.[0] ? 'border-teal/50 bg-teal/10 text-teal' : 'border-white/10 text-muted hover:text-foreground',
+                    'shrink-0 rounded-full border-[1.5px] px-3.5 py-1.5 text-xs font-bold transition-colors',
+                    key === activeDay?.[0] ? 'border-plum-500 bg-blush text-plum-900' : 'border-mist bg-cloud text-plum-700 hover:border-lilac hover:text-plum-900',
                   )}
                 >
                   {dayLabel(slots[0])}
@@ -191,7 +186,7 @@ export default function BookingForm({ onClose }: { onClose: () => void }) {
                 </Choice>
               ))}
             </div>
-            <p className="text-xs text-muted/60">
+            <p className="text-xs text-plum-700">
               Times shown in your timezone ({Intl.DateTimeFormat().resolvedOptions().timeZone.replace(/_/g, ' ')}).
             </p>
           </>
@@ -210,7 +205,7 @@ export default function BookingForm({ onClose }: { onClose: () => void }) {
       </div>
       <div className="flex flex-col gap-2">
         <label htmlFor={`${id}-notes`} className={LABEL}>
-          Anything Isa should know <span className="normal-case tracking-normal text-muted/50">(optional)</span>
+          Anything Isa should know <span className="font-normal text-plum-500">(optional)</span>
         </label>
         <textarea
           id={`${id}-notes`}
@@ -223,18 +218,18 @@ export default function BookingForm({ onClose }: { onClose: () => void }) {
       </div>
 
       {format && tier && slot !== null && (
-        <p className="rounded-xl border border-gold/20 bg-gold/5 px-4 py-3 text-sm text-foreground">
-          {formatLabel} · {tier.label} · {fullLabel(slot)} — <span className="text-gold">{tier.price}</span>
+        <p className="rounded-xl border border-lilac bg-glow px-4 py-3 text-sm leading-6 text-plum-900">
+          {formatLabel} · {tier.label} · {fullLabel(slot)} — <span className="font-bold">{tier.price}</span>
         </p>
       )}
       {error && (
-        <p role="alert" className="text-sm leading-6 text-amber">{error}</p>
+        <p role="alert" className={FORM_ERROR}>{error}</p>
       )}
       <div className="flex flex-col-reverse items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-xs leading-5 text-muted/70">Isa confirms every request by email.</p>
+        <p className="text-[13px] leading-5 text-plum-700">Isa confirms every request by email.</p>
         <button type="submit" disabled={status === 'sending'} className={PRIMARY_BUTTON}>
           {status === 'sending' ? 'Sending…' : 'Request this time'}
-          <Send size={13} />
+          <Send size={14} aria-hidden />
         </button>
       </div>
       {/* Honeypot — kept last so it never takes the dialog's initial focus. */}

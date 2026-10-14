@@ -1,11 +1,13 @@
-import SiteShell, { PAGE_EYEBROW, PAGE_TITLE, PAGE_TITLE_SIZE, SECTION_TITLE } from '@/components/SiteShell'
+import SiteShell from '@/components/SiteShell'
+import { CARD, CONTAINER, H3, PAGE_EYEBROW, PAGE_TITLE, PAGE_TITLE_SIZE, SECTION_TITLE, TEXT_LINK } from '@/components/ui'
 import JsonLd from '@/components/JsonLd'
 import SiteFaq from '@/components/SiteFaq'
-import Tarot from '@/components/sections/Tarot'
+import Readings from '@/components/tarot/Readings'
 import { apps } from '@/lib/data'
 import { pageMetadata } from '@/lib/seo'
 import { faqPage, pageGraph, tarotService } from '@/lib/structured-data'
 import { tarotFaq, tarotIntro } from '@/lib/tarot-content'
+import { cn } from '@/lib/utils'
 
 export const metadata = pageMetadata('tarot')
 
@@ -17,18 +19,18 @@ export default function TarotPage() {
     <SiteShell>
       <JsonLd data={pageGraph('tarot', [tarotService(), faqPage('tarot', tarotFaq)])} />
       <main className="pb-24 pt-32 sm:pt-40">
-        <header className="mx-auto max-w-7xl px-5 sm:px-8">
+        <header className={CONTAINER}>
           <div className="max-w-3xl">
             <p className={PAGE_EYEBROW}>{tarotIntro.eyebrow}</p>
             <h1 className={PAGE_TITLE} style={PAGE_TITLE_SIZE}>{tarotIntro.title}</h1>
             {tarotIntro.lead.map(paragraph => (
-              <p key={paragraph} className="mt-6 text-base leading-8 text-muted sm:text-lg">{paragraph}</p>
+              <p key={paragraph} className="mt-6 text-base leading-8 text-plum-700 sm:text-lg">{paragraph}</p>
             ))}
           </div>
         </header>
 
-        {/* The packages and booking, shared with the home page */}
-        <Tarot showMoreLink={false} className="pb-20 pt-16" />
+        {/* The packages, live booking and how it works */}
+        <Readings />
 
         <section aria-labelledby="tarot-faq" className="mx-auto max-w-4xl px-5 sm:px-8">
           <h2 id="tarot-faq" className={SECTION_TITLE}>Questions about readings</h2>
@@ -43,15 +45,15 @@ export default function TarotPage() {
             {TAROT_APPS.map(app => {
               const external = !app.href?.startsWith('/')
               return (
-                <li key={app.id} className="glass flex flex-col gap-2 rounded-3xl p-6">
-                  <h3 className="font-display text-2xl font-medium text-foreground">{app.name}</h3>
-                  <p className="flex-1 text-sm leading-6 text-muted">{app.summary}</p>
+                <li key={app.id} className={cn(CARD, 'flex flex-col gap-2 p-6')}>
+                  <h3 className={H3}>{app.name}</h3>
+                  <p className="flex-1 text-[15px] leading-6 text-plum-700">{app.summary}</p>
                   {app.href && (
                     <a
                       href={app.href}
                       target={external ? '_blank' : undefined}
                       rel={external ? 'noreferrer' : undefined}
-                      className="text-sm font-semibold text-gold transition-colors hover:text-gold-bright"
+                      className={cn(TEXT_LINK, 'mt-2 self-start text-sm')}
                     >
                       {external ? `Try ${app.name} ↗` : `About ${app.name} →`}
                     </a>

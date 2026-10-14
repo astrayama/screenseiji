@@ -136,6 +136,26 @@ export const liveReading = {
   },
 }
 
+/** The live tiers as one range, e.g. "$25–50". */
+export function liveReadingRange() {
+  const { tiers } = liveReading
+  return `${tiers[0].price}–${tiers.at(-1)!.price.replace('$', '')}`
+}
+
+// ─── YouTube ────────────────────────────────────────────────────────────────
+// The home page's Watch section shows the channel's newest upload, Shorts
+// included, from its public feed (no API key), refreshed hourly. Set
+// featuredVideo to pin a specific video instead.
+
+export const youtube = {
+  channelUrl: 'https://www.youtube.com/@screenseiji',
+  channelId: 'UCrI8VGMKwjyVW2mbGNHA4xQ',
+  /** Opens YouTube's subscribe prompt. */
+  subscribeUrl: 'https://www.youtube.com/@screenseiji?sub_confirmation=1',
+  podcastPlaylistUrl: 'https://www.youtube.com/playlist?list=PLZlIFoU5KENY',
+  featuredVideo: null as { id: string; title: string } | null,
+}
+
 export interface AppLinks {
   appStoreUrl: string
   /** While true, the App Store badge renders as a non-link "Coming soon". */
@@ -195,14 +215,8 @@ export interface AppNode {
   statusNote?: string
   /** Public beta anyone can try right now (e.g. TestFlight). */
   tryUrl?: string
-  /** The featured app — gets the apex of the star and the flagship card. */
-  flagship?: boolean
-  x: number
-  y: number
-  r: number
-  nameLines: string[]
-  /** Draw the label above the node instead of below (used for the star's apex). */
-  labelAbove?: boolean
+  /** Takes waitlist signups (/api/waitlist): a "Join the waitlist" button on the home page and /apps. */
+  waitlist?: boolean
 }
 
 export function appStatusText(app: AppNode) {
@@ -213,11 +227,7 @@ export function appStatusText(app: AppNode) {
 const YGGDRASIL_MVP = 'https://yggdrasil-journal.lovable.app'
 const YGGDRASIL_V1 = 'https://yggdrasil-dev-168739896450.us-central1.run.app'
 
-// The seven nodes sit on the points of a seven-pointed star (a {7/3} heptagram
-// on an ellipse centred at 400,221 with radii 340×154, widened to fill the
-// 800×430 viewBox): apex at top, then clockwise. Yggdrasil, the flagship, takes
-// the apex; the two tarot apps, Arcana and Carta Luna, sit side by side.
-// Array order sets the order of the "Also in beta" cards.
+// Array order is the order on /apps and llms.txt.
 export const apps: AppNode[] = [
   {
     id: 'yggdrasil',
@@ -233,10 +243,7 @@ export const apps: AppNode[] = [
     ],
     status: 'beta',
     statusNote: 'In beta — join the waitlist',
-    flagship: true,
-    x: 400, y: 67, r: 16,
-    nameLines: ['Yggdrasil'],
-    labelAbove: true,
+    waitlist: true,
   },
   {
     id: 'arcana',
@@ -249,22 +256,18 @@ export const apps: AppNode[] = [
     status: 'beta',
     statusNote: 'In beta — try it on TestFlight',
     tryUrl: arcanaLinks.testflightUrl,
-    x: 134, y: 125, r: 13,
-    nameLines: ['Arcana'],
   },
   {
     id: 'cartaluna',
     name: 'Carta Luna',
-    concept: 'Card of the moon · mixed-reality tarot on Meta Quest',
+    concept: 'Card of the moon · mixed-reality tarot in WebXR',
     summary:
-      'A mixed-reality tarot table for Meta Quest 3: shuffle with your hands, read in a night-sky sanctum, and share readings with others in the room.',
-    platform: 'Meta Quest',
+      'A mixed-reality tarot table in WebXR: it opens in any web browser, and a headset like Meta Quest 3 gives you full control — shuffle with your hands, read in a night-sky sanctum, and share readings with others in the room.',
+    platform: 'WebXR',
     href: 'https://cartaluna-mr.vercel.app',
     status: 'beta',
-    statusNote: 'In beta — try it on Meta Quest',
+    statusNote: 'In beta — try it in your browser or headset',
     tryUrl: 'https://cartaluna-mr.vercel.app',
-    x: 69, y: 255, r: 13,
-    nameLines: ['Carta Luna'],
   },
   {
     id: 'lumenwright',
@@ -276,8 +279,6 @@ export const apps: AppNode[] = [
     status: 'beta',
     statusNote: 'In beta — try it in VR & AR',
     tryUrl: 'https://lumenwright-nu.vercel.app',
-    x: 731, y: 255, r: 12,
-    nameLines: ['Lumenwright'],
   },
   {
     id: 'anicca',
@@ -288,8 +289,6 @@ export const apps: AppNode[] = [
     platform: 'iPhone',
     href: '/apps/anicca',
     status: 'lab',
-    x: 666, y: 125, r: 13,
-    nameLines: ['Anicca'],
   },
   {
     id: 'kairos',
@@ -298,8 +297,6 @@ export const apps: AppNode[] = [
     summary: 'A tool for scheduling and timing, named for the Greek idea of the right moment.',
     platform: 'Platform TBA',
     status: 'lab',
-    x: 548, y: 360, r: 11,
-    nameLines: ['Kairos'],
   },
   {
     id: 'sunya',
@@ -308,25 +305,13 @@ export const apps: AppNode[] = [
     summary: 'Cross-platform breathwork, named for the Buddhist idea of emptiness.',
     platform: 'Cross-platform',
     status: 'lab',
-    x: 252, y: 360, r: 12,
-    nameLines: ['Sunya'],
   },
-]
-
-// Each point links to the point three steps around the ring — the single
-// stroke that draws a sharp seven-pointed star.
-export const constellationEdges: [string, string][] = [
-  ['yggdrasil', 'kairos'],
-  ['kairos', 'arcana'],
-  ['arcana', 'lumenwright'],
-  ['lumenwright', 'cartaluna'],
-  ['cartaluna', 'anicca'],
-  ['anicca', 'sunya'],
-  ['sunya', 'yggdrasil'],
 ]
 
 export interface SocialLink {
   label: string
+  /** Where space is tight, like the footer. Defaults to label. */
+  shortLabel?: string
   handle: string
   href: string
   /** A profile that is this brand, as opposed to an invite or a page on this site. */
@@ -339,7 +324,7 @@ export const socialLinks = {
     { label: 'TikTok', handle: '@screenseiji', href: 'https://www.tiktok.com/@screenseiji', profile: true },
     { label: 'Instagram', handle: '@screenseiji', href: 'https://instagram.com/screenseiji', profile: true },
     { label: 'Threads', handle: '@screenseiji', href: 'https://threads.net/@screenseiji', profile: true },
-    { label: 'X / Twitter', handle: '@screenseiji', href: 'https://x.com/screenseiji', profile: true },
+    { label: 'X / Twitter', shortLabel: 'X', handle: '@screenseiji', href: 'https://x.com/screenseiji', profile: true },
     { label: 'Discord', handle: 'Join Community', href: 'https://discord.gg/2rFyT6nskc' },
   ],
   listen: [

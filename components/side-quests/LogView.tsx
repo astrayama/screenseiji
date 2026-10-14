@@ -25,7 +25,7 @@ export default function LogView({ quests, entriesByDate }: Props) {
     <div>
       <ul aria-label="Quest colors" className="flex flex-wrap gap-x-6 gap-y-2">
         {quests.map(quest => (
-          <li key={quest.title} className="flex items-center gap-2 text-sm text-muted">
+          <li key={quest.title} className="flex items-center gap-2 text-sm font-semibold text-plum-700">
             <span aria-hidden className="postit postit-mini h-3.5 w-3.5 rounded-[2px]" style={{ '--postit': quest.color } as React.CSSProperties} />
             {quest.title}
           </li>

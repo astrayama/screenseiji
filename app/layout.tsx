@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Cormorant_Garamond, Space_Grotesk } from 'next/font/google'
+import { Cormorant_Garamond, Josefin_Sans, Nunito_Sans } from 'next/font/google'
 import Script from 'next/script'
 import './globals.css'
 import { MotionPreferenceProvider } from '@/hooks/useMotionPreference'
@@ -8,18 +8,27 @@ import { Analytics } from '@vercel/analytics/next'
 import { PAGES } from '@/lib/routes'
 import { FOUNDER, ORG_NAME, SITE_NAME, SITE_URL, TWITTER } from '@/lib/site'
 
+// Brand type: Cormorant for the wordmark, headings and taglines; Nunito Sans
+// for body, buttons and forms; Josefin Sans for eyebrows only.
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
+  weight: ['400', '500', '600'],
   style: ['normal', 'italic'],
   variable: '--font-cormorant',
   display: 'swap',
 })
 
-const spaceGrotesk = Space_Grotesk({
+const nunitoSans = Nunito_Sans({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-space-grotesk',
+  weight: ['400', '600', '700'],
+  variable: '--font-nunito-sans',
+  display: 'swap',
+})
+
+const josefin = Josefin_Sans({
+  subsets: ['latin'],
+  weight: ['600'],
+  variable: '--font-josefin',
   display: 'swap',
 })
 
@@ -56,10 +65,10 @@ export const metadata: Metadata = {
   },
 }
 
-// Browser UI colour, matching the page background. No colorScheme: it would
+// Browser UI colour, matching the top of the sky. No colorScheme: it would
 // restyle native form controls.
 export const viewport: Viewport = {
-  themeColor: '#07090F',
+  themeColor: '#F6CDE3',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -69,7 +78,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="en"
       data-scroll-behavior="smooth"
-      className={`${cormorant.variable} ${spaceGrotesk.variable}`}
+      className={`${cormorant.variable} ${nunitoSans.variable} ${josefin.variable}`}
       suppressHydrationWarning
     >
       <head>

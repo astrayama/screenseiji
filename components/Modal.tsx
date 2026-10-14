@@ -3,6 +3,7 @@
 import { useEffect, useId, useRef } from 'react'
 import { X } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { CALM_EYEBROW, EYEBROW } from '@/components/ui'
 
 interface Props {
   open: boolean
@@ -10,7 +11,7 @@ interface Props {
   eyebrow?: string
   title: string
   size?: 'md' | 'lg'
-  /** 'studio' drops the brand gold and serif for the client-work section. */
+  /** 'studio' uses the calm skin (sans-serif title) for client web work. */
   tone?: 'brand' | 'studio'
   children: React.ReactNode
 }
@@ -36,7 +37,7 @@ export default function Modal({ open, onClose, eyebrow, title, size = 'md', tone
       // A click on the dialog element itself (not the panel inside it) is a backdrop click.
       onClick={e => { if (e.target === e.currentTarget) onClose() }}
       className={cn(
-        'fixed inset-0 m-auto h-fit max-h-[90svh] overflow-y-auto rounded-3xl border border-white/10 bg-surface p-0 text-foreground shadow-panel backdrop:bg-black/70 backdrop:backdrop-blur-sm',
+        'fixed inset-0 m-auto h-fit max-h-[90svh] overflow-y-auto rounded-3xl border border-mist bg-cloud p-0 text-plum-700 shadow-float backdrop:bg-plum-900/35 backdrop:backdrop-blur-sm',
         size === 'lg' ? 'w-[min(40rem,calc(100%-2rem))]' : 'w-[min(34rem,calc(100%-2rem))]',
       )}
     >
@@ -45,16 +46,16 @@ export default function Modal({ open, onClose, eyebrow, title, size = 'md', tone
           <div className="pr-10">
             {eyebrow && (
               tone === 'studio' ? (
-                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-foreground/60">{eyebrow}</p>
+                <p className={CALM_EYEBROW}>{eyebrow}</p>
               ) : (
-                <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-gold">{eyebrow}</p>
+                <p className={EYEBROW}>{eyebrow}</p>
               )
             )}
             <h3
               id={titleId}
               className={cn(
-                'mt-1 leading-tight',
-                tone === 'studio' ? 'text-2xl font-medium' : 'font-display text-3xl font-light',
+                'mt-2 leading-tight text-plum-900',
+                tone === 'studio' ? 'text-2xl font-bold' : 'font-display text-[2rem] font-medium',
               )}
             >
               {title}
@@ -66,7 +67,7 @@ export default function Modal({ open, onClose, eyebrow, title, size = 'md', tone
             type="button"
             onClick={onClose}
             aria-label="Close"
-            className="absolute right-4 top-4 rounded-full p-2 text-muted transition-colors hover:bg-white/5 hover:text-foreground sm:right-5 sm:top-5"
+            className="absolute right-4 top-4 rounded-full p-2 text-plum-700 transition-colors hover:bg-glow hover:text-plum-900 sm:right-5 sm:top-5"
           >
             <X size={18} />
           </button>

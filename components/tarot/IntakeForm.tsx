@@ -4,7 +4,8 @@ import { FormEvent, useEffect, useId, useState } from 'react'
 import { ArrowUpRight, Send } from 'lucide-react'
 import type { IntakePackage } from '@/lib/data'
 import { postForm } from '@/lib/postForm'
-import { FIELD, LABEL, PRIMARY_BUTTON } from '@/components/formStyles'
+import { FIELD, FORM_ERROR, LABEL, PRIMARY_BUTTON } from '@/components/formStyles'
+import { cn } from '@/lib/utils'
 
 export default function IntakeForm({ pkg }: { pkg: IntakePackage }) {
   const id = useId()
@@ -37,24 +38,24 @@ export default function IntakeForm({ pkg }: { pkg: IntakePackage }) {
   if (status === 'sent') {
     return (
       <div role="status" className="flex flex-col items-center gap-3 py-4 text-center">
-        <div className="text-3xl text-gold">✦</div>
-        <p className="font-display text-2xl font-light text-teal">Request received.</p>
+        <span aria-hidden className="text-3xl text-orchid">✦</span>
+        <p className="font-display text-[2rem] font-medium leading-tight text-plum-900">Request received.</p>
         {pkg.paymentUrl ? (
           <>
-            <p className="text-sm leading-6 text-muted">
+            <p className="text-[15px] leading-6 text-plum-700">
               Taking you to secure payment with Stripe… Use the same email at checkout so Isa can match it to your question.
             </p>
             <a
               href={pkg.paymentUrl}
-              className="mt-2 inline-flex items-center gap-2 rounded-full bg-gold px-6 py-2.5 text-sm font-semibold text-background transition-all hover:bg-gold-bright"
+              className={cn(PRIMARY_BUTTON, 'mt-2')}
             >
               Continue to payment
-              <ArrowUpRight size={14} />
+              <ArrowUpRight size={15} aria-hidden />
             </a>
           </>
         ) : (
-          <p className="text-sm leading-6 text-muted">
-            Isa will email you at <span className="text-foreground">{form.email}</span> with payment details.
+          <p className="text-[15px] leading-6 text-plum-700">
+            Isa will email you at <span className="font-bold text-plum-900">{form.email}</span> with payment details.
           </p>
         )}
       </div>
@@ -88,7 +89,7 @@ export default function IntakeForm({ pkg }: { pkg: IntakePackage }) {
       {pkg.notesField && (
         <div className="flex flex-col gap-2">
           <label htmlFor={`${id}-notes`} className={LABEL}>
-            Anything Isa should know <span className="normal-case tracking-normal text-muted/50">(optional)</span>
+            Anything Isa should know <span className="font-normal text-plum-500">(optional)</span>
           </label>
           <textarea
             id={`${id}-notes`}
@@ -101,10 +102,10 @@ export default function IntakeForm({ pkg }: { pkg: IntakePackage }) {
         </div>
       )}
       {error && (
-        <p role="alert" className="text-sm leading-6 text-amber">{error}</p>
+        <p role="alert" className={FORM_ERROR}>{error}</p>
       )}
       <div className="flex flex-col-reverse items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-xs leading-5 text-muted/70">
+        <p className="text-[13px] leading-5 text-plum-700">
           {pkg.paymentUrl ? 'Next: secure payment via Stripe.' : 'Isa will follow up by email with payment details.'}
         </p>
         <button
@@ -113,7 +114,7 @@ export default function IntakeForm({ pkg }: { pkg: IntakePackage }) {
           className={PRIMARY_BUTTON}
         >
           {status === 'sending' ? 'Sending…' : 'Send request'}
-          <Send size={13} />
+          <Send size={14} aria-hidden />
         </button>
       </div>
       {/* Honeypot — kept last so the dialog's initial focus lands on Name. */}
