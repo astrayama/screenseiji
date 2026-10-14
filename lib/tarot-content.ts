@@ -37,7 +37,7 @@ export const tarotFaq: FaqItem[] = [
   },
   {
     q: 'What is a VR tarot reading?',
-    a: 'A live reading where we meet in virtual reality instead of on a call — choose "VR experience" when you book. To read for yourself in mixed reality, try Carta Luna, the Screen Sage tarot app for Meta Quest.',
+    a: 'A live reading where we meet in virtual reality instead of on a call — choose "VR experience" when you book. To read for yourself in mixed reality, try Carta Luna, the Screen Sage tarot app in WebXR — it opens in any web browser, with full control on a headset like Meta Quest.',
   },
   {
     q: 'Can I keep a journal of my own readings?',

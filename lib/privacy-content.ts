@@ -6,7 +6,7 @@ import { EMAIL } from '@/lib/site'
 // changes. It's a plain-language notice, not legal advice.
 
 export const sitePrivacy: LegalDoc = {
-  effective: 'Effective October 13, 2026',
+  effective: 'Effective October 14, 2026',
   sections: [
     {
       title: 'The short version',
@@ -27,6 +27,7 @@ export const sitePrivacy: LegalDoc = {
       body: [
         'The contact form, tarot intake form, live booking form, app waitlist, and Studio project form ask for your name, your email, and whatever you choose to write. Each submission is emailed to me through Resend, an email delivery service.',
         'Waitlist signups are also saved to a mailing list in Resend, so I can tell you when an app launches. Everything else stays in my inbox; it isn’t added to any list.',
+        'The “Join the journey” mailing list on the home page asks only for your email. It’s saved to the same Resend list so I can send new videos, app drops and occasional dispatches, and every email has an unsubscribe link.',
       ],
     },
     {
@@ -42,6 +43,12 @@ export const sitePrivacy: LegalDoc = {
       ],
     },
     {
+      title: 'YouTube videos',
+      body: [
+        'The home page shows my latest YouTube video. Its thumbnail is fetched by this site, so your browser doesn’t contact YouTube until you press play. The video then plays in YouTube’s privacy-enhanced mode (youtube-nocookie.com), under Google’s privacy policy: https://policies.google.com/privacy',
+      ],
+    },
+    {
       title: 'Fonts and links',
       body: [
         'The site’s fonts are served from this site, not loaded from Google Fonts while you browse. Links to YouTube, TikTok, Instagram, Spotify, and other services take you to sites with their own privacy policies.',
@@ -50,13 +57,13 @@ export const sitePrivacy: LegalDoc = {
     {
       title: 'How long data is kept',
       body: [
-        'Form emails are kept as long as they’re useful for replying to you and keeping records. Waitlist contacts stay on the list until you unsubscribe or ask to be removed. Analytics data is kept according to Google’s and Vercel’s retention settings.',
+        'Form emails are kept as long as they’re useful for replying to you and keeping records. Waitlist and mailing-list contacts stay on the list until you unsubscribe or ask to be removed. Analytics data is kept according to Google’s and Vercel’s retention settings.',
       ],
     },
     {
       title: 'Your choices',
       body: [
-        'You can block or clear cookies in your browser, or use a tracker blocker; the site works without them. To see, correct, or delete what you’ve sent me — or to leave the waitlist — just email me.',
+        'You can block or clear cookies in your browser, or use a tracker blocker; the site works without them. To see, correct, or delete what you’ve sent me — or to leave the waitlist or mailing list — just email me.',
       ],
     },
     {

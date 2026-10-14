@@ -1,5 +1,6 @@
-// Every indexable page, in one registry: titles, descriptions, sitemap
-// priority, breadcrumbs and share-card text all come from here.
+// Every page, in one registry: titles, descriptions, sitemap priority,
+// breadcrumbs and share-card text all come from here. Pages marked `noindex`
+// (the Sanctum) stay out of search, the sitemap and llms.txt.
 // No imports and type-only TypeScript, so `npm test` can load it directly
 // (lib/routes.test.mjs checks lengths, uniqueness and that every page is here).
 
@@ -19,6 +20,8 @@ export interface PageEntry {
   parent?: string
   /** Share-card text. */
   og: { eyebrow: string; title: string; subtitle?: string; theme: OgTheme }
+  /** Keep out of search engines, the sitemap and llms.txt. */
+  noindex?: boolean
 }
 
 export const PAGES = {
@@ -126,6 +129,17 @@ export const PAGES = {
       theme: 'site',
     },
   },
+  sanctum: {
+    path: '/sanctum',
+    title: 'The Sanctum · Screen Sage',
+    description:
+      'A private corner of the Screen Sage site: developer links and resources, kept behind a word of passage. Some doors require a key.',
+    priority: 0,
+    crumb: 'The Sanctum',
+    parent: 'home',
+    noindex: true,
+    og: { eyebrow: 'The Sanctum', title: 'Some doors require a key.', theme: 'site' },
+  },
   arcana: {
     path: '/apps/arcana',
     title: 'Arcana — Tarot Journal App for iPhone · Screen Sage',
@@ -216,6 +230,11 @@ export const PAGES = {
 } satisfies Record<string, PageEntry>
 
 export type PageKey = keyof typeof PAGES
+
+/** The pages search engines and AI assistants should know about. */
+export function indexablePages(): [PageKey, PageEntry][] {
+  return (Object.entries(PAGES) as [PageKey, PageEntry][]).filter(([, page]) => !page.noindex)
+}
 
 /** The page and every page above it, from the home page down. */
 export function breadcrumbTrail(key: PageKey): PageEntry[] {

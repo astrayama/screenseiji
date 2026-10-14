@@ -1,8 +1,7 @@
 import type { FaqItem } from '@/lib/app-content'
 import { budgetRanges, studio } from '@/lib/data'
 
-// Copy for /websites. Services, work and process live in lib/data.ts (studio),
-// shared with the home page's Studio banner.
+// Copy for /websites. Services, work and process live in lib/data.ts (studio).
 
 const included = studio.included.map(i => i.toLowerCase())
 

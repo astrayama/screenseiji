@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, useState, useSyncExternalStore } from 'react'
+import { createContext, useContext, useEffect, useState, useSyncExternalStore } from 'react'
 
 interface MotionCtx {
   reduced: boolean
@@ -26,6 +26,12 @@ export function MotionPreferenceProvider({ children }: { children: React.ReactNo
   // null = follow the OS setting; the accessibility panel toggle overrides it.
   const [override, setOverride] = useState<boolean | null>(null)
   const reduced = override ?? systemReduced
+
+  // CSS animations (the sky's sparkles and hearts) can't read this context,
+  // so mirror it on <html> for globals.css.
+  useEffect(() => {
+    document.documentElement.toggleAttribute('data-reduced-motion', reduced)
+  }, [reduced])
 
   return (
     <Ctx.Provider value={{ reduced, toggle: () => setOverride(!reduced) }}>

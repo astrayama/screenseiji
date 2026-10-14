@@ -3,7 +3,7 @@
 import { FormEvent, useId, useState } from 'react'
 import { Send } from 'lucide-react'
 import { postForm } from '@/lib/postForm'
-import { FIELD, LABEL, PRIMARY_BUTTON } from '@/components/formStyles'
+import { FIELD, FORM_ERROR, LABEL, PRIMARY_BUTTON } from '@/components/formStyles'
 
 export default function WaitlistForm({ appId, appName }: { appId: string; appName: string }) {
   const id = useId()
@@ -27,10 +27,10 @@ export default function WaitlistForm({ appId, appName }: { appId: string; appNam
   if (status === 'sent') {
     return (
       <div role="status" className="flex flex-col items-center gap-3 py-4 text-center">
-        <div className="text-3xl text-gold">✦</div>
-        <p className="font-display text-2xl font-light text-teal">You’re on the list.</p>
-        <p className="text-sm leading-6 text-muted">
-          Isa will email you at <span className="text-foreground">{form.email}</span> when {appName} opens up.
+        <span aria-hidden className="text-3xl text-orchid">✦</span>
+        <p className="font-display text-[1.75rem] font-medium text-plum-900">You’re on the list.</p>
+        <p className="text-sm leading-6 text-plum-700">
+          Isa will email you at <span className="font-bold text-plum-900">{form.email}</span> when {appName} opens up.
         </p>
       </div>
     )
@@ -38,12 +38,12 @@ export default function WaitlistForm({ appId, appName }: { appId: string; appNam
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-      <p className="text-sm leading-6 text-muted">
+      <p className="text-sm leading-6 text-plum-700">
         {appName} is in beta. Leave your email and you’ll hear the moment there’s room for you.
       </p>
       <div className="flex flex-col gap-2">
         <label htmlFor={`${id}-name`} className={LABEL}>
-          Name <span className="normal-case tracking-normal text-muted/50">(optional)</span>
+          Name <span className="font-normal text-plum-500">(optional)</span>
         </label>
         <input id={`${id}-name`} autoComplete="name" value={form.name} onChange={set('name')} className={FIELD} placeholder="Your name" />
       </div>
@@ -52,11 +52,11 @@ export default function WaitlistForm({ appId, appName }: { appId: string; appNam
         <input id={`${id}-email`} required type="email" autoComplete="email" value={form.email} onChange={set('email')} className={FIELD} placeholder="you@example.com" />
       </div>
       {error && (
-        <p role="alert" className="text-sm leading-6 text-amber">{error}</p>
+        <p role="alert" className={FORM_ERROR}>{error}</p>
       )}
       <button type="submit" disabled={status === 'sending'} className={`${PRIMARY_BUTTON} sm:self-end`}>
         {status === 'sending' ? 'Joining…' : 'Join the waitlist'}
-        <Send size={13} />
+        <Send size={13} aria-hidden />
       </button>
       {/* Honeypot — kept last so the dialog's initial focus lands on Name. */}
       <div aria-hidden className="sr-only">

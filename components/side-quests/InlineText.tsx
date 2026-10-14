@@ -12,7 +12,7 @@ export default function InlineText({ text }: { text: string }) {
             href={segment.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="underline decoration-current/40 underline-offset-2 transition-colors hover:decoration-current"
+            className="font-semibold underline decoration-current/50 underline-offset-[3px] transition-colors hover:decoration-current"
           >
             {segment.text}
           </a>

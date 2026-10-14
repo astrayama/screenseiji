@@ -64,7 +64,7 @@ export default function SideQuestsView({ quests, entriesByDate }: Props) {
       <div
         role="tablist"
         aria-label="Side quests view"
-        className="inline-flex rounded-full border border-white/10 bg-white/[0.03] p-1"
+        className="inline-flex rounded-full border border-mist bg-cloud p-1 shadow-card"
       >
         {TABS.map(({ id: tabId, label, Icon }) => {
           const selected = tab === tabId
@@ -81,10 +81,8 @@ export default function SideQuestsView({ quests, entriesByDate }: Props) {
               onClick={() => select(tabId)}
               onKeyDown={onKeyDown}
               className={cn(
-                'inline-flex items-center gap-2 rounded-full px-5 py-2 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold',
-                selected
-                  ? 'bg-gold/15 text-gold-bright shadow-[inset_0_0_0_1px_rgba(201,148,60,0.45)]'
-                  : 'text-muted hover:text-foreground',
+                'inline-flex items-center gap-2 rounded-full px-5 py-2 text-sm font-bold transition-colors',
+                selected ? 'bg-plum-900 text-cloud' : 'text-plum-700 hover:bg-glow hover:text-plum-900',
               )}
             >
               <Icon size={15} aria-hidden />
@@ -102,7 +100,7 @@ export default function SideQuestsView({ quests, entriesByDate }: Props) {
         className="mt-8"
       >
         {quests.length === 0 ? (
-          <p className="text-muted">No side quests yet.</p>
+          <p className="text-plum-700">No side quests yet.</p>
         ) : (
           <div className="grid gap-5 md:grid-cols-2">
             {quests.map(quest => <QuestCard key={quest.title} quest={quest} />)}

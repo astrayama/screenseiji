@@ -1,6 +1,8 @@
 'use client'
 
 import { useMemo, useState } from 'react'
+import { BUTTON_OUTLINE, EYEBROW } from '@/components/ui'
+import { cn } from '@/lib/utils'
 import type { DayEntry } from '@/lib/side-quests/parse'
 import { buildFeed, formatDayHeader, tilt, weekStart } from '@/lib/side-quests/display'
 import InlineText from './InlineText'
@@ -28,17 +30,17 @@ export default function AgendaFeed({ entriesByDate, today }: Props) {
     <div className="space-y-10">
       {visible.map(week => (
         <section key={week.start}>
-          <h2 className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.22em] text-gold">
+          <h2 className={cn(EYEBROW, 'flex items-center gap-3 tracking-[0.22em]')}>
             {week.label}
-            <span aria-hidden className="h-px flex-1 bg-gradient-to-r from-gold/25 to-transparent" />
+            <span aria-hidden className="h-px flex-1 bg-gradient-to-r from-lilac to-transparent" />
           </h2>
           {week.days.length === 0 ? (
-            <p className="mt-4 text-sm text-muted">Nothing logged yet this week.</p>
+            <p className="mt-4 text-sm text-plum-700">Nothing logged yet this week.</p>
           ) : (
             <div className="mt-5 space-y-6">
               {week.days.map(day => (
                 <div key={day.date}>
-                  <h3 className="text-sm font-medium text-foreground/80">
+                  <h3 className="text-sm font-bold text-plum-900">
                     <time dateTime={day.date}>
                       {day.date === today ? `Today · ${formatDayHeader(day.date)}` : formatDayHeader(day.date)}
                     </time>
@@ -47,7 +49,7 @@ export default function AgendaFeed({ entriesByDate, today }: Props) {
                     {day.entries.map((entry, i) => (
                       <li key={i}>
                         <PostIt variant="note" color={entry.color} tilt={tilt(day.date, i) * 0.4}>
-                          <p className="text-[10px] font-semibold uppercase tracking-[0.18em]">{entry.quest}</p>
+                          <p className="font-eyebrow text-[11px] font-semibold uppercase tracking-[0.18em]">{entry.quest}</p>
                           <p className="mt-1 text-sm leading-6">
                             <InlineText text={entry.text} />
                           </p>
@@ -66,7 +68,7 @@ export default function AgendaFeed({ entriesByDate, today }: Props) {
         <button
           type="button"
           onClick={() => setEarlierShown(n => n + PAGE)}
-          className="w-full rounded-full border border-gold/40 px-5 py-2.5 text-sm font-medium text-gold transition-all hover:border-gold hover:bg-gold/10"
+          className={cn(BUTTON_OUTLINE, 'w-full py-2.5 text-sm')}
         >
           Show earlier
         </button>

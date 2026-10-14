@@ -1,14 +1,18 @@
-// Shared classes for the native forms that live inside <Modal> (tarot intake,
-// live booking, waitlist, studio project inquiry).
+// Shared classes for the site's native forms: the home page's contact and
+// mailing-list forms, and the ones inside <Modal> (tarot intake, live
+// booking, waitlist, studio project inquiry).
+
+import { BUTTON_PRIMARY, CALM_BUTTON } from '@/components/ui'
 
 export const FIELD =
-  'w-full rounded-xl border border-white/10 bg-background/60 px-4 py-3 text-sm text-foreground placeholder:text-muted/40 outline-none transition-colors focus:border-teal/40'
+  'w-full rounded-xl border-[1.5px] border-mist bg-white px-4 py-3 text-[15px] text-plum-900 placeholder:text-plum-500/60 outline-none transition-colors focus:border-plum-500'
 
-export const LABEL = 'text-xs font-semibold uppercase tracking-[0.14em] text-muted/70'
+export const LABEL = 'text-[13px] font-bold text-plum-900'
 
-export const PRIMARY_BUTTON =
-  'flex items-center justify-center gap-2 rounded-full bg-gold px-7 py-3 text-sm font-semibold text-background transition-all hover:bg-gold-bright disabled:opacity-60'
+export const PRIMARY_BUTTON = BUTTON_PRIMARY
 
-// The Studio (client web work) is styled apart from the brand: no gold.
-export const NEUTRAL_BUTTON =
-  'flex items-center justify-center gap-2 rounded-full bg-foreground px-6 py-2.5 text-sm font-semibold text-background transition-colors hover:bg-white disabled:opacity-60'
+// The Studio (client web work) uses the calm skin: square-ish, no pill.
+export const NEUTRAL_BUTTON = CALM_BUTTON
+
+/** Error text under a form. */
+export const FORM_ERROR = 'text-sm leading-6 text-alert'
