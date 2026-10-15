@@ -10,16 +10,15 @@ import InlineText from './InlineText'
 const STATUS: Record<QuestStatus, { label: string; className: string; dot: string }> = {
   active:   { label: 'Active',   className: 'bg-blush text-plum-900',    dot: 'bg-current' },
   paused:   { label: 'Paused',   className: 'bg-mist text-plum-700',     dot: 'border-[1.5px] border-current' },
+  queued:   { label: 'Queued',   className: 'bg-glow text-plum-700',     dot: 'border-[1.5px] border-current' },
   complete: { label: 'Complete', className: 'bg-lilac/70 text-plum-900', dot: 'bg-current' },
 }
 
-/** A field's label: Latest log, Next milestone. */
-const LABEL = 'font-eyebrow text-[11px] font-semibold uppercase tracking-[0.22em] text-plum-500'
+/** A field's label: Latest log, Next milestone, Up next. */
+export const LABEL = 'font-eyebrow text-[11px] font-semibold uppercase tracking-[0.22em] text-plum-500'
 
 // Where a quest stands — deliberately no description or feature list (those live on the portfolio).
 export default function QuestCard({ quest }: { quest: Quest }) {
-  const status = STATUS[quest.status]
-
   return (
     <article className={cn('quest-card', CARD, 'flex flex-col overflow-hidden rounded-3xl p-6 sm:p-8')}>
       {/* The quest's pinned color — the same one its post-its use in the Log.
@@ -39,48 +38,63 @@ export default function QuestCard({ quest }: { quest: Quest }) {
           />
           {quest.title}
         </h2>
-        <span
-          className={cn(
-            'inline-flex shrink-0 items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.14em]',
-            status.className,
-          )}
-        >
-          <span aria-hidden className={cn('h-1.5 w-1.5 rounded-full', status.dot)} />
-          {status.label}
-        </span>
+        <StatusPill status={quest.status} />
       </div>
 
       <p className="mt-5 font-display text-[1.75rem] font-medium italic leading-snug text-plum-900 sm:text-3xl">
         {quest.question}
       </p>
 
-      <dl className="mt-7 space-y-5 border-t border-mist pt-6 text-sm">
-        {quest.latest && (
-          <div>
-            <dt className={LABEL}>Latest log</dt>
-            <dd className="mt-1.5 leading-6 text-plum-700">
-              <time dateTime={quest.latest.date} className="mr-2 font-semibold text-plum-500">
-                {formatMediumDate(quest.latest.date)}
-              </time>
-              <InlineText text={quest.latest.text} />
-            </dd>
-          </div>
-        )}
-        {quest.milestone && (
-          <div>
-            <dt className={LABEL}>Next milestone</dt>
-            <dd className="mt-1.5 leading-6 text-plum-700">{quest.milestone}</dd>
-          </div>
-        )}
-      </dl>
+      <QuestDetails quest={quest} />
 
       {quest.link && <ProjectLink link={quest.link} />}
     </article>
   )
 }
 
+export function StatusPill({ status }: { status: QuestStatus }) {
+  const { label, className, dot } = STATUS[status]
+  return (
+    <span
+      className={cn(
+        'inline-flex shrink-0 items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.14em]',
+        className,
+      )}
+    >
+      <span aria-hidden className={cn('h-1.5 w-1.5 rounded-full', dot)} />
+      {label}
+    </span>
+  )
+}
+
+/** Latest log and next milestone, under a hairline. Renders nothing when the quest has neither. */
+export function QuestDetails({ quest }: { quest: Quest }) {
+  if (!quest.latest && !quest.milestone) return null
+  return (
+    <dl className="mt-7 space-y-5 border-t border-mist pt-6 text-sm">
+      {quest.latest && (
+        <div>
+          <dt className={LABEL}>Latest log</dt>
+          <dd className="mt-1.5 leading-6 text-plum-700">
+            <time dateTime={quest.latest.date} className="mr-2 font-semibold text-plum-500">
+              {formatMediumDate(quest.latest.date)}
+            </time>
+            <InlineText text={quest.latest.text} />
+          </dd>
+        </div>
+      )}
+      {quest.milestone && (
+        <div>
+          <dt className={LABEL}>Next milestone</dt>
+          <dd className="mt-1.5 leading-6 text-plum-700">{quest.milestone}</dd>
+        </div>
+      )}
+    </dl>
+  )
+}
+
 // Pages on this site (e.g. /apps/arcana) open in place; everything else in a new tab.
-function ProjectLink({ link }: { link: string }) {
+export function ProjectLink({ link }: { link: string }) {
   const local = localHref(link, LOCAL_HOSTS)
   return (
     // mt-auto pins the button to the card's bottom so it lines up across the row.

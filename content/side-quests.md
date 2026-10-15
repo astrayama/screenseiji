@@ -1,8 +1,33 @@
 # Side Quests
 > Main quest: self-mastery and self-expression.
-<!-- colors: Heed: #2dd4bf, Lumenwright: #7c5cff, Arcana: #f6ce55, Carta Luna: #e8a2c8, Duality: #e8e4da, Pantheon: #60a5fa, Yggdrasil: #6fbf73 -->
+<!-- colors: Heed: #2dd4bf, Lumenwright: #7c5cff, Arcana: #f6ce55, Carta Luna: #e8a2c8, Duality: #e8e4da, Pantheon: #60a5fa, Yggdrasil: #6fbf73, Graduation Sprint: #f4a261, First Full-Time Job: #94a3b8, Fitness: #f87171, Critiquing: #a3e635 -->
+
+## Graduation Sprint
+- **Type:** main
+- **Status:** active
+- **Question:** Can I cross the finish line strong, not just finished?
+- **Next milestone:** Wrap up final projects and exams
+- **Target:** 2026-11-03
+
+## First Full-Time Job
+- **Type:** main
+- **Status:** queued
+- **Question:** Where do I want to spend my days once school is done?
+
+## Fitness
+- **Type:** self
+- **Status:** active
+- **Question:** Can training become something I look forward to?
+- **Next milestone:** Three workouts a week for a month
+
+## Critiquing
+- **Type:** self
+- **Status:** active
+- **Question:** Can I review anime, games and TV with a film critic's eye?
+- **Next milestone:** Publish a first review, then one a week
 
 ## Heed
+- **Type:** dev
 - **Status:** active
 - **Question:** Can tracking my time feel like a flick instead of a chore?
 - **Next milestone:** Polish and accessibility, then a week of daily use
@@ -14,6 +39,7 @@
 - **2026-10-08:** First standalone build running on my own phone.
 
 ## Lumenwright
+- **Type:** dev
 - **Status:** active
 - **Question:** Can willpower be a game mechanic?
 - **Next milestone:** First public demo Short
@@ -35,6 +61,7 @@
 - **2026-10-12:** Mixed reality room mode: Hollows crack out of the walls of your actual room.
 
 ## Arcana
+- **Type:** dev
 - **Status:** active
 - **Question:** Can a daily draw become a real reflection habit?
 - **Next milestone:** Launch on the App Store
@@ -46,6 +73,7 @@
 - **2026-10-06:** Public beta open on TestFlight.
 
 ## Carta Luna
+- **Type:** dev
 - **Status:** active
 - **Question:** What does a tarot reading feel like in mixed reality?
 - **Next milestone:** Gather feedback from the first beta testers
@@ -63,6 +91,7 @@
   and a moon-and-card loading screen.
 
 ## Duality
+- **Type:** dev
 - **Status:** active
 - **Question:** Can a game teach the difference between wisdom and experience?
 - **Next milestone:** Prototype the Duality Engine (Wisdom vs. Experience)
@@ -72,6 +101,7 @@
   weighing Wisdom against Experience.
 
 ## Pantheon
+- **Type:** dev
 - **Status:** active
 - **Question:** Can a pantheon of AI agents carry the busywork so I can create?
 - **Link:** https://github.com/astrayama/pantheon
@@ -81,6 +111,7 @@
 - **2026-08-25:** The content pipeline runs end to end.
 
 ## Yggdrasil
+- **Type:** dev
 - **Status:** active
 - **Question:** Can a journal show you the shape of your own growth?
 - **Next milestone:** Open the beta to the waitlist
