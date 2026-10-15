@@ -15,6 +15,7 @@ const PAGES_NAV = [
   { label: 'Apps', href: '/apps' },
   { label: 'Tarot', href: '/tarot' },
   { label: 'Websites', href: '/websites' },
+  { label: 'Reviews', href: 'https://screen-sage-1047503639253.us-central1.run.app', external: true },
   { label: 'Side Quests', href: '/side-quests' },
   { label: 'Store', href: gumroad.href, external: true },
 ]
@@ -50,7 +51,7 @@ export default function SiteFooter() {
               <li key={link.href}>
                 <a
                   href={link.href}
-                  {...(link.external && { target: '_blank', rel: externalRel(gumroad) })}
+                  {...(link.external && { target: '_blank', rel: 'noopener noreferrer' })}
                   className="decoration-[1.5px] underline-offset-[5px] hover:underline"
                 >
                   {link.label}

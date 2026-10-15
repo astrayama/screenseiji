@@ -25,6 +25,7 @@
 - **Status:** active
 - **Question:** Can I review anime, games and TV with a film critic's eye?
 - **Next milestone:** Publish a first review, then one a week
+- **Link:** https://screen-sage-1047503639253.us-central1.run.app
 
 ## Heed
 - **Type:** dev
