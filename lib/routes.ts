@@ -103,14 +103,14 @@ export const PAGES = {
     path: '/side-quests',
     title: 'Side Quests — What Isa Is Building Now · Screen Sage',
     description:
-      'The Screen Sage Studios quest log: the apps, videos, and experiments Isa is building right now, with milestones and a day-by-day build log.',
+      "The Screen Sage Studios quest log: Isa's main quest, the apps and experiments in progress, and self-practice side quests, with a day-by-day log.",
     priority: 0.7,
     crumb: 'Side Quests',
     parent: 'home',
     og: {
       eyebrow: 'Side Quests',
       title: 'What Isa is building right now.',
-      subtitle: 'Quest cards and a day-by-day build log',
+      subtitle: 'The main quest, side quests and a day-by-day log',
       theme: 'site',
     },
   },

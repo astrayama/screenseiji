@@ -4,7 +4,7 @@
 // Log dates are calendar dates ("2026-10-07"), not instants: every helper here
 // does its math in UTC so a date never slips a day for a viewer west of UTC.
 
-import type { DayEntry } from './parse'
+import type { DayEntry, Quest } from './parse'
 
 export interface YearMonth {
   year: number
@@ -112,6 +112,11 @@ export function weekStart(date: string): string {
   return addDays(date, -utc(date).getUTCDay())
 }
 
+/** Whole days from `today` to `target`: 0 on the day, negative once it has passed. */
+export function daysUntil(target: string, today: string): number {
+  return Math.round((utc(target).getTime() - utc(today).getTime()) / DAY_MS)
+}
+
 function weekLabel(start: string, thisWeek: string, currentYear: number): string {
   if (start === thisWeek) return 'This week'
   if (start === addDays(thisWeek, -7)) return 'Last week'
@@ -159,6 +164,33 @@ export function groupByQuest(entries: DayEntry[]): { quest: string; color: strin
     else groups.push({ quest, color, texts: [text] })
   }
   return groups
+}
+
+/** Most recently logged first; quests with no log go last. Ties keep their order. */
+export function byLatestUpdate(quests: Quest[]): Quest[] {
+  return [...quests].sort((a, b) => {
+    const x = a.latest?.date ?? ''
+    const y = b.latest?.date ?? ''
+    return x < y ? 1 : x > y ? -1 : 0
+  })
+}
+
+export interface QuestBoard {
+  /** The active main quest: the page's big card. */
+  main?: Quest
+  /** Queued main quests in file order: "Up next". */
+  queue: Quest[]
+  /** Self and dev quests, most recently updated first. Paused or complete main quests only live in the Log. */
+  side: Quest[]
+}
+
+/** Splits the parsed quests (status order, then file order) into the page's sections. */
+export function splitQuests(quests: Quest[]): QuestBoard {
+  return {
+    main: quests.find(q => q.type === 'main' && q.status === 'active'),
+    queue: quests.filter(q => q.type === 'main' && q.status === 'queued'),
+    side: byLatestUpdate(quests.filter(q => q.type !== 'main')),
+  }
 }
 
 const DARK_TEXT = '#10131C'

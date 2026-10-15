@@ -16,9 +16,11 @@ Never copy quest text into either site's code. If you're editing it in two place
 <!-- colors: Lumenwright: #7c5cff, Carta Luna: #e8a2c8 -->
 
 ## Quest title
+- **Type:** dev
 - **Status:** active
 - **Question:** The question this quest is chasing?
 - **Next milestone:** What's next (optional; leave empty to hide the row)
+- **Target:** 2027-05-15 (optional; main quests show it as a countdown)
 - **Link:** https://… (optional; the card's "View project" button)
 
 ### Log
@@ -27,9 +29,16 @@ Never copy quest text into either site's code. If you're editing it in two place
 - **2026-10-07:** A second entry on the same day becomes its own post-it.
 ```
 
-- **Status** is `active`, `paused` or `complete`, all lowercase. Cards sort in that order, then by order in this file.
+- **Type** is `main`, `self` or `dev`, all lowercase; leave it out and the quest is `dev`.
+  - `main` is the life quest of the moment (e.g. Graduation Sprint). The active one gets the big card at the
+    top of the page, and `queued` main quests line up beside it as "Up next", in the order they appear here.
+    Only one main quest can be active at a time: when it's done, mark it `complete` and set the next one `active`.
+  - `self` is practice and growth (fitness, critiquing…) and `dev` is projects. They're the Self and Dev
+    filters on the Quests tab, where cards sort by their newest log entry.
+- **Status** is `active`, `paused`, `queued` or `complete`, all lowercase.
+- **Target** is a `YYYY-MM-DD` date the quest is aiming for (e.g. graduation day).
 - **Log dates** are `YYYY-MM-DD`. Add new entries at the bottom (they're sorted by date anyway).
-  The newest one is the card's "Latest log".
+  The newest one is the card's "Latest log". Every quest's entries, main ones included, are post-its in the Log.
 - **Links in log text:** `[text](https://…)` or a bare `https://…` URL. Everything else is plain text, so other markdown shows as typed.
 - **Colors:** one `#rgb`/`#rrggbb` per quest on the `<!-- colors: -->` line. They never change on their own.
   A quest missing from that line gets a fallback color from its title (the build prints a reminder to pin it).

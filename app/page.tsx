@@ -37,7 +37,8 @@ export default function Home() {
         <Practice />
         <Reflect />
         <Build />
-        <MeetIsa quest={activeByRecency(quests)[0]} />
+        {/* "Now building": a project, never the main quest or a self quest. */}
+        <MeetIsa quest={activeByRecency(quests.filter(quest => quest.type === 'dev'))[0]} />
         <JoinJourney />
         <Contact />
       </main>

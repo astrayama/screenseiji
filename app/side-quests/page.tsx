@@ -3,10 +3,14 @@ import Navbar from '@/components/Navbar'
 import AccessibilityPanel from '@/components/AccessibilityPanel'
 import SiteFooter from '@/components/SiteFooter'
 import SideQuestsView from '@/components/side-quests/SideQuestsView'
+import MainQuestCard from '@/components/side-quests/MainQuestCard'
+import MainQuestQueue from '@/components/side-quests/MainQuestQueue'
 import JsonLd from '@/components/JsonLd'
 import { Sparkle } from '@/components/brand/SkyArt'
 import { PAGE_EYEBROW, PAGE_TITLE, PAGE_TITLE_SIZE } from '@/components/ui'
 import { loadSideQuests } from '@/lib/side-quests/load'
+import { splitQuests } from '@/lib/side-quests/display'
+import { cn } from '@/lib/utils'
 import { pageMetadata } from '@/lib/seo'
 import { pageGraph } from '@/lib/structured-data'
 
@@ -15,6 +19,7 @@ export const metadata = pageMetadata('sideQuests')
 // Built once from content/side-quests.md — edit that file, not this page.
 export default function SideQuestsPage() {
   const { tagline, quests, entriesByDate } = loadSideQuests()
+  const { main, queue, side } = splitQuests(quests)
 
   return (
     <>
@@ -27,7 +32,16 @@ export default function SideQuestsPage() {
           <p className={PAGE_EYEBROW}>Side Quests</p>
           <h1 className={PAGE_TITLE} style={PAGE_TITLE_SIZE}>{tagline}</h1>
         </header>
-        <SideQuestsView quests={quests} entriesByDate={entriesByDate} />
+        {(main || queue.length > 0) && (
+          <section
+            aria-label="Main quest"
+            className={cn('mt-12 grid gap-5 sm:mt-14', main && queue.length > 0 && 'lg:grid-cols-[2fr_1fr]')}
+          >
+            {main && <MainQuestCard quest={main} />}
+            {queue.length > 0 && <MainQuestQueue quests={queue} />}
+          </section>
+        )}
+        <SideQuestsView side={side} quests={quests} entriesByDate={entriesByDate} />
       </main>
       <SiteFooter />
       <AccessibilityPanel />
