@@ -15,7 +15,7 @@ const PAGES_NAV = [
   { label: 'Apps', href: '/apps' },
   { label: 'Tarot', href: '/tarot' },
   { label: 'Websites', href: '/websites' },
-  { label: 'Reviews', href: 'https://screen-sage-1047503639253.us-central1.run.app', external: true },
+  { label: 'Reviews', href: 'https://reviews.screenseiji.com', external: true },
   { label: 'Side Quests', href: '/side-quests' },
   { label: 'Store', href: gumroad.href, external: true },
 ]
