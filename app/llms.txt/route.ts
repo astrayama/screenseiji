@@ -18,7 +18,7 @@ function body() {
     `> ${ORG_NAME} (${SITE_NAME}, @${HANDLE}) is ${FOUNDER}'s one-person studio: ${TAGLINE.toLowerCase().replace(/\.$/, '')}. ` +
       'It makes anime edits and philosophical video essays, offers tarot readings for self-reflection, builds apps for seekers, and designs websites for small businesses.',
     '',
-    `"${HANDLE}" is ${SITE_NAME} spelled the Japanese way — the handle for the anime edits and a love of Japanese culture. ` +
+    `"${HANDLE}" is ${SITE_NAME} spelled the Japanese way, the handle for the anime edits and a love of Japanese culture. ` +
       `${SITE_NAME}, ${ORG_NAME} and ${HANDLE} are the same brand. It evolved from Omniversal Seeker.`,
     '',
     '## Pages',
@@ -28,7 +28,7 @@ function body() {
     ...apps.map(app => {
       const versions = app.links?.map(l => `${l.label}: ${l.href}`).join('; ')
       const where = versions ?? (app.href ? link(app.href) : 'not public yet')
-      return `- ${app.name} (${app.platform}, ${appStatusText(app)}): ${app.summary} — ${where}`
+      return `- ${app.name} (${app.platform}, ${appStatusText(app)}): ${app.summary} (${where})`
     }),
     '',
     '## Tarot readings',
@@ -43,7 +43,7 @@ function body() {
     `- Start a project at ${absoluteUrl('/websites')}`,
     '',
     '## Profiles',
-    ...profileLinks.map(p => `- [${p.label} — ${p.handle}](${p.href})`),
+    ...profileLinks.map(p => `- [${p.label}: ${p.handle}](${p.href})`),
     '',
   ].join('\n')
 }

@@ -31,6 +31,10 @@ export default function SideQuestsPage() {
           <Sparkle className="-top-6 right-0 h-5 w-5 text-orchid sm:-right-10 sm:h-6 sm:w-6" twinkle />
           <p className={PAGE_EYEBROW}>Side Quests</p>
           <h1 className={PAGE_TITLE} style={PAGE_TITLE_SIZE}>{tagline}</h1>
+          <p className="mt-6 text-base leading-8 text-plum-700 sm:text-lg">
+            This is my quest log: what I’m building, and the question each project is trying to
+            answer. Everything here is a work in progress, on purpose.
+          </p>
         </header>
         {(main || queue.length > 0) && (
           <section

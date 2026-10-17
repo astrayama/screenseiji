@@ -13,8 +13,8 @@ export const tarotIntro = {
   eyebrow: 'Tarot readings online',
   title: 'Tarot readings for self-reflection.',
   lead: [
-    'Tarot here is a symbolic language for self-reflection — not prediction, but a mirror held up to what you already know.',
-    'Isa reads for you in writing, as a recorded video, or live — by voice call, video call, or in VR. Every reading starts with your question.',
+    'Tarot here is a symbolic language for self-reflection. A mirror, not a forecast.',
+    'I read for you in writing, as a recorded video, or live by voice call, video call, or in VR. Every reading starts with your question.',
   ],
 }
 
@@ -24,23 +24,27 @@ export const tarotFaq: FaqItem[] = [
     a: 'Not here. A Screen Sage reading treats the cards as a mirror, not a forecast: a symbolic language that helps you see your situation, your patterns, and your options more clearly. What you do next is yours.',
   },
   {
+    q: 'Is a reading a substitute for therapy or professional advice?',
+    a: 'No. A reading is for entertainment and self-reflection. For health, mental health, legal, or money decisions, please talk to a qualified professional.',
+  },
+  {
     q: 'What kinds of readings can I book?',
-    a: `A written reading (${written.price} ${written.priceUnit}: ${written.details.join(', ').toLowerCase()}), a recorded video reading (${video.price} ${video.priceUnit}: ${video.details.join(', ').toLowerCase()}), or a live reading by voice call, video call, or VR — from ${firstTier.price} for ${firstTier.label} to ${lastTier.price} for ${lastTier.label}.`,
+    a: `A written reading (${written.price} ${written.priceUnit}: ${written.details.join(', ').toLowerCase()}), a recorded video reading (${video.price} ${video.priceUnit}: ${video.details.join(', ').toLowerCase()}), or a live reading by voice call, video call, or VR, from ${firstTier.price} for ${firstTier.label} to ${lastTier.price} for ${lastTier.label}.`,
   },
   {
     q: 'How does ordering a written or video reading work?',
-    a: 'Share your question — and anything Isa should know — in the short intake form on this page, then pay through a secure Stripe checkout. Your reading is delivered within 48 hours.',
+    a: 'Share your question and anything I should know in the short intake form on this page, then pay through a secure Stripe checkout. Your reading arrives within 48 hours.',
   },
   {
     q: 'How do live readings work?',
-    a: `Choose a format (voice, video, or VR), a length, and an open time slot right on this page; Isa confirms by email. Slots open at least ${minNoticeHours} hours ahead and up to ${daysAhead / 7} weeks out, shown in your own time zone.`,
+    a: `Choose a format (voice, video, or VR), a length, and an open time slot right on this page, and I’ll confirm by email. Slots open at least ${minNoticeHours} hours ahead and up to ${daysAhead / 7} weeks out, shown in your own time zone.`,
   },
   {
     q: 'What is a VR tarot reading?',
-    a: 'A live reading where we meet in virtual reality instead of on a call — choose "VR experience" when you book. To read for yourself in mixed reality, try Carta Luna, the Screen Sage tarot app in WebXR — it opens in any web browser, with full control on a headset like Meta Quest.',
+    a: 'A live reading where we meet in virtual reality instead of on a call. Choose "VR experience" when you book. To read for yourself in mixed reality, try Carta Luna, the Screen Sage tarot app in WebXR. It opens in any web browser, with full control on a headset like Meta Quest.',
   },
   {
     q: 'Can I keep a journal of my own readings?',
-    a: 'Yes — Arcana, the Screen Sage tarot journal for iPhone, keeps every pull and spread, with meaning hints for all 78 cards. It’s in public beta on TestFlight.',
+    a: 'Yes. Arcana, the Screen Sage tarot journal for iPhone, keeps every pull and spread, with meaning hints for all 78 cards. It’s in public beta on TestFlight.',
   },
 ]

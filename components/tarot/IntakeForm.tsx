@@ -2,7 +2,7 @@
 
 import { FormEvent, useEffect, useId, useState } from 'react'
 import { ArrowUpRight, Send } from 'lucide-react'
-import type { IntakePackage } from '@/lib/data'
+import { readingAcknowledgment, type IntakePackage } from '@/lib/data'
 import { postForm } from '@/lib/postForm'
 import { FIELD, FORM_ERROR, LABEL, PRIMARY_BUTTON } from '@/components/formStyles'
 import { cn } from '@/lib/utils'
@@ -13,6 +13,7 @@ export default function IntakeForm({ pkg }: { pkg: IntakePackage }) {
   const [error, setError] = useState<string | null>(null)
   // `website` is the honeypot — hidden from people, filled in by bots.
   const [form, setForm] = useState({ name: '', email: '', question: '', notes: '', website: '' })
+  const [acknowledged, setAcknowledged] = useState(false)
 
   const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setForm(v => ({ ...v, [k]: e.target.value }))
@@ -30,7 +31,7 @@ export default function IntakeForm({ pkg }: { pkg: IntakePackage }) {
     e.preventDefault()
     setStatus('sending')
     setError(null)
-    const failure = await postForm('/api/reading', { package: pkg.id, ...form })
+    const failure = await postForm('/api/reading', { package: pkg.id, ...form, acknowledged })
     setError(failure)
     setStatus(failure ? 'idle' : 'sent')
   }
@@ -43,7 +44,7 @@ export default function IntakeForm({ pkg }: { pkg: IntakePackage }) {
         {pkg.paymentUrl ? (
           <>
             <p className="text-[15px] leading-6 text-plum-700">
-              Taking you to secure payment with Stripe… Use the same email at checkout so Isa can match it to your question.
+              Taking you to secure payment with Stripe… Use the same email at checkout so I can match it to your question.
             </p>
             <a
               href={pkg.paymentUrl}
@@ -55,7 +56,7 @@ export default function IntakeForm({ pkg }: { pkg: IntakePackage }) {
           </>
         ) : (
           <p className="text-[15px] leading-6 text-plum-700">
-            Isa will email you at <span className="font-bold text-plum-900">{form.email}</span> with payment details.
+            I’ll email you at <span className="font-bold text-plum-900">{form.email}</span> with payment details.
           </p>
         )}
       </div>
@@ -89,7 +90,7 @@ export default function IntakeForm({ pkg }: { pkg: IntakePackage }) {
       {pkg.notesField && (
         <div className="flex flex-col gap-2">
           <label htmlFor={`${id}-notes`} className={LABEL}>
-            Anything Isa should know <span className="font-normal text-plum-500">(optional)</span>
+            Anything I should know <span className="font-normal text-plum-500">(optional)</span>
           </label>
           <textarea
             id={`${id}-notes`}
@@ -101,12 +102,22 @@ export default function IntakeForm({ pkg }: { pkg: IntakePackage }) {
           />
         </div>
       )}
+      <label className="flex items-start gap-3 text-[13px] leading-5 text-plum-900">
+        <input
+          type="checkbox"
+          required
+          checked={acknowledged}
+          onChange={e => setAcknowledged(e.target.checked)}
+          className="mt-0.5 h-4 w-4 shrink-0 accent-plum-900"
+        />
+        <span>{readingAcknowledgment}</span>
+      </label>
       {error && (
         <p role="alert" className={FORM_ERROR}>{error}</p>
       )}
       <div className="flex flex-col-reverse items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-[13px] leading-5 text-plum-700">
-          {pkg.paymentUrl ? 'Next: secure payment via Stripe.' : 'Isa will follow up by email with payment details.'}
+          {pkg.paymentUrl ? 'Next: secure payment via Stripe.' : 'I’ll follow up by email with payment details.'}
         </p>
         <button
           type="submit"

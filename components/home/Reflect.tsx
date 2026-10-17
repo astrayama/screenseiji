@@ -26,6 +26,7 @@ export default function Reflect() {
             <p className="mt-4 text-base leading-7 text-plum-700 sm:text-[17px] sm:leading-[1.75]">
               <Fit short={reflect.short} long={reflect.lead} />
             </p>
+            <p className="mt-3 text-[13px] leading-5 text-plum-700">{reflect.note}</p>
           </div>
 
           {/* Prices: one list on a phone, three cards side by side on desktop */}

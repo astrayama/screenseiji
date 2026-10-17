@@ -57,7 +57,7 @@ export const watch = {
   eyebrow: 'Watch',
   title: 'The latest from the channel',
   allVideos: 'All videos on YouTube',
-  lead: 'Long-form video essays that use anime, film and games as doorways into philosophy, psychology and inner work.',
+  lead: 'Short video essays that use anime, film and games as a way into philosophy, psychology and inner work.',
   /** After "Latest video" or "Latest Short". */
   meta: 'YouTube @screenseiji · plays right here, no new tab',
   metaShort: 'plays right here',
@@ -133,6 +133,7 @@ export const reflect = {
   title: 'Tarot as a mirror, not a forecast.',
   lead: 'Bring a question. I read the cards as a reflection of where you are, so you can choose where to go next.',
   short: 'Bring a question. I read the cards as a reflection of where you are.',
+  note: 'For entertainment and self-reflection.',
   cta: 'Book a reading',
   how: 'How it works',
   prices: [
