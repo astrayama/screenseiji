@@ -9,12 +9,12 @@ import IntakeForm from '@/components/tarot/IntakeForm'
 import BookingForm, { FORMAT_ICONS } from '@/components/tarot/BookingForm'
 import { Sparkle } from '@/components/brand/SkyArt'
 import { BUTTON_OUTLINE, CARD, CONTAINER, EYEBROW, H2, H3, LEAD, TAG } from '@/components/ui'
-import { intakePackages, liveReading, type IntakePackageId } from '@/lib/data'
+import { intakePackages, liveReading, readingDisclaimer, type IntakePackageId } from '@/lib/data'
 
 const STEPS = [
   {
     title: 'Fill the intake form',
-    body: 'Share your question — and anything Isa should know — in a short form right here.',
+    body: 'Share your question and anything I should know in a short form right here.',
   },
   {
     title: 'Pay via secure Stripe link',
@@ -22,7 +22,7 @@ const STEPS = [
   },
   {
     title: 'Receive or book',
-    body: 'Async readings are delivered within 48 hours. Live readings are booked right here — you pick voice, video, or VR, and a time; Isa confirms by email.',
+    body: 'Written and video readings arrive within 48 hours. For live readings, pick voice, video, or VR and a time right here, and I’ll confirm by email.',
   },
 ]
 
@@ -98,7 +98,7 @@ export default function Readings() {
           <p className={EYEBROW}>Tarot Readings</p>
           <h2 id="tarot-readings-title" className={cn(H2, 'mt-3')}>A mirror, not a forecast.</h2>
           <p className={cn(LEAD, 'mt-4')}>
-            Tarot as a symbolic language for self-reflection — not prediction, but a mirror held up to what you already know. Choose how you’d like to receive yours.
+            Tarot as a symbolic language for self-reflection. It lays out what you already know where you can see it. Choose how you’d like to receive your reading.
           </p>
         </div>
 
@@ -183,6 +183,7 @@ export default function Readings() {
               </li>
             ))}
           </ol>
+          <p className="mt-6 text-[13px] leading-5 text-plum-700">{readingDisclaimer}</p>
         </div>
       </div>
 

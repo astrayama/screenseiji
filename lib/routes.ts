@@ -27,9 +27,9 @@ export interface PageEntry {
 export const PAGES = {
   home: {
     path: '/',
-    title: 'Screen Sage Studios — Tarot, Anime Philosophy & Apps',
+    title: 'Screen Sage Studios | Tarot, Anime Philosophy & Apps',
     description:
-      'Screen Sage Studios (@screenseiji): anime edits & philosophy essays, tarot readings, mindful iOS apps, and websites for small businesses — by Isa.',
+      'Screen Sage Studios by Isa: anime philosophy videos, tarot readings for self-reflection, apps for seekers, and websites for small businesses.',
     priority: 1,
     crumb: 'Home',
     og: {
@@ -41,7 +41,7 @@ export const PAGES = {
   },
   about: {
     path: '/about',
-    title: 'About Screen Sage Studios — Meet Isa',
+    title: 'About Screen Sage Studios · Meet Isa',
     description:
       "Screen Sage Studios is Isa's one-person studio where spirituality, science, and story collide: tarot, anime, indie apps, and web design.",
     priority: 0.8,
@@ -50,15 +50,15 @@ export const PAGES = {
     og: {
       eyebrow: 'About',
       title: 'Screen Sage Studios',
-      subtitle: 'Spirituality, science, and story — by Isa (@screenseiji)',
+      subtitle: 'Spirituality, science, and story, by Isa (@screenseiji)',
       theme: 'site',
     },
   },
   apps: {
     path: '/apps',
-    title: 'Screen Sage Apps — Tarot, Journaling & Mindfulness Tools',
+    title: 'Screen Sage Apps: Tarot, Journaling & Mindfulness Tools',
     description:
-      'Seven apps from Screen Sage Studios, each named for the concept it embodies — Arcana tarot journal, Anicca mood journal, Yggdrasil, Carta Luna, and more.',
+      'Seven apps from Screen Sage Studios, each named for the idea it holds: Arcana tarot journal, Anicca mood journal, Yggdrasil, Carta Luna, and more.',
     priority: 0.9,
     crumb: 'Apps',
     parent: 'home',
@@ -71,9 +71,9 @@ export const PAGES = {
   },
   tarot: {
     path: '/tarot',
-    title: 'Tarot Readings Online — Written, Video & Live · Screen Sage',
+    title: 'Tarot Readings Online: Written, Video & Live · Screen Sage',
     description:
-      'Tarot as a mirror, not a forecast. Book a written, recorded video, or live tarot reading — by voice, video call, or VR — with Isa of Screen Sage Studios.',
+      'Tarot as a mirror, not a forecast. Book a written, recorded video, or live reading by voice, video call, or VR with Isa of Screen Sage Studios.',
     priority: 0.9,
     crumb: 'Tarot readings',
     parent: 'home',
@@ -86,9 +86,9 @@ export const PAGES = {
   },
   websites: {
     path: '/websites',
-    title: 'Websites for Small Businesses — Screen Sage Studios',
+    title: 'Websites for Small Businesses · Screen Sage Studios',
     description:
-      'Landing pages, business websites, and custom features like booking and Stripe payments — designed and built by Screen Sage Studios for small businesses.',
+      'Landing pages, business websites, and custom features like booking and Stripe payments, designed and built by Screen Sage Studios for small businesses.',
     priority: 0.8,
     crumb: 'Websites',
     parent: 'home',
@@ -101,7 +101,7 @@ export const PAGES = {
   },
   sideQuests: {
     path: '/side-quests',
-    title: 'Side Quests — What Isa Is Building Now · Screen Sage',
+    title: 'Side Quests: What Isa Is Building Now · Screen Sage',
     description:
       "The Screen Sage Studios quest log: Isa's main quest, the apps and experiments in progress, and self-practice side quests, with a day-by-day log.",
     priority: 0.7,
@@ -142,7 +142,7 @@ export const PAGES = {
   },
   arcana: {
     path: '/apps/arcana',
-    title: 'Arcana — Tarot Journal App for iPhone · Screen Sage',
+    title: 'Arcana: Tarot Journal App for iPhone · Screen Sage',
     description:
       'A warm, quiet tarot journal for iPhone: log every pull and spread in 10 seconds, with meaning hints for all 78 cards and beautiful exports.',
     priority: 0.9,
@@ -151,14 +151,14 @@ export const PAGES = {
     og: {
       eyebrow: 'Arcana · Tarot journal for iPhone',
       title: 'Give your tarot cards a home.',
-      subtitle: 'Every pull, every spread, every thought — kept safe.',
+      subtitle: 'Every pull, every spread, every thought, kept safe.',
       theme: 'arcana',
     },
   },
   arcanaSupport: {
     path: '/apps/arcana/support',
     title: 'Support & FAQ · Arcana Tarot Journal',
-    description: 'Help, FAQs, and contact for Arcana — the tarot journal by Screen Sage Studios.',
+    description: 'Help, FAQs, and contact for Arcana, the tarot journal by Screen Sage Studios.',
     priority: 0.5,
     crumb: 'Support',
     parent: 'arcana',
@@ -167,7 +167,7 @@ export const PAGES = {
   arcanaPrivacy: {
     path: '/apps/arcana/privacy',
     title: 'Privacy Policy · Arcana Tarot Journal',
-    description: 'How Arcana handles your data: local-first storage, optional sync, and no tracking — ever.',
+    description: 'How Arcana handles your data: local-first storage, optional sync, and no tracking, ever.',
     priority: 0.3,
     crumb: 'Privacy',
     parent: 'arcana',
@@ -180,7 +180,7 @@ export const PAGES = {
   },
   anicca: {
     path: '/apps/anicca',
-    title: 'Anicca — Mood & Energy (Chakra) Journal for iPhone',
+    title: 'Anicca: Mood & Energy (Chakra) Journal for iPhone',
     description:
       'A calm mood & energy journal for iPhone. Name how you feel, see it across seven energy centers from Root to Crown, and notice your patterns over time.',
     priority: 0.9,
@@ -196,7 +196,7 @@ export const PAGES = {
   aniccaSupport: {
     path: '/apps/anicca/support',
     title: 'Support & FAQ · Anicca Mood & Energy Journal',
-    description: 'Help, FAQs, and contact for Anicca — the mood & energy journal by Screen Sage Studios.',
+    description: 'Help, FAQs, and contact for Anicca, the mood & energy journal by Screen Sage Studios.',
     priority: 0.5,
     crumb: 'Support',
     parent: 'anicca',
@@ -206,7 +206,7 @@ export const PAGES = {
     path: '/apps/anicca/privacy',
     title: 'Privacy Policy · Anicca Mood & Energy Journal',
     description:
-      'How Anicca handles your data: on-device emotion matching, a private synced account, and no ads or tracking — ever.',
+      'How Anicca handles your data: on-device emotion matching, a private synced account, and no ads or tracking, ever.',
     priority: 0.3,
     crumb: 'Privacy',
     parent: 'anicca',

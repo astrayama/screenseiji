@@ -47,9 +47,9 @@ export default function AppsPage() {
           <p className={PAGE_EYEBROW}>The App Universe</p>
           <h1 className={PAGE_TITLE} style={PAGE_TITLE_SIZE}>Screen Sage apps</h1>
           <p className="mt-6 text-base leading-8 text-plum-700 sm:text-lg">
-            Seven tools, one philosophy. Each app is named after the concept it embodies — a
-            constellation of software for seekers, from tarot and journaling to breathwork, built
-            by Screen Sage Studios.
+            Seven tools, one philosophy. Each app is named for the idea it holds: a constellation
+            of software for seekers, from tarot and journaling to breathwork, built by Screen Sage
+            Studios.
           </p>
         </header>
 

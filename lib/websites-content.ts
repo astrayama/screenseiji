@@ -3,7 +3,8 @@ import { budgetRanges, studio } from '@/lib/data'
 
 // Copy for /websites. Services, work and process live in lib/data.ts (studio).
 
-const included = studio.included.map(i => i.toLowerCase())
+// Lowercase for mid-sentence use, but leave acronyms like SEO alone.
+const included = studio.included.map(i => (/^[A-Z]{2,}/.test(i) ? i : i.charAt(0).toLowerCase() + i.slice(1)))
 
 export const websitesIntro = {
   eyebrow: 'Screen Sage Studios · Websites',
@@ -20,19 +21,19 @@ export const websitesIntro = {
 export const websitesFaq: FaqItem[] = [
   {
     q: 'What does a website from Screen Sage Studios include?',
-    a: `Every site includes ${included.slice(0, -1).join(', ')}, and ${included.at(-1)} — designed mobile-first and launched on your own domain.`,
+    a: `Every site includes ${included.slice(0, -1).join(', ')}, and ${included.at(-1)}, launched on your own domain.`,
   },
   {
     q: 'Can my site take bookings and payments?',
-    a: 'Yes. Online booking calendars, Stripe checkout, waitlists, and email capture are built in, not bolted on. This site’s own tarot booking and checkout are an example.',
+    a: 'Yes. Online booking calendars, Stripe checkout, waitlists, and email capture are built right into your site. This site’s own tarot booking and checkout are an example.',
   },
   {
     q: 'Will customers find my site on Google?',
-    a: 'SEO is part of every build: clear page titles and descriptions, a sitemap, structured data, and fast, accessible pages that search engines can read.',
+    a: 'Every site ships with the SEO basics: clear page titles and descriptions, a sitemap, structured data, and fast, readable pages. Rankings take time and depend on your market, so I can’t promise a spot on page one. Your site will be ready to be found.',
   },
   {
     q: 'Can you redesign the website I already have?',
-    a: 'Yes — redesigns are welcome, alongside new websites, landing pages, and single features like booking or payments.',
+    a: 'Yes. Redesigns are welcome, alongside new websites, landing pages, and single features like booking or payments.',
   },
   {
     q: 'How much does a website cost?',

@@ -3,7 +3,7 @@
 import { FormEvent, useId, useMemo, useState } from 'react'
 import { ArrowUpRight, Glasses, Phone, Send, Video, type LucideIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { liveReading, type LiveFormat, type LiveTierId } from '@/lib/data'
+import { liveReading, readingAcknowledgment, type LiveFormat, type LiveTierId } from '@/lib/data'
 import { getSlots } from '@/lib/booking'
 import { postForm } from '@/lib/postForm'
 import { FIELD, FORM_ERROR, LABEL, PRIMARY_BUTTON } from '@/components/formStyles'
@@ -49,6 +49,7 @@ export default function BookingForm() {
   const [error, setError] = useState<string | null>(null)
   // `website` is the honeypot — hidden from people, filled in by bots.
   const [form, setForm] = useState({ name: '', email: '', notes: '', website: '' })
+  const [acknowledged, setAcknowledged] = useState(false)
 
   const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setForm(v => ({ ...v, [k]: e.target.value }))
@@ -87,6 +88,7 @@ export default function BookingForm() {
       start: slot,
       timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
       ...form,
+      acknowledged,
     })
     setError(failure)
     setStatus(failure ? 'idle' : 'sent')
@@ -124,7 +126,7 @@ export default function BookingForm() {
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-6">
       <fieldset className="flex min-w-0 flex-col gap-2">
-        <legend className={cn(LABEL, 'mb-2')}>Format — you pick</legend>
+        <legend className={cn(LABEL, 'mb-2')}>Format (you pick)</legend>
         <div className="grid grid-cols-3 gap-2">
           {liveReading.formats.map(f => {
             const Icon = FORMAT_ICONS[f.id]
@@ -205,7 +207,7 @@ export default function BookingForm() {
       </div>
       <div className="flex flex-col gap-2">
         <label htmlFor={`${id}-notes`} className={LABEL}>
-          Anything Isa should know <span className="font-normal text-plum-500">(optional)</span>
+          Anything I should know <span className="font-normal text-plum-500">(optional)</span>
         </label>
         <textarea
           id={`${id}-notes`}
@@ -219,14 +221,24 @@ export default function BookingForm() {
 
       {format && tier && slot !== null && (
         <p className="rounded-xl border border-lilac bg-glow px-4 py-3 text-sm leading-6 text-plum-900">
-          {formatLabel} · {tier.label} · {fullLabel(slot)} — <span className="font-bold">{tier.price}</span>
+          {formatLabel} · {tier.label} · {fullLabel(slot)} · <span className="font-bold">{tier.price}</span>
         </p>
       )}
+      <label className="flex items-start gap-3 text-[13px] leading-5 text-plum-900">
+        <input
+          type="checkbox"
+          required
+          checked={acknowledged}
+          onChange={e => setAcknowledged(e.target.checked)}
+          className="mt-0.5 h-4 w-4 shrink-0 accent-plum-900"
+        />
+        <span>{readingAcknowledgment}</span>
+      </label>
       {error && (
         <p role="alert" className={FORM_ERROR}>{error}</p>
       )}
       <div className="flex flex-col-reverse items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-[13px] leading-5 text-plum-700">Isa confirms every request by email.</p>
+        <p className="text-[13px] leading-5 text-plum-700">I’ll confirm every request by email.</p>
         <button type="submit" disabled={status === 'sending'} className={PRIMARY_BUTTON}>
           {status === 'sending' ? 'Sending…' : 'Request this time'}
           <Send size={14} aria-hidden />

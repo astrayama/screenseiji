@@ -21,7 +21,7 @@ const PILLARS = [
   })),
   {
     title: 'Websites',
-    description: 'Websites for small businesses and creators — design, build, and launch, with booking, payments, and SEO built in.',
+    description: 'Websites for small businesses and creators, with booking, payments, and SEO built in.',
     label: 'See websites',
     href: '/websites',
   },

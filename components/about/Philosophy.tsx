@@ -80,10 +80,10 @@ export default function Philosophy({ className }: { className?: string }) {
           0 = 1 = ∞
         </h2>
         <p className="mt-6 text-[15px] leading-7 text-plum-700">
-          Nothingness, individuality, and infinity are ultimately expressions of the same thing. Emptiness is potential. The self is not separate from the whole. The universe is inherently infinite and interconnected.
+          Nothingness, individuality, and infinity are ultimately expressions of the same thing. Emptiness is potential. The self is not separate from the whole. The universe is infinite and interconnected.
         </p>
         <p className="mt-4 text-[15px] leading-7 text-plum-700">
-          This draws from Buddhist philosophy, Advaita Vedanta, quantum physics, and Jungian psychology. Not because these disciplines agree — but because the places where they rhyme are worth paying attention to.
+          This draws from Buddhist philosophy, Advaita Vedanta, quantum physics, and Jungian psychology. They don’t agree on everything. The places where they rhyme are worth paying attention to.
         </p>
         <div
           ref={ref}

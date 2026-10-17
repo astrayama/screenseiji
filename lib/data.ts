@@ -6,7 +6,7 @@ export const services = [
     step: 'Watch',
     title: 'Video Essays',
     description:
-      'Philosophical essays using anime, film, and games as entry points. Beloved characters externalize internal struggles in ways that lower our defenses — and let us absorb difficult ideas.',
+      'Philosophy through anime, film, and games. Beloved characters act out the struggles we carry inside, which lowers our defenses and lets hard ideas land.',
     cta: { label: 'Watch', href: 'https://www.youtube.com/@screenseiji' },
   },
   {
@@ -14,7 +14,7 @@ export const services = [
     step: 'Go deeper',
     title: 'Tarot Readings',
     description:
-      'Tarot as a symbolic language for self-reflection — not prediction, but a mirror held up to what you already know. Written, recorded, or live.',
+      'Tarot as a symbolic language for self-reflection. A mirror, not a forecast. Written, recorded, or live.',
     cta: { label: 'Book a reading', href: '#tarot' },
   },
   {
@@ -22,7 +22,7 @@ export const services = [
     step: 'Practice daily',
     title: 'Software for Seekers',
     description:
-      'Indie apps and web tools built on philosophical frameworks — from the Norse world tree to Buddhist impermanence. Each tool is named after the concept it embodies.',
+      'Indie apps and web tools built on philosophical frameworks, from the Norse world tree to Buddhist impermanence. Each one is named for the idea it holds.',
     cta: { label: 'Try the apps', href: '#apps' },
   },
   {
@@ -30,7 +30,7 @@ export const services = [
     step: 'Rest',
     title: 'Mindful Gaming',
     description:
-      'Games are maps for living — not escapism. Cozy gaming as rest, restoration, and spiritual practice.',
+      'Games are maps for living. Cozy gaming as rest, restoration, and spiritual practice.',
     cta: { label: 'Hang out', href: 'https://www.tiktok.com/@screenseiji' },
   },
 ]
@@ -62,7 +62,7 @@ export const intakePackages: Record<IntakePackageId, IntakePackage> = {
     id: 'written',
     eyebrow: 'Async · Written',
     title: 'Written reading',
-    description: 'Isa answers your question in writing within 48 hours.',
+    description: 'I’ll answer your question in writing within 48 hours.',
     details: ['A spread of 3–7 cards', 'Delivered within 48 hours'],
     cta: 'Order a written reading',
     price: '$10',
@@ -83,6 +83,13 @@ export const intakePackages: Record<IntakePackageId, IntakePackage> = {
     notesField: false,
   },
 }
+
+/** Shown wherever paid readings are offered. */
+export const readingDisclaimer =
+  'Readings are offered for entertainment and self-reflection. They aren’t a substitute for medical, mental health, legal, or financial advice.'
+
+/** The required checkbox on both order forms; the API routes refuse a request without it. */
+export const readingAcknowledgment = 'I understand this reading is for entertainment and self-reflection.'
 
 // Live readings are requested natively on the site (/api/booking): the client
 // picks a format, a length and an open slot; Isa confirms by replying.
@@ -242,7 +249,7 @@ export const apps: AppNode[] = [
       { label: 'v1 (in development)', href: YGGDRASIL_V1 },
     ],
     status: 'beta',
-    statusNote: 'In beta — join the waitlist',
+    statusNote: 'In beta · join the waitlist',
     waitlist: true,
   },
   {
@@ -254,7 +261,7 @@ export const apps: AppNode[] = [
     platform: 'iPhone',
     href: '/apps/arcana',
     status: 'beta',
-    statusNote: 'In beta — try it on TestFlight',
+    statusNote: 'In beta · try it on TestFlight',
     tryUrl: arcanaLinks.testflightUrl,
   },
   {
@@ -262,11 +269,11 @@ export const apps: AppNode[] = [
     name: 'Carta Luna',
     concept: 'Card of the moon · mixed-reality tarot in WebXR',
     summary:
-      'A mixed-reality tarot table in WebXR: it opens in any web browser, and a headset like Meta Quest 3 gives you full control — shuffle with your hands, read in a night-sky sanctum, and share readings with others in the room.',
+      'A mixed-reality tarot table in WebXR: it opens in any web browser, and a headset like Meta Quest 3 gives you full control: shuffle with your hands, read in a night-sky sanctum, and share readings with others in the room.',
     platform: 'WebXR',
     href: 'https://cartaluna-mr.vercel.app',
     status: 'beta',
-    statusNote: 'In beta — try it in your browser or headset',
+    statusNote: 'In beta · try it in your browser or headset',
     tryUrl: 'https://cartaluna-mr.vercel.app',
   },
   {
@@ -277,7 +284,7 @@ export const apps: AppNode[] = [
     platform: 'VR & AR',
     href: 'https://lumenwright-nu.vercel.app',
     status: 'beta',
-    statusNote: 'In beta — try it in VR & AR',
+    statusNote: 'In beta · try it in VR & AR',
     tryUrl: 'https://lumenwright-nu.vercel.app',
   },
   {
@@ -366,7 +373,7 @@ export interface StudioWork {
 export const studio = {
   headline: 'Websites for small businesses and more.',
   subhead:
-    'Design, build, and launch — for small businesses, creators, and anyone with something to offer. Fast, accessible, and found on Google.',
+    'Design, build, and launch for small businesses, creators, and anyone with something to offer. Fast, accessible, and set up to be found on Google.',
   // The scrolling ticker on the collapsed banner.
   marquee: [
     'Landing pages',
@@ -388,15 +395,15 @@ export const studio = {
     {
       title: 'Business website',
       description: 'A multi-page home for your services, your story, and how to reach you.',
-      includes: ['Services, about & contact pages', 'SEO so customers find you', 'Easy to update later'],
+      includes: ['Services, about & contact pages', 'SEO setup so customers can find you', 'Easy to update later'],
     },
     {
       title: 'Custom features',
-      description: 'Booking, payments, waitlists, or a full web app — built in, not bolted on.',
+      description: 'Booking, payments, waitlists, or a full web app, built right into your site.',
       includes: ['Online booking calendars', 'Stripe checkout', 'Email capture & forms'],
     },
   ],
-  included: ['Mobile-first design', 'SEO', 'Accessibility', 'Fast hosting', 'Forms that email you', 'Analytics'],
+  included: ['Mobile-first design', 'SEO setup', 'Accessibility built in', 'Fast hosting', 'Forms that email you', 'Analytics'],
   work: [
     {
       name: 'The Formless Guide',
@@ -407,7 +414,7 @@ export const studio = {
     {
       name: 'Screen Sage',
       kind: 'My own product',
-      description: 'The site you’re on — native booking calendar, Stripe checkout, and email forms.',
+      description: 'The site you’re on, with native booking, Stripe checkout, and email forms.',
     },
     {
       name: 'Arcana',
@@ -427,7 +434,7 @@ export const studio = {
     },
   ] as StudioWork[],
   process: [
-    { title: 'Tell me about it', body: 'Fill out the short project form — two minutes, no commitment.' },
+    { title: 'Tell me about it', body: 'Fill out the short project form. Two minutes, no commitment.' },
     { title: 'Proposal & quote', body: 'I reply with a plan, a timeline, and a quote for your project.' },
     { title: 'Design & build', body: 'You see progress along the way and give feedback as it comes together.' },
     { title: 'Launch', body: 'Your site goes live on your domain, ready for customers.' },
@@ -473,7 +480,7 @@ export const philosophyItems = [
   {
     symbol: '0',
     title: 'Nothingness',
-    body: "The void is not absence. It's pure potential — the space before the first note of a song that hasn't been written yet. Buddhism calls it śūnyatā. Quantum physics calls it the vacuum state. Both are pointing at the same door.",
+    body: "The void is pure potential, the space before the first note of a song that hasn't been written yet. Buddhism calls it śūnyatā. Quantum physics calls it the vacuum state. Both are pointing at the same door.",
   },
   {
     symbol: '1',
@@ -483,6 +490,6 @@ export const philosophyItems = [
   {
     symbol: '∞',
     title: 'Everything',
-    body: "Infinity is not about size. It's about the impossibility of edges. You do not end where other things begin. The holographic principle. Indra's net. The mycorrhizal network. Different maps of the same territory.",
+    body: "Infinity is the impossibility of edges. You don't end where other things begin. The holographic principle. Indra's net. The mycorrhizal network. Different maps of the same territory.",
   },
 ]
