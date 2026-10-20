@@ -57,7 +57,7 @@ export const watch = {
   eyebrow: 'Watch',
   title: 'The latest from the channel',
   allVideos: 'All videos on YouTube',
-  lead: 'Short video essays that use anime, film and games as a way into philosophy, psychology and inner work.',
+  lead: 'Short video essays and spoken monologues that use anime, film and games as a way into philosophy, psychology and inner work.',
   /** After "Latest video" or "Latest Short". */
   meta: 'YouTube @screenseiji · plays right here, no new tab',
   metaShort: 'plays right here',
