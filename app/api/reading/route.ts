@@ -36,6 +36,9 @@ export async function POST(request: Request) {
     notes: pkg.notesField ? str(body.notes) : '',
   }
 
+  if (body.acknowledged !== true) {
+    return Response.json({ error: 'Please confirm the reading is for entertainment and self-reflection.' }, { status: 400 })
+  }
   if (!clean.name || !clean.email || !clean.question) {
     return Response.json({ error: 'Please add your name, email, and question.' }, { status: 400 })
   }
@@ -45,7 +48,7 @@ export async function POST(request: Request) {
     clean.question.length > LIMITS.question ||
     clean.notes.length > LIMITS.notes
   ) {
-    return Response.json({ error: 'That’s a little too long — try trimming it down.' }, { status: 400 })
+    return Response.json({ error: 'That’s a little too long. Try trimming it down.' }, { status: 400 })
   }
   if (!EMAIL_RE.test(clean.email)) {
     return Response.json({ error: 'That email address looks off.' }, { status: 400 })
@@ -66,6 +69,7 @@ export async function POST(request: Request) {
       clean.question,
       ...(clean.notes ? ['', 'Anything Isa should know:', clean.notes] : []),
       '',
+      'They confirmed the reading is for entertainment and self-reflection.',
       paymentNote,
     ].join('\n'),
     html: `
