@@ -1,6 +1,6 @@
 # Side Quests
 > Main quest: self-mastery and self-expression.
-<!-- colors: Heed: #2dd4bf, Lumenwright: #7c5cff, Arcana: #f6ce55, Carta Luna: #e8a2c8, Duality: #e8e4da, Pantheon: #60a5fa, Yggdrasil: #6fbf73, Graduation Sprint: #f4a261, First Full-Time Job: #94a3b8, Fitness: #f87171, Critiquing: #a3e635 -->
+<!-- colors: Heed: #2dd4bf, Lumenwright: #7c5cff, Arcana: #f6ce55, Carta Luna: #e8a2c8, Duality: #e8e4da, Pantheon: #60a5fa, Yggdrasil: #6fbf73, Graduation Sprint: #f4a261, First Full-Time Job: #94a3b8, Fitness: #f87171, Critiquing: #a3e635, Japanese: #e0245e -->
 
 ## Graduation Sprint
 - **Type:** main
@@ -17,27 +17,46 @@
 ## Fitness
 - **Type:** self
 - **Status:** active
-- **Question:** Can training become something I look forward to?
+- **Question:** Can I get healthy and stay healthy through how I eat, move, sleep and recover?
 - **Next milestone:** Three workouts a week for a month
+
+### Log
+- **2026-10-18:** Worked out for the first time in weeks. Day one, again.
 
 ## Critiquing
 - **Type:** self
 - **Status:** active
-- **Question:** Can I review anime, games and TV with a film critic's eye?
-- **Next milestone:** Publish a first review, then one a week
+- **Question:** Can I become a film critic who reviews anime, games, TV and movies, and gets invited to pre-screenings?
+- **Next milestone:** Review my first 3 movies
 - **Link:** https://reviews.screenseiji.com
+
+### Log
+- **2026-10-17:** Published the first reviews: [VisionQuest S1E1 and S1E2](https://reviews.screenseiji.com/series/visionquest).
+
+## Japanese
+- **Type:** self
+- **Status:** active
+- **Question:** Can I speak Japanese fluently, watch anime without subtitles and talk with locals on our upcoming trip to Japan?
+- **Next milestone:** Pass the JLPT N5 in December
+
+### Log
+- **2026-10-13:** Hit a 200-day streak on Duolingo, at level 15.
 
 ## Heed
 - **Type:** dev
 - **Status:** active
 - **Question:** Can tracking my time feel like a flick instead of a chore?
-- **Next milestone:** Polish and accessibility, then a week of daily use
+- **Next milestone:** A week of daily use, then the accessibility pass
 
 ### Log
 - **2026-10-02:** Wrote the spec: a gesture-first time tracker and day planner, Past ← Now → Next.
 - **2026-10-03:** Scaffolded the app and built the core logic, on-device data and gesture sandbox.
 - **2026-10-04:** Built the Now, Next and Past pages, plus reminders, calendar ghosts, stats and settings.
 - **2026-10-08:** First standalone build running on my own phone.
+- **2026-10-14:** A daily ritual: set your workday, get nudged to plan the morning and close the day,
+  with daily and weekly targets per project.
+- **2026-10-14:** Day close: plan vs actual, carry unstarted plans over to tomorrow, and a card for the week.
+- **2026-10-15:** Polish for large text sizes, and the new build is on my phone. The week of daily use starts now.
 
 ## Lumenwright
 - **Type:** dev
@@ -93,7 +112,7 @@
 
 ## Duality
 - **Type:** dev
-- **Status:** active
+- **Status:** paused
 - **Question:** Can a game teach the difference between wisdom and experience?
 - **Next milestone:** Prototype the Duality Engine (Wisdom vs. Experience)
 
@@ -110,6 +129,10 @@
 ### Log
 - **2026-08-05:** Built Pantheon Holo, a HUD to command the agents and read what they write.
 - **2026-08-25:** The content pipeline runs end to end.
+- **2026-09-25:** Commands start the moment you hit Enter: Holo calls each agent directly instead of
+  waiting on a once-a-minute Discord check.
+- **2026-09-25:** /task drops a todo into the vault instantly from Holo or Discord, no AI needed.
+- **2026-10-15:** Spring cleaning: archived 99 stale files from the vault so the agents only read what's current.
 
 ## Yggdrasil
 - **Type:** dev
