@@ -40,6 +40,16 @@ const THEMES: Record<OgTheme, { bg: string; glows: string; fg: string; muted: st
     muted: '#4A4A66',
     accent: '#5E43A6',
   },
+  // Carta Luna's night sky: moonlight on dark, gold accents.
+  cartaluna: {
+    bg: '#0F0D0B',
+    glows:
+      'radial-gradient(circle at 86% 12%, rgba(255,217,138,0.24), rgba(255,217,138,0) 42%), ' +
+      'radial-gradient(ellipse at 50% 115%, rgba(43,33,64,0.95), rgba(43,33,64,0) 60%)',
+    fg: '#F3E9D2',
+    muted: '#BBA985',
+    accent: '#D4AF37',
+  },
 }
 
 const asset = (...parts: string[]) => readFile(join(process.cwd(), ...parts))

@@ -21,7 +21,7 @@ export interface LegalDocumentClasses {
 const LINKABLE = /(\[[^\]]+\]\([^)\s]+\)|https?:\/\/[^\s]+[^\s.,;:)]|[\w.+-]+@[\w-]+\.[\w.]+[a-z])/g
 const MD_LINK = /^\[([^\]]+)\]\(([^)\s]+)\)$/
 
-function Linkified({ text, linkClass }: { text: string; linkClass: string }) {
+export function Linkified({ text, linkClass }: { text: string; linkClass: string }) {
   return text.split(LINKABLE).map((part, i) => {
     if (i % 2 === 0) return <Fragment key={i}>{part}</Fragment>
     const md = part.match(MD_LINK)

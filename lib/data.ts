@@ -144,7 +144,7 @@ export function liveReadingRange() {
 
 // ─── YouTube ────────────────────────────────────────────────────────────────
 // The home page's Watch section shows the channel's newest upload, Shorts
-// included, from its public feed (no API key), refreshed hourly. Set
+// included, from its public feed or oEmbed (no API key), refreshed hourly. Set
 // featuredVideo to pin a specific video instead.
 
 export const youtube = {
@@ -181,6 +181,19 @@ export const aniccaLinks: AppLinks = {
   // then flip appStorePlaceholder to false.
   appStoreUrl: 'https://apps.apple.com/app/id0000000000',
   appStorePlaceholder: true,
+  supportEmail: 'screenseiji@proton.me',
+  discord: 'https://discord.gg/2rFyT6nskc',
+}
+
+/** A web app: it opens at a URL, with no store listing. */
+export interface WebAppLinks {
+  appUrl: string
+  supportEmail: string
+  discord: string
+}
+
+export const cartalunaLinks: WebAppLinks = {
+  appUrl: 'https://cartaluna-mr.vercel.app',
   supportEmail: 'screenseiji@proton.me',
   discord: 'https://discord.gg/2rFyT6nskc',
 }
@@ -262,12 +275,12 @@ export const apps: AppNode[] = [
     name: 'Carta Luna',
     concept: 'Card of the moon · mixed-reality tarot in WebXR',
     summary:
-      'A mixed-reality tarot table in WebXR: it opens in any web browser, and a headset like Meta Quest 3 gives you full control — shuffle with your hands, read in a night-sky sanctum, and share readings with others in the room.',
+      'A mixed-reality tarot reading for Meta Quest 3, in the Quest Browser: the deck appears on your real table, you shuffle and draw with your hands, and friends can join in or watch from a phone.',
     platform: 'WebXR',
-    href: 'https://cartaluna-mr.vercel.app',
+    href: '/apps/cartaluna',
     status: 'beta',
-    statusNote: 'In beta — try it in your browser or headset',
-    tryUrl: 'https://cartaluna-mr.vercel.app',
+    statusNote: 'In beta — open it in the Quest Browser',
+    tryUrl: cartalunaLinks.appUrl,
   },
   {
     id: 'lumenwright',
@@ -293,9 +306,9 @@ export const apps: AppNode[] = [
   {
     id: 'kairos',
     name: 'Kairos',
-    concept: 'Greek sacred time · scheduling & timing',
+    concept: 'Greek sacred time · iOS scheduling & timing',
     summary: 'A tool for scheduling and timing, named for the Greek idea of the right moment.',
-    platform: 'Platform TBA',
+    platform: 'iOS',
     status: 'lab',
   },
   {

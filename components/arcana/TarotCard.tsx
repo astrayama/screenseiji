@@ -17,7 +17,7 @@ export const CARD_ART = {
 
 export type CardName = keyof typeof CARD_ART
 
-const CARD_LABELS: Record<CardName, string> = {
+export const CARD_LABELS: Record<CardName, string> = {
   moon: 'The Moon',
   star: 'The Star',
   sun: 'The Sun',

@@ -1,0 +1,226 @@
+/* ─── Carta Luna — night sky, dark & gold (tokens for /apps/cartaluna) ── */
+@theme inline {
+  /* Palette — from the app's loading screen and logo (arcana-mr/brand) */
+  --color-cartaluna-night:     #0F0D0B;
+  --color-cartaluna-card:      #15100C;
+  --color-cartaluna-dusk:      #1A1426;
+  --color-cartaluna-horizon:   #2B2140;
+  --color-cartaluna-text:      #F3E9D2;
+  --color-cartaluna-muted:     #BBA985;
+  --color-cartaluna-faint:     #8F8170;
+  --color-cartaluna-gold:      #D4AF37;
+  --color-cartaluna-gold-deep: #B8923F;
+  --color-cartaluna-glow:      #FFD98A;
+  --color-cartaluna-moon:      #FFF4CF;
+  --color-cartaluna-star:      #FFF6E0;
+  --color-cartaluna-oxblood:   #4A1320;
+
+  /* The app's own fonts (arcana-mr/CREDITS.md) */
+  --font-cartaluna-display: var(--font-playfair), Georgia, serif;
+  --font-cartaluna-body:    var(--font-inter), system-ui, sans-serif;
+
+  /* One 6.5 s beat, like the logo animation */
+  --animate-cartaluna-twinkle: cartaluna-twinkle 6.5s ease-in-out infinite;
+  --animate-cartaluna-breathe: cartaluna-breathe 6.5s ease-in-out infinite;
+  --animate-cartaluna-float:   cartaluna-float 3.25s ease-in-out infinite;
+}
+
+@keyframes cartaluna-twinkle { 0%,100% { opacity: .55 } 50% { opacity: 1 } }
+@keyframes cartaluna-breathe { 0%,100% { opacity: .55; transform: scale(.96) } 50% { opacity: 1; transform: scale(1.04) } }
+@keyframes cartaluna-float   { 0%,100% { translate: 0 0 } 50% { translate: 0 -6px } }
+@keyframes cartaluna-turn {
+  0%, 28%   { transform: rotateY(0deg) }
+  46%, 78%  { transform: rotateY(180deg) }
+  96%, 100% { transform: rotateY(360deg) }
+}
+
+/* Two tiled star layers, twinkling half a beat apart */
+.cartaluna-stars::before,
+.cartaluna-stars::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  animation: cartaluna-twinkle 6.5s ease-in-out infinite;
+}
+.cartaluna-stars::before {
+  background-size: 311px 311px;
+  background-image:
+    radial-gradient(1.4px 1.4px at 12% 18%, #fff6e0cc 50%, transparent 52%),
+    radial-gradient(1px 1px at 37% 64%, #fff6e099 50%, transparent 52%),
+    radial-gradient(1.6px 1.6px at 71% 22%, #ffe9b8dd 50%, transparent 52%),
+    radial-gradient(1px 1px at 88% 77%, #fff6e088 50%, transparent 52%),
+    radial-gradient(1.2px 1.2px at 54% 41%, #fff6e0aa 50%, transparent 52%),
+    radial-gradient(0.9px 0.9px at 23% 87%, #fff6e077 50%, transparent 52%);
+}
+.cartaluna-stars::after {
+  background-size: 457px 457px;
+  animation-delay: -3.25s;
+  background-image:
+    radial-gradient(1.1px 1.1px at 8% 52%, #fff6e0aa 50%, transparent 52%),
+    radial-gradient(1.5px 1.5px at 46% 9%, #ffe9b8cc 50%, transparent 52%),
+    radial-gradient(1px 1px at 63% 83%, #fff6e088 50%, transparent 52%),
+    radial-gradient(1.3px 1.3px at 92% 35%, #fff6e0bb 50%, transparent 52%),
+    radial-gradient(0.9px 0.9px at 31% 30%, #fff6e077 50%, transparent 52%);
+}
+
+/* ─── The logo animation: moon, halo and a card turning on a 6.5 s loop ── */
+/* Sized in units of --u (set on .cartaluna-logo); the stage is 170 × 150 units. */
+.cartaluna-logo { position: relative; width: calc(170 * var(--u)); height: calc(150 * var(--u)); }
+.cartaluna-logo-halo {
+  position: absolute;
+  right: calc(6 * var(--u));
+  top: calc(-8 * var(--u));
+  width: calc(110 * var(--u));
+  height: calc(110 * var(--u));
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffd98a40 0%, #ffd98a14 45%, transparent 70%);
+  animation: cartaluna-breathe 6.5s ease-in-out infinite;
+}
+.cartaluna-logo-moon {
+  position: absolute;
+  right: calc(26 * var(--u));
+  top: calc(12 * var(--u));
+  width: calc(70 * var(--u));
+  height: calc(70 * var(--u));
+}
+.cartaluna-logo-turn {
+  position: absolute;
+  left: calc(34 * var(--u));
+  top: calc(34 * var(--u));
+  width: calc(60 * var(--u));
+  height: calc(102 * var(--u));
+  perspective: calc(700 * var(--u));
+}
+.cartaluna-logo-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  animation:
+    cartaluna-turn 6.5s ease-in-out infinite,
+    cartaluna-float 3.25s ease-in-out infinite;
+}
+.cartaluna-logo-face {
+  position: absolute;
+  inset: 0;
+  border-radius: calc(7 * var(--u));
+  backface-visibility: hidden;
+  box-shadow: 0 calc(6 * var(--u)) calc(22 * var(--u)) #0009;
+}
+.cartaluna-logo-back {
+  background:
+    radial-gradient(circle at 50% 50%, #d4af3733 0 calc(13 * var(--u)), transparent calc(14 * var(--u))),
+    repeating-linear-gradient(45deg, #d4af3722 0 calc(1.5 * var(--u)), transparent calc(1.5 * var(--u)) calc(7 * var(--u))),
+    #15100c;
+  border: calc(1.5 * var(--u)) solid #d4af37;
+  outline: var(--u) solid #d4af3755;
+  outline-offset: calc(-6 * var(--u));
+}
+.cartaluna-logo-front {
+  transform: rotateY(180deg);
+  background: linear-gradient(160deg, #f6eedb, #e8dcc0);
+  border: calc(1.5 * var(--u)) solid #d4af37;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cartaluna-logo-front svg { width: calc(30 * var(--u)); height: calc(30 * var(--u)); }
+
+/* ─── Components ── */
+
+/* Glass panel, like the app's floating panels */
+.cartaluna-panel {
+  background: rgba(21, 16, 12, 0.72);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(212, 175, 55, 0.24);
+  border-radius: 16px;
+  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 244, 207, 0.05);
+}
+/* Same look without backdrop-filter — for use inside 3D transforms
+   (backdrop-filter inside a transform glitches in Safari) */
+.cartaluna-panel-flat {
+  background: rgba(21, 16, 12, 0.9);
+  border: 1px solid rgba(212, 175, 55, 0.24);
+  border-radius: 16px;
+  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 244, 207, 0.05);
+}
+
+/* Moonlight-to-gold text */
+.cartaluna-gtx {
+  background: linear-gradient(100deg, #FFF4CF 0%, #FFD98A 45%, #D4AF37 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.cartaluna-eyebrow {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #D4AF37;
+}
+
+.cartaluna-btn-gold {
+  background: linear-gradient(135deg, #E3C25A 0%, #D4AF37 55%, #B8923F 100%);
+  color: #1A130A;
+  border-radius: 999px;
+  box-shadow: 0 0 26px rgba(212, 175, 55, 0.28), inset 0 1px 0 rgba(255, 244, 207, 0.5);
+}
+
+.cartaluna-chip {
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  background: rgba(212, 175, 55, 0.08);
+  color: #E8CF86;
+  border-radius: 999px;
+}
+
+/* The app's card back, as on the logo: hatched dark card, glow, inset outline, gold edge */
+.cartaluna-card-back {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.2) 0 22%, transparent 23%),
+    repeating-linear-gradient(45deg, rgba(212, 175, 55, 0.13) 0 1.5px, transparent 1.5px 7px),
+    #15100C;
+  border: 1.5px solid #D4AF37;
+  outline: 1px solid rgba(212, 175, 55, 0.33);
+  outline-offset: -6px;
+}
+
+/* The reading mat: oxblood cloth with a gold edge and an inlaid line */
+.cartaluna-mat {
+  background:
+    radial-gradient(ellipse at 50% 40%, #5A1A2A 0%, #4A1320 45%, #2E0B15 100%);
+  border: 2px solid #B8923F;
+  outline: 1px solid rgba(212, 175, 55, 0.35);
+  outline-offset: -12px;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.55), inset 0 0 60px rgba(0, 0, 0, 0.35);
+}
+
+/* ─── Scoped to the page ── */
+
+.cartaluna-root ::selection { background: rgba(212, 175, 55, 0.35); color: #FFF4CF; }
+.cartaluna-root :focus-visible { outline: 2px solid #D4AF37; outline-offset: 3px; }
+
+/* The site's body is pastel; behind the Carta Luna page (overscroll, bounce) it stays night-dark. */
+html:has(.cartaluna-root) { color-scheme: dark; }
+body:has(.cartaluna-root) { background-color: #0F0D0B; color: #F3E9D2; }
+
+/* Reduced motion — the OS setting or the site's accessibility toggle:
+   everything holds still, and the logo's card rests face up, as in the app. */
+@media (prefers-reduced-motion: reduce) {
+  .cartaluna-root *, .cartaluna-root *::before, .cartaluna-root *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .cartaluna-root .cartaluna-logo-card { animation: none !important; transform: rotateY(180deg); }
+  html:has(.cartaluna-root) { scroll-behavior: auto; }
+}
+html[data-reduced-motion] .cartaluna-root :is(.cartaluna-stars, .cartaluna-logo-halo)::before,
+html[data-reduced-motion] .cartaluna-root :is(.cartaluna-stars, .cartaluna-logo-halo)::after,
+html[data-reduced-motion] .cartaluna-root .cartaluna-logo-halo,
+html[data-reduced-motion] .cartaluna-root [class*='animate-cartaluna'] { animation: none; }
+html[data-reduced-motion] .cartaluna-root .cartaluna-logo-card { animation: none; transform: rotateY(180deg); }
+html[data-reduced-motion]:has(.cartaluna-root) { scroll-behavior: auto; }

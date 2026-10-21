@@ -18,7 +18,7 @@ import { homeGraph } from '@/lib/structured-data'
 
 export const metadata = pageMetadata('home')
 
-// Refreshes the latest video from the YouTube feed (lib/youtube.ts) hourly.
+// Refreshes the latest video from YouTube (lib/youtube.ts) hourly.
 export const revalidate = 3600
 
 // Each section is a short teaser that ends with one next step and hands off

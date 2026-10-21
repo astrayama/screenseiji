@@ -11,7 +11,7 @@ type KofiWindow = Window & {
 export default function KofiWidget() {
   const pathname = usePathname()
   // Keep the floating donate button off the app pages (/apps/arcana,
-  // /apps/anicca, …) — they're App Store product/support URLs.
+  // /apps/cartaluna, …) — they're product and support pages.
   const onAppPage = pathname?.startsWith('/apps/') ?? false
 
   // Ko-fi injects its overlay outside React (and possibly after this effect

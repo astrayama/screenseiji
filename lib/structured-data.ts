@@ -212,6 +212,31 @@ export function mobileApplication({ key, name, version, requires, installUrl, of
   }
 }
 
+interface WebAppFacts {
+  key: PageKey
+  name: string
+  /** Where the app itself runs. */
+  appUrl: string
+  browserRequirements: string
+  featureList?: string[]
+}
+
+/** An app that runs in the browser, described on its page here and opened at appUrl. */
+export function webApplication({ key, name, appUrl, browserRequirements, featureList }: WebAppFacts): Node {
+  return {
+    '@type': 'WebApplication',
+    '@id': `${pageUrl(key)}#app`,
+    name,
+    description: PAGES[key].description,
+    url: appUrl,
+    applicationCategory: 'LifestyleApplication',
+    browserRequirements,
+    ...(featureList && { featureList }),
+    inLanguage: 'en',
+    publisher: ref(ORG_ID),
+  }
+}
+
 /** All seven apps, in the order the site shows them. */
 export function appList(): Node {
   return {

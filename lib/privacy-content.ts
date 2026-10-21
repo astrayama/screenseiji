@@ -6,13 +6,13 @@ import { EMAIL } from '@/lib/site'
 // changes. It's a plain-language notice, not legal advice.
 
 export const sitePrivacy: LegalDoc = {
-  effective: 'Effective October 14, 2026',
+  effective: 'Effective October 20, 2026',
   sections: [
     {
       title: 'The short version',
       body: [
         'This site doesn’t sell your data, doesn’t run ads, and only asks for personal details when you fill in a form. Analytics help me see which pages people visit; nothing here builds a profile of you.',
-        'This policy covers the Screen Sage website. The apps have their own: [Arcana’s privacy policy](/apps/arcana/privacy) and [Anicca’s privacy policy](/apps/anicca/privacy).',
+        'This policy covers the Screen Sage website. The apps have their own: [Arcana’s privacy policy](/apps/arcana/privacy), [Anicca’s privacy policy](/apps/anicca/privacy), and [how Carta Luna handles your data](/apps/cartaluna#privacy).',
       ],
     },
     {
@@ -45,7 +45,7 @@ export const sitePrivacy: LegalDoc = {
     {
       title: 'YouTube videos',
       body: [
-        'The home page shows my latest YouTube video. Its thumbnail is fetched by this site, so your browser doesn’t contact YouTube until you press play. The video then plays in YouTube’s privacy-enhanced mode (youtube-nocookie.com), under Google’s privacy policy: https://policies.google.com/privacy',
+        'The home page shows my latest YouTube video. This site looks it up and fetches its thumbnail itself, so your browser doesn’t contact YouTube until you press play. The video (or, if the latest can’t be found, the channel’s newest uploads) then plays in YouTube’s privacy-enhanced mode (youtube-nocookie.com), under Google’s privacy policy: https://policies.google.com/privacy',
       ],
     },
     {

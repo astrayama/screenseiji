@@ -5,7 +5,7 @@ import { BUTTON_PRIMARY, CARD, CHIP, CONTAINER, EYEBROW, H2, LEAD, TEXT_LINK } f
 import { socialLinks, youtube } from '@/lib/data'
 import { watch } from '@/lib/home-content'
 import { cn } from '@/lib/utils'
-import { getLatestVideo } from '@/lib/youtube'
+import { getLatestVideo, UPLOADS_PLAYLIST_ID } from '@/lib/youtube'
 
 const [spotify, applePodcasts] = socialLinks.listen
 const tiktok = socialLinks.content.find(link => link.label === 'TikTok')!
@@ -52,8 +52,18 @@ export default async function Watch() {
                   {video.short ? 'Latest Short' : 'Latest video'} · <Fit short={watch.metaShort} long={watch.meta} />
                 </p>
               </>
+            ) : UPLOADS_PLAYLIST_ID ? (
+              // No single video could be found: play the channel's uploads, newest first.
+              <>
+                <VideoPlayer playlistId={UPLOADS_PLAYLIST_ID} title={watch.playlist.title} />
+                <h3 className="mt-5 font-display text-[1.625rem] font-medium leading-tight text-plum-900 sm:text-[1.75rem]">
+                  {watch.playlist.title}
+                </h3>
+                <p className="mt-1.5 text-sm text-plum-700">
+                  {watch.playlist.label} · <Fit short={watch.metaShort} long={watch.meta} />
+                </p>
+              </>
             ) : (
-              // The feed couldn't be read: send people to the channel instead.
               <a
                 href={youtube.channelUrl}
                 target="_blank"

@@ -26,6 +26,10 @@ export default function ArcanaFooter() {
           Anicca
         </Link>
         {' · '}
+        <Link href="/apps/cartaluna" className="font-semibold text-arcana-muted transition-colors hover:text-arcana-text">
+          Carta Luna
+        </Link>
+        {' · '}
         <Link href="/apps" className="font-semibold text-arcana-muted transition-colors hover:text-arcana-text">
           All apps
         </Link>
