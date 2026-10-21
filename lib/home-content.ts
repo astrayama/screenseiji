@@ -61,6 +61,8 @@ export const watch = {
   /** After "Latest video" or "Latest Short". */
   meta: 'YouTube @screenseiji · plays right here, no new tab',
   metaShort: 'plays right here',
+  /** When the newest upload can't be looked up, the uploads playlist plays instead. */
+  playlist: { label: 'Newest uploads', title: 'The newest videos and Shorts' },
   subscribe: 'Subscribe on YouTube',
   podcast: {
     eyebrow: 'Podcast',

@@ -28,7 +28,8 @@ function body() {
     ...apps.map(app => {
       const versions = app.links?.map(l => `${l.label}: ${l.href}`).join('; ')
       const where = versions ?? (app.href ? link(app.href) : 'not public yet')
-      return `- ${app.name} (${app.platform}, ${appStatusText(app)}): ${app.summary} — ${where}`
+      const tryIt = app.tryUrl && app.tryUrl !== app.href ? `; try it: ${app.tryUrl}` : ''
+      return `- ${app.name} (${app.platform}, ${appStatusText(app)}): ${app.summary} — ${where}${tryIt}`
     }),
     '',
     '## Tarot readings',

@@ -4,7 +4,7 @@
 // No imports and type-only TypeScript, so `npm test` can load it directly
 // (lib/routes.test.mjs checks lengths, uniqueness and that every page is here).
 
-export type OgTheme = 'site' | 'arcana' | 'anicca'
+export type OgTheme = 'site' | 'arcana' | 'anicca' | 'cartaluna'
 
 export interface PageEntry {
   path: string
@@ -176,6 +176,21 @@ export const PAGES = {
       title: 'Privacy Policy',
       subtitle: 'Local-first storage, optional sync, and no tracking',
       theme: 'arcana',
+    },
+  },
+  cartaluna: {
+    path: '/apps/cartaluna',
+    title: 'Carta Luna — Mixed-Reality Tarot for Meta Quest 3',
+    description:
+      'A mixed-reality tarot reading for Meta Quest 3, right in the Quest Browser: the deck appears on your real table. Shuffle, draw, and reflect. No install.',
+    priority: 0.9,
+    crumb: 'Carta Luna',
+    parent: 'apps',
+    og: {
+      eyebrow: 'Carta Luna · Mixed-reality tarot',
+      title: 'A tarot reading on your own table.',
+      subtitle: 'For Meta Quest 3 in the Quest Browser · no install',
+      theme: 'cartaluna',
     },
   },
   anicca: {
