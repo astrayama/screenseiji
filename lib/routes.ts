@@ -204,7 +204,7 @@ export const PAGES = {
     og: {
       eyebrow: 'Lumenwright · Hand-tracked mixed reality',
       title: 'Can willpower be a game mechanic?',
-      subtitle: 'For Meta Quest 3 in the Quest Browser · no install',
+      subtitle: 'Hand-tracked, for Meta Quest 3 and 3S',
       theme: 'lumenwright',
     },
   },

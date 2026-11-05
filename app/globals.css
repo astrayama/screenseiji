@@ -160,10 +160,19 @@ body[data-hide-kofi] .floatingchat-container-wrap-mobi {
     0 8px 14px -8px rgba(63,42,88,0.35);
   transform: rotate(var(--tilt, 0deg));
 }
+/* A completed main quest: a bigger sheet, a deeper fold and a heavier shadow. */
+.postit-large {
+  --fold: 14px;
+  box-shadow: 0 1px 1px rgba(63,42,88,0.14), 0 14px 22px -10px rgba(63,42,88,0.45);
+}
 .postit-mini {
   --fold: 5px;
   /* A hairline so pale quest colours (Duality's cream) still read on the light page. */
   box-shadow: inset 0 0 0 1px rgba(63,42,88,0.14), 0 1px 1px rgba(63,42,88,0.12), 0 6px 10px -8px rgba(63,42,88,0.35);
+}
+.postit-mini.postit-large {
+  --fold: 8px;
+  box-shadow: inset 0 0 0 1px rgba(63,42,88,0.14), 0 1px 1px rgba(63,42,88,0.14), 0 10px 14px -8px rgba(63,42,88,0.45);
 }
 @media (prefers-reduced-motion: no-preference) {
   .postit { transition: transform 0.25s ease, box-shadow 0.25s ease; }

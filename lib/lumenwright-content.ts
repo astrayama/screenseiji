@@ -19,7 +19,6 @@ export const lumenwrightHero = {
   sub: 'A hand-tracked game for Meta Quest 3 and 3S. Make hand signs to form constructs of hard light, and hold off the Hollows in your own room or in a dark arena.',
   chips: ['Played with your hands', 'Your room or the arena', 'Free in beta'],
   cta: 'Open Lumenwright',
-  note: 'Open the link in the Quest Browser on Meta Quest 3 or 3S, with hand tracking on. There’s nothing to install.',
 }
 
 export interface Temperament {
@@ -194,11 +193,11 @@ export const lumenwrightPrivacy = {
     },
     {
       title: 'Your hands stay in the headset',
-      body: 'The Quest Browser reads your hand tracking, and the game uses it there to recognize signs. Calibration and hand data last for one session.',
+      body: 'Your headset reads your hand tracking, and the game uses it there to recognize signs. Calibration and hand data last for one session.',
     },
     {
       title: 'Settings, on the headset',
-      body: 'Your ring hand, flashing and contrast settings and last choices are saved in the Quest Browser’s storage. Clearing the browser’s site data removes them.',
+      body: 'Your ring hand, flashing and contrast settings and last choices are saved on the headset. Clearing the game’s stored data removes them.',
     },
   ],
 }
@@ -206,7 +205,7 @@ export const lumenwrightPrivacy = {
 export const lumenwrightFaq: FaqItem[] = [
   {
     q: 'What do I need to play?',
-    a: 'A Meta Quest 3 or 3S, the Quest Browser and hand tracking turned on. Open the link and the game runs in the browser, with nothing to install.',
+    a: 'A Meta Quest 3 or 3S with hand tracking turned on.',
   },
   {
     q: 'Do I need controllers?',

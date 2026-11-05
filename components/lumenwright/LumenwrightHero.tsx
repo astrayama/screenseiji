@@ -3,7 +3,7 @@
 import { useId } from 'react'
 import { motion } from 'framer-motion'
 import { useMotionPreference } from '@/hooks/useMotionPreference'
-import { DeviceNote, OpenAppButton } from '@/components/lumenwright/OpenApp'
+import { OpenAppButton } from '@/components/lumenwright/OpenApp'
 import { FURY, RESOLVE, lumenwrightHero } from '@/lib/lumenwright-content'
 
 const EASE = [0.25, 0.46, 0.45, 0.94] as [number, number, number, number]
@@ -156,7 +156,6 @@ export default function LumenwrightHero() {
 
           <motion.div variants={item} className="mt-8">
             <OpenAppButton className="w-full justify-center sm:w-auto" />
-            <DeviceNote className="mt-5 max-w-md" />
           </motion.div>
         </motion.div>
 

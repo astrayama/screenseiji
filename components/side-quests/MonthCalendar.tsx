@@ -1,12 +1,11 @@
 'use client'
 
 import { useMemo, useState } from 'react'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Crown } from 'lucide-react'
 import { BUTTON_OUTLINE, CARD } from '@/components/ui'
 import { cn } from '@/lib/utils'
-import type { DayEntry } from '@/lib/side-quests/parse'
 import {
-  addMonths, compareYM, formatLongDate, formatMonth, monthBounds, monthGrid, monthOf, tilt,
+  addMonths, compareYM, formatLongDate, formatMonth, monthBounds, monthGrid, monthOf, tilt, type LogDayEntry,
 } from '@/lib/side-quests/display'
 import PostIt from './PostIt'
 import DayPanel from './DayPanel'
@@ -19,7 +18,7 @@ const WEEKDAYS = [
 const MAX_IN_CELL = 4
 
 interface Props {
-  entriesByDate: Record<string, DayEntry[]>
+  entriesByDate: Record<string, LogDayEntry[]>
   /** The viewer's local date, YYYY-MM-DD. */
   today: string
 }
@@ -76,6 +75,8 @@ export default function MonthCalendar({ entriesByDate, today }: Props) {
               {week.map((date, d) => {
                 if (!date) return <td key={d} />
                 const entries = entriesByDate[date] ?? []
+                const milestones = entries.filter(entry => entry.milestone)
+                const logs = entries.filter(entry => !entry.milestone)
                 const isToday = date === today
                 // The day whose log is open in the DayPanel.
                 const isOpen = date === openDay
@@ -110,7 +111,13 @@ export default function MonthCalendar({ entriesByDate, today }: Props) {
                       <button
                         type="button"
                         onClick={() => setOpenDay(date)}
-                        aria-label={`${formatLongDate(date)}: ${entries.length} log ${entries.length === 1 ? 'entry' : 'entries'} (${[...new Set(entries.map(e => e.quest))].join(', ')})`}
+                        aria-label={[
+                          formatLongDate(date),
+                          ...milestones.map(m => `main quest complete (${m.quest})`),
+                          ...(logs.length > 0
+                            ? [`${logs.length} log ${logs.length === 1 ? 'entry' : 'entries'} (${[...new Set(logs.map(e => e.quest))].join(', ')})`]
+                            : []),
+                        ].join(': ')}
                         className={cn(
                           'flex h-full min-h-24 w-full flex-col rounded-xl p-1.5 text-left transition-colors hover:bg-glow lg:min-h-28',
                           isOpen && 'bg-glow',
@@ -118,9 +125,15 @@ export default function MonthCalendar({ entriesByDate, today }: Props) {
                       >
                         {dayNumber}
                         <span className="mt-2 flex flex-wrap items-center gap-1.5 px-0.5">
-                          {entries.slice(0, MAX_IN_CELL).map((entry, i) => (
-                            <PostIt key={i} variant="mini" color={entry.color} tilt={tilt(date, i)} />
-                          ))}
+                          {entries.slice(0, MAX_IN_CELL).map((entry, i) =>
+                            entry.milestone ? (
+                              <PostIt key={i} variant="mini" large color={entry.color} tilt={tilt(date, i)}>
+                                <Crown className="h-[18px] w-[18px] lg:h-6 lg:w-6" />
+                              </PostIt>
+                            ) : (
+                              <PostIt key={i} variant="mini" color={entry.color} tilt={tilt(date, i)} />
+                            ),
+                          )}
                           {entries.length > MAX_IN_CELL && (
                             <span className="rounded-full bg-blush px-1.5 py-0.5 text-[11px] font-bold leading-none text-plum-900">
                               +{entries.length - MAX_IN_CELL} more

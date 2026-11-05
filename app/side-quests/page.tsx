@@ -10,7 +10,7 @@ import JsonLd from '@/components/JsonLd'
 import { Sparkle } from '@/components/brand/SkyArt'
 import { PAGE_EYEBROW, PAGE_TITLE, PAGE_TITLE_SIZE } from '@/components/ui'
 import { loadSideQuests } from '@/lib/side-quests/load'
-import { splitQuests } from '@/lib/side-quests/display'
+import { splitQuests, withCompletions } from '@/lib/side-quests/display'
 import { cn } from '@/lib/utils'
 import { pageMetadata } from '@/lib/seo'
 import { pageGraph } from '@/lib/structured-data'
@@ -48,7 +48,7 @@ export default function SideQuestsPage() {
             )}
           </section>
         )}
-        <SideQuestsView side={side} quests={quests} entriesByDate={entriesByDate} />
+        <SideQuestsView side={side} quests={quests} entriesByDate={withCompletions(entriesByDate, quests)} />
       </main>
       <SiteFooter />
       <AccessibilityPanel />

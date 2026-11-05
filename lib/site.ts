@@ -29,7 +29,6 @@ export function absoluteUrl(path = '/'): string {
 export const SITE_NAME = 'Screen Sage'
 export const ORG_NAME = 'Screen Sage Studios'
 export const HANDLE = 'screenseiji'
-export const TWITTER = '@screenseiji'
 /** Credited by first name only — never the full name. */
 export const FOUNDER = 'Isa'
 export const EMAIL = 'screenseiji@proton.me'

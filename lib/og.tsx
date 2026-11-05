@@ -5,7 +5,7 @@ import { energyCenters } from '@/lib/anicca-content'
 import type { OgTheme, PageEntry } from '@/lib/routes'
 import { ORG_NAME, SITE_HOST } from '@/lib/site'
 
-// Share cards — the image shown when a link is posted on X, Discord, iMessage…
+// Share cards: the image shown when a link is posted on Discord, iMessage, Threads…
 // Every page folder has an opengraph-image.tsx that calls renderOgImage with
 // its registry entry (lib/routes.ts). Rendered once at build time by Satori:
 // flexbox only, and fonts must be static TTF/OTF files (assets/fonts, OFL).

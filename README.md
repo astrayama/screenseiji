@@ -2,7 +2,7 @@
 
 **[screenseiji.vercel.app](https://screenseiji.vercel.app)** — where spirituality, science, and story collide.
 
-Screen Sage Studios is Isa's one-person studio: anime edits and philosophical video essays, tarot readings for self-reflection, apps for seekers, and websites for small businesses. **Screen Sage** is the brand; **screenseiji** is the handle — Screen Sage spelled the Japanese way, home of the anime edits — on [YouTube](https://www.youtube.com/@screenseiji), [TikTok](https://www.tiktok.com/@screenseiji), [Instagram](https://instagram.com/screenseiji), [Threads](https://threads.net/@screenseiji) and [X](https://x.com/screenseiji).
+Screen Sage Studios is Isa's one-person studio: anime edits and philosophical video essays, tarot readings for self-reflection, apps for seekers, and websites for small businesses. **Screen Sage** is the brand; **screenseiji** is the handle — Screen Sage spelled the Japanese way, home of the anime edits — on [YouTube](https://www.youtube.com/@screenseiji), [TikTok](https://www.tiktok.com/@screenseiji), [Instagram](https://instagram.com/screenseiji) and [Threads](https://threads.net/@screenseiji).
 
 | Page | What's there |
 |---|---|

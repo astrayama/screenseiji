@@ -355,7 +355,6 @@ export const socialLinks = {
     { label: 'TikTok', handle: '@screenseiji', href: 'https://www.tiktok.com/@screenseiji', profile: true },
     { label: 'Instagram', handle: '@screenseiji', href: 'https://instagram.com/screenseiji', profile: true },
     { label: 'Threads', handle: '@screenseiji', href: 'https://threads.net/@screenseiji', profile: true },
-    { label: 'X / Twitter', shortLabel: 'X', handle: '@screenseiji', href: 'https://x.com/screenseiji', profile: true },
     { label: 'Discord', handle: 'Join Community', href: 'https://discord.gg/2rFyT6nskc' },
   ],
   listen: [

@@ -8,6 +8,8 @@ interface Props {
   tilt?: number
   /** 'mini' is the calendar square; 'note' holds a log entry's text. */
   variant: 'mini' | 'note'
+  /** A completed main quest: a bigger square, or a roomier note. */
+  large?: boolean
   className?: string
   children?: ReactNode
 }
@@ -32,15 +34,30 @@ function notePaper(hex: string): string {
   return CLOUD
 }
 
-export default function PostIt({ color, tilt = 0, variant, className, children }: Props) {
+export default function PostIt({ color, tilt = 0, variant, large, className, children }: Props) {
   if (variant === 'mini') {
-    // Textless, so it keeps the quest's exact color.
+    // Textless (an icon at most), so it keeps the quest's exact color.
     const style = { '--postit': color, '--tilt': `${tilt}deg` } as CSSProperties
-    return <span aria-hidden className={cn('postit postit-mini block h-5 w-5 shrink-0 rounded-[3px] lg:h-7 lg:w-7', className)} style={style} />
+    return (
+      <span
+        aria-hidden
+        className={cn(
+          'postit postit-mini block shrink-0 rounded-[3px]',
+          large ? 'postit-large flex h-10 w-10 items-center justify-center text-plum-900 lg:h-14 lg:w-14' : 'h-5 w-5 lg:h-7 lg:w-7',
+          className,
+        )}
+        style={style}
+      >
+        {children}
+      </span>
+    )
   }
   const style = { '--postit': notePaper(color), '--tilt': `${tilt}deg` } as CSSProperties
   return (
-    <div className={cn('postit postit-lift rounded-md px-4 py-3 text-plum-900', className)} style={style}>
+    <div
+      className={cn('postit postit-lift rounded-md text-plum-900', large ? 'postit-large px-5 py-5 sm:px-6' : 'px-4 py-3', className)}
+      style={style}
+    >
       {children}
     </div>
   )

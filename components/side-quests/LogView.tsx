@@ -2,8 +2,8 @@
 
 import { useSyncExternalStore } from 'react'
 import { cn } from '@/lib/utils'
-import type { DayEntry, Quest, QuestType } from '@/lib/side-quests/parse'
-import { toISODate } from '@/lib/side-quests/display'
+import type { Quest, QuestType } from '@/lib/side-quests/parse'
+import { toISODate, type LogDayEntry } from '@/lib/side-quests/display'
 import { LABEL } from './QuestCard'
 import AgendaFeed from './AgendaFeed'
 import MonthCalendar from './MonthCalendar'
@@ -18,7 +18,7 @@ const GROUPS: { type: QuestType; label: string }[] = [
 
 interface Props {
   quests: Quest[]
-  entriesByDate: Record<string, DayEntry[]>
+  entriesByDate: Record<string, LogDayEntry[]>
 }
 
 export default function LogView({ quests, entriesByDate }: Props) {
@@ -29,8 +29,9 @@ export default function LogView({ quests, entriesByDate }: Props) {
   // doesn't look empty.
   const today = useSyncExternalStore(noSubscribe, () => toISODate(new Date()), () => null)
   // The legend names only quests with post-its: queued or brand-new ones join once logged.
+  const onLog = new Set(Object.values(entriesByDate).flat().map(entry => entry.quest))
   const groups = GROUPS
-    .map(group => ({ ...group, quests: quests.filter(q => q.type === group.type && q.log.length > 0) }))
+    .map(group => ({ ...group, quests: quests.filter(q => q.type === group.type && onLog.has(q.title)) }))
     .filter(group => group.quests.length > 0)
 
   return (

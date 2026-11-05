@@ -22,7 +22,7 @@ export const about = {
     },
     {
       name: 'screenseiji',
-      body: "The handle, on YouTube, TikTok, Instagram, Threads, and X. It's Screen Sage spelled the Japanese way, and the home of the anime edits and a love of Japanese culture.",
+      body: "The handle, on YouTube, TikTok, Instagram, and Threads. It's Screen Sage spelled the Japanese way, and the home of the anime edits and a love of Japanese culture.",
     },
   ],
   /** Followed by a link to the review site. */

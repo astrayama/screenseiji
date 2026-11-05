@@ -3,7 +3,8 @@
 import { useId, useRef, useState, useSyncExternalStore, type KeyboardEvent } from 'react'
 import { CodeXml, ScrollText, Sprout, Swords } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import type { DayEntry, Quest } from '@/lib/side-quests/parse'
+import type { Quest } from '@/lib/side-quests/parse'
+import type { LogDayEntry } from '@/lib/side-quests/display'
 import QuestCard from './QuestCard'
 import LogView from './LogView'
 
@@ -40,7 +41,8 @@ interface Props {
   side: Quest[]
   /** Every quest, main ones included, for the Log's legend. */
   quests: Quest[]
-  entriesByDate: Record<string, DayEntry[]>
+  /** Log entries plus completed main quests' post-its (withCompletions). */
+  entriesByDate: Record<string, LogDayEntry[]>
 }
 
 export default function SideQuestsView({ side, quests, entriesByDate }: Props) {

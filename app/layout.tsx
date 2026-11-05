@@ -6,7 +6,7 @@ import { MotionPreferenceProvider } from '@/hooks/useMotionPreference'
 import KofiWidget from '@/components/KofiWidget'
 import { Analytics } from '@vercel/analytics/next'
 import { PAGES } from '@/lib/routes'
-import { FOUNDER, ORG_NAME, SITE_NAME, SITE_URL, TWITTER } from '@/lib/site'
+import { FOUNDER, ORG_NAME, SITE_NAME, SITE_URL } from '@/lib/site'
 
 // Brand type: Cormorant for the wordmark, headings and taglines; Nunito Sans
 // for body, buttons and forms; Josefin Sans for eyebrows only.
@@ -50,8 +50,9 @@ export const metadata: Metadata = {
     title: PAGES.home.title,
     description: PAGES.home.description,
   },
-  // Title, description and image are copied from openGraph by Next
-  twitter: { card: 'summary_large_image', site: TWITTER, creator: TWITTER },
+  // The large-image card type (Discord and others read it too). Title, description
+  // and image are copied from openGraph by Next. No account handle: the brand isn't on X.
+  twitter: { card: 'summary_large_image' },
   robots: {
     index: true,
     follow: true,

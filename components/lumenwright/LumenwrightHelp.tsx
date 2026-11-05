@@ -5,7 +5,7 @@ import { Mail, MessageCircle } from 'lucide-react'
 import ContactCards, { type ContactCard, type ContactCardsClasses } from '@/components/app-pages/ContactCards'
 import FaqAccordion, { type FaqAccordionClasses } from '@/components/app-pages/FaqAccordion'
 import { LumenMark } from '@/components/lumenwright/LumenMark'
-import { DeviceNote, OpenAppButton } from '@/components/lumenwright/OpenApp'
+import { OpenAppButton } from '@/components/lumenwright/OpenApp'
 import Reveal from '@/components/lumenwright/Reveal'
 import { lumenwrightLinks } from '@/lib/data'
 import { lumenwrightCta, lumenwrightFaq } from '@/lib/lumenwright-content'
@@ -81,7 +81,6 @@ export function LumenwrightCTA() {
           {lumenwrightCta.headline}
         </p>
         <OpenAppButton className="mt-9" />
-        <DeviceNote className="mt-6 max-w-md text-left" />
       </Reveal>
     </section>
   )
