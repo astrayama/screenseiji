@@ -22,7 +22,7 @@ export default function CartalunaCTA() {
       >
         <MoonCardMark size={64} className="animate-cartaluna-float" />
         <p className="mt-7 font-cartaluna-display text-3xl italic leading-[1.3] text-cartaluna-text sm:text-4xl">
-          “{cartalunaHero.tagline}”
+          {cartalunaHero.tagline}
         </p>
         <OpenAppButton className="mt-10" />
         <DeviceNote className="mt-6 text-left" />

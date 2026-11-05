@@ -11,14 +11,14 @@ export const cartalunaHero = {
   meaning: 'Card of the moon',
   headlineTop: 'A tarot reading',
   headlineAccent: 'on your own table.',
-  sub: 'Put on a Meta Quest 3 and a tarot deck appears on your real table. Shuffle it in your hands, draw the cards yourself, and turn them over to see what they reflect back.',
+  sub: 'Put on a Meta Quest 3 and a tarot deck appears on your real table. Shuffle it in your hands, draw the cards yourself, and turn each one over to read its meaning.',
   chips: ['Mixed reality', 'No install, no account', 'Hands or controllers'],
   cta: 'Open Carta Luna',
   note: {
     headset: 'Best on Meta Quest 3, in the Quest Browser.',
     screens: 'On a phone or computer, you can watch a friend’s reading.',
   },
-  tagline: 'Not a forecast. A mirror, laid out on your table.',
+  tagline: 'Turn each card over, and ask what it means to you.',
   spread: [
     { card: 'hermit', label: 'Past', name: 'The Hermit' },
     { card: 'star', label: 'Present', name: 'The Star', turns: true },
@@ -40,7 +40,7 @@ export interface CartalunaFeature {
 export const cartalunaFeatures: CartalunaFeature[] = [
   {
     id: 'table',
-    eyebrow: 'Your table, your room',
+    eyebrow: 'Placing the mat',
     headline: 'The deck finds your table.',
     body: 'Carta Luna looks for the table you marked in Space Setup, then any flat surface at table height, and lays a cloth mat on it. Grab the mat to move it: it settles back onto the table when you let go and stays anchored to the room.',
     visual: 'table',
@@ -57,14 +57,14 @@ export const cartalunaFeatures: CartalunaFeature[] = [
     id: 'meaning',
     eyebrow: 'Reflect',
     headline: 'Each card asks you something.',
-    body: 'Every face-up card gets a meaning panel: what its position asks, whether it’s upright or reversed, three keywords, a short read, and a question to sit with. All 78 cards are written for Carta Luna, as a mirror rather than a forecast.',
+    body: 'Every face-up card gets a meaning panel: what its position asks, whether it’s upright or reversed, three keywords, a short read, and a question to sit with. All 78 card texts were written for Carta Luna.',
     visual: 'meaning',
   },
   {
     id: 'spreads',
     eyebrow: 'Seven spreads, or your own',
     headline: 'From one card to twelve.',
-    body: 'Start with a single card or go all the way to the Celtic Cross. The mat grows to fit the spread, with faint outlines marking each spot. Or make your own: choose how many cards and a shape, then name each spot, all without typing.',
+    body: 'Start with a single card or go up to the Celtic Cross or Twelve Houses. The mat grows to fit the spread, with faint outlines marking each spot. Or make your own: choose how many cards and a shape, then name each spot, all without typing.',
     visual: 'spreads',
   },
   {
@@ -177,7 +177,7 @@ export const cartalunaBacks = [
 export const cartalunaTogether = {
   eyebrow: 'Read together',
   headline: 'Bring a friend to the table.',
-  body: 'Open a room and share its six-digit code. Each headset lays the mat on its own table, wherever everyone is, and the cards move for everyone.',
+  body: 'Open a room and share its six-digit code. Each headset lays the mat on its own table, wherever you each are, and the cards move for everyone.',
   ways: [
     {
       id: 'reader',
@@ -204,9 +204,9 @@ export const cartalunaTogether = {
 }
 
 export const cartalunaPrivacy = {
-  eyebrow: 'Private by design',
-  headline: 'A reading is personal. It stays that way.',
-  lead: 'No accounts, no analytics, no cookies, no tracking. Carta Luna loads only its own files, and it talks to nothing else unless you choose to read together.',
+  eyebrow: 'Privacy',
+  headline: 'What the app sees, and what it keeps.',
+  lead: 'Carta Luna has no accounts, analytics, cookies, or tracking. It loads only its own files and connects to nothing else unless you choose to read together.',
   points: [
     {
       title: 'Your room stays in the headset',
@@ -265,7 +265,7 @@ export const cartalunaFaq: FaqItem[] = [
   },
   {
     q: 'Does it predict the future?',
-    a: 'No. Carta Luna is a tool for self-reflection, not fortune telling. Every card comes with a short read and a question to sit with; what it means is up to you.',
+    a: 'No. Carta Luna is a tool for self-reflection, not fortune telling. Each card comes with a short read and a question; what it means is up to you.',
   },
   {
     q: 'Where does the card art come from?',

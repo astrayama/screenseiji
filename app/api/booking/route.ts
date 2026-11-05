@@ -45,7 +45,7 @@ export async function POST(request: Request) {
   const start = typeof body.start === 'number' ? body.start : NaN
   if (!getSlots(tier).includes(start)) {
     return Response.json(
-      { error: 'That time isn’t open anymore — please pick another.' },
+      { error: 'That time isn’t open anymore. Please pick another.' },
       { status: 409 },
     )
   }
@@ -65,7 +65,7 @@ export async function POST(request: Request) {
     clean.email.length > LIMITS.email ||
     clean.notes.length > LIMITS.notes
   ) {
-    return Response.json({ error: 'That’s a little too long — try trimming it down.' }, { status: 400 })
+    return Response.json({ error: 'That’s a little too long. Try trimming it down.' }, { status: 400 })
   }
   if (!EMAIL_RE.test(clean.email)) {
     return Response.json({ error: 'That email address looks off.' }, { status: 400 })

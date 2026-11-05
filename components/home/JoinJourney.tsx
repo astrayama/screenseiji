@@ -47,7 +47,7 @@ export default function JoinJourney() {
 
           {status === 'sent' ? (
             <p role="status" className="mt-6 font-display text-2xl italic text-plum-900">
-              You’re on the list. Welcome, fellow seeker.
+              You’re on the list. Talk soon.
             </p>
           ) : (
             <form onSubmit={handleSubmit} className="relative mx-auto mt-6 max-w-[28rem] text-left">

@@ -43,7 +43,7 @@ export default function IntakeForm({ pkg }: { pkg: IntakePackage }) {
         {pkg.paymentUrl ? (
           <>
             <p className="text-[15px] leading-6 text-plum-700">
-              Taking you to secure payment with Stripe… Use the same email at checkout so Isa can match it to your question.
+              Taking you to secure payment with Stripe… Use the same email at checkout so I can match it to your question.
             </p>
             <a
               href={pkg.paymentUrl}
@@ -55,7 +55,7 @@ export default function IntakeForm({ pkg }: { pkg: IntakePackage }) {
           </>
         ) : (
           <p className="text-[15px] leading-6 text-plum-700">
-            Isa will email you at <span className="font-bold text-plum-900">{form.email}</span> with payment details.
+            I’ll email you at <span className="font-bold text-plum-900">{form.email}</span> with payment details.
           </p>
         )}
       </div>
@@ -89,7 +89,7 @@ export default function IntakeForm({ pkg }: { pkg: IntakePackage }) {
       {pkg.notesField && (
         <div className="flex flex-col gap-2">
           <label htmlFor={`${id}-notes`} className={LABEL}>
-            Anything Isa should know <span className="font-normal text-plum-500">(optional)</span>
+            Anything I should know <span className="font-normal text-plum-500">(optional)</span>
           </label>
           <textarea
             id={`${id}-notes`}
@@ -106,7 +106,7 @@ export default function IntakeForm({ pkg }: { pkg: IntakePackage }) {
       )}
       <div className="flex flex-col-reverse items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-[13px] leading-5 text-plum-700">
-          {pkg.paymentUrl ? 'Next: secure payment via Stripe.' : 'Isa will follow up by email with payment details.'}
+          {pkg.paymentUrl ? 'Next: secure payment via Stripe.' : 'I’ll follow up by email with payment details.'}
         </p>
         <button
           type="submit"

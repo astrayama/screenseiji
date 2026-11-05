@@ -3,16 +3,16 @@
 import { useMemo, useState } from 'react'
 import { BUTTON_OUTLINE, EYEBROW } from '@/components/ui'
 import { cn } from '@/lib/utils'
-import type { DayEntry } from '@/lib/side-quests/parse'
-import { buildFeed, formatDayHeader, tilt, weekStart } from '@/lib/side-quests/display'
+import { buildFeed, formatDayHeader, tilt, weekStart, type LogDayEntry } from '@/lib/side-quests/display'
 import InlineText from './InlineText'
+import MilestoneNote from './MilestoneNote'
 import PostIt from './PostIt'
 
 /** Weeks with entries revealed per "Show earlier" press. */
 const PAGE = 4
 
 interface Props {
-  entriesByDate: Record<string, DayEntry[]>
+  entriesByDate: Record<string, LogDayEntry[]>
   /** The viewer's local date, YYYY-MM-DD. */
   today: string
 }
@@ -48,12 +48,16 @@ export default function AgendaFeed({ entriesByDate, today }: Props) {
                   <ul className="mt-3 space-y-3">
                     {day.entries.map((entry, i) => (
                       <li key={i}>
-                        <PostIt variant="note" color={entry.color} tilt={tilt(day.date, i) * 0.4}>
-                          <p className="font-eyebrow text-[11px] font-semibold uppercase tracking-[0.18em]">{entry.quest}</p>
-                          <p className="mt-1 text-sm leading-6">
-                            <InlineText text={entry.text} />
-                          </p>
-                        </PostIt>
+                        {entry.milestone ? (
+                          <MilestoneNote entry={entry} tilt={tilt(day.date, i) * 0.4} />
+                        ) : (
+                          <PostIt variant="note" color={entry.color} tilt={tilt(day.date, i) * 0.4}>
+                            <p className="font-eyebrow text-[11px] font-semibold uppercase tracking-[0.18em]">{entry.quest}</p>
+                            <p className="mt-1 text-sm leading-6">
+                              <InlineText text={entry.text} />
+                            </p>
+                          </PostIt>
+                        )}
                       </li>
                     ))}
                   </ul>

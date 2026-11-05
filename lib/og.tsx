@@ -5,7 +5,7 @@ import { energyCenters } from '@/lib/anicca-content'
 import type { OgTheme, PageEntry } from '@/lib/routes'
 import { ORG_NAME, SITE_HOST } from '@/lib/site'
 
-// Share cards — the image shown when a link is posted on X, Discord, iMessage…
+// Share cards: the image shown when a link is posted on Discord, iMessage, Threads…
 // Every page folder has an opengraph-image.tsx that calls renderOgImage with
 // its registry entry (lib/routes.ts). Rendered once at build time by Satori:
 // flexbox only, and fonts must be static TTF/OTF files (assets/fonts, OFL).
@@ -49,6 +49,17 @@ const THEMES: Record<OgTheme, { bg: string; glows: string; fg: string; muted: st
     fg: '#F3E9D2',
     muted: '#BBA985',
     accent: '#D4AF37',
+  },
+  // Lumenwright's void: Resolve gold up top, Fury magenta low on the other side.
+  lumenwright: {
+    bg: '#0A0A17',
+    glows:
+      'radial-gradient(circle at 86% 10%, rgba(242,213,138,0.24), rgba(242,213,138,0) 42%), ' +
+      'radial-gradient(circle at 6% 105%, rgba(255,46,154,0.2), rgba(255,46,154,0) 48%), ' +
+      'radial-gradient(ellipse at 50% 115%, rgba(22,22,50,0.95), rgba(22,22,50,0) 60%)',
+    fg: '#ECEAF7',
+    muted: '#AEACC8',
+    accent: '#F2D58A',
   },
 }
 

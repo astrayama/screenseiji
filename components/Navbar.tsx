@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
-import { Menu, X } from 'lucide-react'
+import { ArrowUpRight, Menu, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Wordmark } from '@/components/brand/SBadge'
+import { reviewsSite } from '@/lib/data'
 
 // Pages get their own links (each is a search landing page); home sections
 // start with "/" so they also work from sub-pages like /side-quests.
@@ -12,16 +13,26 @@ import { Wordmark } from '@/components/brand/SBadge'
 // in-page scroll on the home page, a full load that lands on the section from
 // elsewhere). Next's client router can double the hash ("/#watch#contact") on
 // these, and a same-route <Link> wouldn't reset the Side Quests tab from #log.
+// Reviews is its own site, so it opens in a new tab.
 // Side Quests, the Store and the rest live in the footer.
-const NAV = [
+interface NavLink {
+  label: string
+  href: string
+  external?: boolean
+}
+
+const NAV: NavLink[] = [
   { label: 'Watch',    href: '/#watch'   },
+  { label: 'Reviews',  href: reviewsSite.url, external: true },
   { label: 'Apps',     href: '/apps'     },
   { label: 'Tarot',    href: '/tarot'    },
   { label: 'Websites', href: '/websites' },
   { label: 'About',    href: '/about'    },
 ]
 
-const SAY_HELLO = { label: 'Say hello', href: '/#contact' }
+const SAY_HELLO: NavLink = { label: 'Say hello', href: '/#contact' }
+
+const NEW_TAB = { target: '_blank', rel: 'noopener noreferrer' }
 
 export default function Navbar() {
   const pathname = usePathname()
@@ -56,13 +67,20 @@ export default function Navbar() {
             <a
               key={link.href}
               href={link.href}
+              {...(link.external ? NEW_TAB : {})}
               aria-current={pathname === link.href ? 'page' : undefined}
               className={cn(
-                'whitespace-nowrap text-[15px] font-semibold text-plum-900 decoration-[1.5px] underline-offset-[6px] transition-colors hover:underline',
+                'inline-flex items-center gap-1 whitespace-nowrap text-[15px] font-semibold text-plum-900 decoration-[1.5px] underline-offset-[6px] transition-colors hover:underline',
                 pathname === link.href && 'underline',
               )}
             >
               {link.label}
+              {link.external && (
+                <>
+                  <ArrowUpRight size={15} aria-hidden />
+                  <span className="sr-only">(opens in a new tab)</span>
+                </>
+              )}
             </a>
           ))}
           <a
@@ -94,14 +112,21 @@ export default function Navbar() {
               <li key={link.href}>
                 <a
                   href={link.href}
+                  {...(link.external ? NEW_TAB : {})}
                   onClick={() => setMenuOpen(false)}
                   aria-current={pathname === link.href ? 'page' : undefined}
                   className={cn(
-                    'block rounded-xl px-3 py-3 text-base font-semibold text-plum-900 transition-colors hover:bg-blush/50',
+                    'flex items-center gap-1.5 rounded-xl px-3 py-3 text-base font-semibold text-plum-900 transition-colors hover:bg-blush/50',
                     pathname === link.href && 'bg-blush/40',
                   )}
                 >
                   {link.label}
+                  {link.external && (
+                    <>
+                      <ArrowUpRight size={17} aria-hidden />
+                      <span className="sr-only">(opens in a new tab)</span>
+                    </>
+                  )}
                 </a>
               </li>
             ))}

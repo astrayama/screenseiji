@@ -1,0 +1,113 @@
+/* ─── Lumenwright: hard light in a dark void (tokens for /apps/lumenwright) ── */
+@theme inline {
+  /* Palette: the void from the game's arena and Isa's portfolio preview
+     (hsl(240 40% 14%)), the two temperaments from the lore file. */
+  --color-lumenwright-void:    #0A0A17;
+  --color-lumenwright-deep:    #161632;
+  --color-lumenwright-panel:   #12122A;
+  --color-lumenwright-hollow:  #1D1934;
+  --color-lumenwright-text:    #ECEAF7;
+  --color-lumenwright-muted:   #AEACC8;
+  --color-lumenwright-faint:   #8C8AAA;
+  --color-lumenwright-resolve: #F2D58A;
+  --color-lumenwright-fury:    #FF2E9A;
+
+  --font-lumenwright-display: var(--font-space-grotesk), system-ui, sans-serif;
+  --font-lumenwright-body:    var(--font-inter), system-ui, sans-serif;
+
+  /* Resolve's slow, smooth pulse; Fury's three short and one long, kept soft
+     (well under three flashes a second, like the game's photosensitivity rule). */
+  --animate-lumenwright-pulse: lumenwright-pulse 6s ease-in-out infinite;
+  --animate-lumenwright-fury:  lumenwright-fury 2.4s ease-in-out infinite;
+  --animate-lumenwright-drift: lumenwright-drift 7s ease-in-out infinite;
+}
+
+@keyframes lumenwright-pulse { 0%,100% { opacity: .72 } 50% { opacity: 1 } }
+@keyframes lumenwright-fury {
+  0%, 12%   { opacity: 1 }   6%  { opacity: .7 }
+  18%       { opacity: .7 }  24% { opacity: 1 }
+  30%       { opacity: .7 }  36% { opacity: 1 }
+  60%       { opacity: 1 }   100% { opacity: .7 }
+}
+@keyframes lumenwright-drift { 0%,100% { translate: 0 0 } 50% { translate: 0 -8px } }
+
+/* ─── Components ── */
+
+/* A pane of dark glass with a faint gold edge */
+.lumenwright-panel {
+  background: rgba(18, 18, 42, 0.74);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(242, 213, 138, 0.18);
+  border-radius: 18px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(236, 234, 247, 0.05);
+}
+
+/* Gold into magenta: Resolve meeting Fury */
+.lumenwright-gtx {
+  background: linear-gradient(100deg, #FFF1C9 0%, #F2D58A 40%, #FF6BB8 85%, #FF2E9A 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.lumenwright-eyebrow {
+  font-family: var(--font-space-grotesk), system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 0.74rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #F2D58A;
+}
+
+.lumenwright-btn {
+  background: linear-gradient(135deg, #FFE7A8 0%, #F2D58A 50%, #D9B45E 100%);
+  color: #17120A;
+  border-radius: 999px;
+  box-shadow: 0 0 28px rgba(242, 213, 138, 0.32), inset 0 1px 0 rgba(255, 250, 230, 0.6);
+}
+
+.lumenwright-chip {
+  border: 1px solid rgba(242, 213, 138, 0.32);
+  background: rgba(242, 213, 138, 0.07);
+  color: #F5E2B0;
+  border-radius: 999px;
+}
+
+/* Hard light: a bright edge and a soft glow in the construct's colour (set --glow) */
+.lumenwright-light {
+  border: 1.5px solid var(--glow);
+  box-shadow: 0 0 22px color-mix(in srgb, var(--glow) 35%, transparent), inset 0 0 18px color-mix(in srgb, var(--glow) 18%, transparent);
+}
+
+/* Faint drifting shards behind the page */
+.lumenwright-shards {
+  background-image:
+    radial-gradient(1.2px 1.2px at 14% 22%, #ECEAF766 50%, transparent 52%),
+    radial-gradient(1px 1px at 63% 12%, #F2D58A55 50%, transparent 52%),
+    radial-gradient(1.4px 1.4px at 82% 58%, #ECEAF744 50%, transparent 52%),
+    radial-gradient(1px 1px at 36% 74%, #FF2E9A44 50%, transparent 52%),
+    radial-gradient(1.1px 1.1px at 92% 88%, #ECEAF755 50%, transparent 52%);
+  background-size: 380px 380px;
+}
+
+/* ─── Scoped to the page ── */
+
+.lumenwright-root ::selection { background: rgba(242, 213, 138, 0.35); color: #FFF1C9; }
+.lumenwright-root :focus-visible { outline: 2px solid #F2D58A; outline-offset: 3px; }
+
+/* The site's body is pastel; behind this page (overscroll, bounce) it stays void-dark. */
+html:has(.lumenwright-root) { color-scheme: dark; }
+body:has(.lumenwright-root) { background-color: #0A0A17; color: #ECEAF7; }
+
+/* Reduced motion: the OS setting or the site's accessibility toggle. */
+@media (prefers-reduced-motion: reduce) {
+  .lumenwright-root *, .lumenwright-root *::before, .lumenwright-root *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html:has(.lumenwright-root) { scroll-behavior: auto; }
+}
+html[data-reduced-motion] .lumenwright-root [class*='animate-lumenwright'] { animation: none; }
+html[data-reduced-motion]:has(.lumenwright-root) { scroll-behavior: auto; }

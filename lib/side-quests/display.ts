@@ -12,9 +12,15 @@ export interface YearMonth {
   month: number
 }
 
+/** A post-it in the Log: a quest's log entry, or a main quest's completion. */
+export interface LogDayEntry extends DayEntry {
+  /** A main quest finished this day: drawn as a larger post-it. `text` is its Outcome. */
+  milestone?: boolean
+}
+
 export interface FeedDay {
   date: string
-  entries: DayEntry[]
+  entries: LogDayEntry[]
 }
 
 export interface FeedWeek {
@@ -136,7 +142,7 @@ function weekLabel(start: string, thisWeek: string, currentYear: number): string
  * The mobile agenda: weeks newest first, each with its days newest first.
  * Today's week is always present (possibly empty); other weeks only when they have entries.
  */
-export function buildFeed(entriesByDate: Record<string, DayEntry[]>, today: string): FeedWeek[] {
+export function buildFeed(entriesByDate: Record<string, LogDayEntry[]>, today: string): FeedWeek[] {
   const thisWeek = weekStart(today)
   const weeks = new Map<string, FeedDay[]>([[thisWeek, []]])
   for (const [date, entries] of Object.entries(entriesByDate)) {
@@ -153,6 +159,24 @@ export function buildFeed(entriesByDate: Record<string, DayEntry[]>, today: stri
       label: weekLabel(start, thisWeek, currentYear),
       days: days.sort((a, b) => (a.date < b.date ? 1 : -1)),
     }))
+}
+
+/**
+ * The Log's post-its: every log entry, plus one larger post-it on the day each
+ * complete main quest was finished (its Finished date), first on that day.
+ * Keys stay ascending; the input isn't changed.
+ */
+export function withCompletions(entriesByDate: Record<string, DayEntry[]>, quests: Quest[]): Record<string, LogDayEntry[]> {
+  const days: Record<string, LogDayEntry[]> = {}
+  for (const [date, entries] of Object.entries(entriesByDate)) days[date] = [...entries]
+  for (const quest of quests) {
+    if (quest.type !== 'main' || quest.status !== 'complete' || !quest.finished) continue
+    const milestone: LogDayEntry = { quest: quest.title, color: quest.color, text: quest.outcome ?? '', milestone: true }
+    days[quest.finished] = [milestone, ...(days[quest.finished] ?? [])]
+  }
+  const sorted: Record<string, LogDayEntry[]> = {}
+  for (const date of Object.keys(days).sort()) sorted[date] = days[date]
+  return sorted
 }
 
 /** Folds a day's entries (already in quest order) into one group per quest. */
@@ -180,8 +204,10 @@ export interface QuestBoard {
   main?: Quest
   /** Queued main quests in file order: "Up next". */
   queue: Quest[]
-  /** Self and dev quests, most recently updated first. Paused or complete main quests only live in the Log. */
+  /** Self and dev quests, most recently updated first. Paused main quests only live in the Log. */
   side: Quest[]
+  /** Complete main quests, most recently finished first (undated ones last, in file order): "Completed". */
+  completed: Quest[]
 }
 
 /** Splits the parsed quests (status order, then file order) into the page's sections. */
@@ -190,6 +216,13 @@ export function splitQuests(quests: Quest[]): QuestBoard {
     main: quests.find(q => q.type === 'main' && q.status === 'active'),
     queue: quests.filter(q => q.type === 'main' && q.status === 'queued'),
     side: byLatestUpdate(quests.filter(q => q.type !== 'main')),
+    completed: quests
+      .filter(q => q.type === 'main' && q.status === 'complete')
+      .sort((a, b) => {
+        const x = a.finished ?? ''
+        const y = b.finished ?? ''
+        return x < y ? 1 : x > y ? -1 : 0
+      }),
   }
 }
 

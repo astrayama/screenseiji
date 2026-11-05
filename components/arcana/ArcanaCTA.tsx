@@ -23,7 +23,7 @@ export default function ArcanaCTA() {
       >
         <div aria-hidden className="text-4xl text-arcana-star">☾</div>
         <p className="mt-6 font-arcana-display text-3xl italic leading-[1.3] text-arcana-text sm:text-4xl">
-          “{arcanaHero.tagline}”
+          {arcanaHero.tagline}
         </p>
         <div className="mt-10 flex flex-wrap justify-center gap-3">
           <TestFlightButton />

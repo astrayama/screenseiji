@@ -2,7 +2,7 @@ import { ArrowUpRight } from 'lucide-react'
 import Fit from '@/components/home/Fit'
 import VideoPlayer from '@/components/home/VideoPlayer'
 import { BUTTON_PRIMARY, CARD, CHIP, CONTAINER, EYEBROW, H2, LEAD, TEXT_LINK } from '@/components/ui'
-import { socialLinks, youtube } from '@/lib/data'
+import { reviewsSite, socialLinks, youtube } from '@/lib/data'
 import { watch } from '@/lib/home-content'
 import { cn } from '@/lib/utils'
 import { getLatestVideo, UPLOADS_PLAYLIST_ID } from '@/lib/youtube'
@@ -85,6 +85,22 @@ export default async function Watch() {
             >
               {watch.subscribe}
             </a>
+
+            <div className={cn(CARD, 'p-5 sm:p-6')}>
+              <p className={EYEBROW}>{watch.reviews.eyebrow}</p>
+              <h3 className="mt-2 font-display text-[1.625rem] font-medium leading-tight text-plum-900">{watch.reviews.title}</h3>
+              <p className="mt-1.5 text-[15px] leading-6 text-plum-700">{watch.reviews.description}</p>
+              <a
+                href={reviewsSite.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={cn(TEXT_LINK, 'mt-4 inline-flex items-center gap-1 text-[15px]')}
+              >
+                {watch.reviews.cta}
+                <ArrowUpRight size={15} aria-hidden />
+                <span className="sr-only">at {reviewsSite.host} (opens in a new tab)</span>
+              </a>
+            </div>
 
             <div className={cn(CARD, 'p-5 sm:p-6')}>
               <p className={EYEBROW}>{watch.podcast.eyebrow}</p>

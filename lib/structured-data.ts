@@ -219,17 +219,19 @@ interface WebAppFacts {
   appUrl: string
   browserRequirements: string
   featureList?: string[]
+  /** schema.org applicationCategory. Defaults to LifestyleApplication. */
+  category?: string
 }
 
 /** An app that runs in the browser, described on its page here and opened at appUrl. */
-export function webApplication({ key, name, appUrl, browserRequirements, featureList }: WebAppFacts): Node {
+export function webApplication({ key, name, appUrl, browserRequirements, featureList, category = 'LifestyleApplication' }: WebAppFacts): Node {
   return {
     '@type': 'WebApplication',
     '@id': `${pageUrl(key)}#app`,
     name,
     description: PAGES[key].description,
     url: appUrl,
-    applicationCategory: 'LifestyleApplication',
+    applicationCategory: category,
     browserRequirements,
     ...(featureList && { featureList }),
     inLanguage: 'en',

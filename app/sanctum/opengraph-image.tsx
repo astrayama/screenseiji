@@ -1,8 +1,8 @@
 import { OG_CONTENT_TYPE, OG_SIZE, renderOgImage } from '@/lib/og'
 import { PAGES } from '@/lib/routes'
 
-// This page's share card — see lib/og.tsx
-export const alt = `${PAGES.sanctum.og.eyebrow} — ${PAGES.sanctum.og.title}`
+// This page's share card: see lib/og.tsx
+export const alt = `${PAGES.sanctum.og.eyebrow}: ${PAGES.sanctum.og.title}`
 export const size = OG_SIZE
 export const contentType = OG_CONTENT_TYPE
 

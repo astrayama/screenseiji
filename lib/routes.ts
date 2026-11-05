@@ -4,7 +4,7 @@
 // No imports and type-only TypeScript, so `npm test` can load it directly
 // (lib/routes.test.mjs checks lengths, uniqueness and that every page is here).
 
-export type OgTheme = 'site' | 'arcana' | 'anicca' | 'cartaluna'
+export type OgTheme = 'site' | 'arcana' | 'anicca' | 'cartaluna' | 'lumenwright'
 
 export interface PageEntry {
   path: string
@@ -27,9 +27,9 @@ export interface PageEntry {
 export const PAGES = {
   home: {
     path: '/',
-    title: 'Screen Sage Studios — Tarot, Anime Philosophy & Apps',
+    title: 'Screen Sage Studios · Tarot, Anime Philosophy & Apps',
     description:
-      'Screen Sage Studios (@screenseiji): anime edits & philosophy essays, tarot readings, mindful iOS apps, and websites for small businesses — by Isa.',
+      "Screen Sage Studios (@screenseiji) is Isa's studio for anime edits, philosophy essays, tarot readings, mindful iOS apps and small-business websites.",
     priority: 1,
     crumb: 'Home',
     og: {
@@ -41,67 +41,67 @@ export const PAGES = {
   },
   about: {
     path: '/about',
-    title: 'About Screen Sage Studios — Meet Isa',
+    title: 'About Screen Sage Studios · Meet Isa',
     description:
-      "Screen Sage Studios is Isa's one-person studio where spirituality, science, and story collide: tarot, anime, indie apps, and web design.",
+      "Meet Isa and Screen Sage Studios, her one-person studio for tarot, anime, indie apps and web design, and the story behind its three names.",
     priority: 0.8,
     crumb: 'About',
     parent: 'home',
     og: {
       eyebrow: 'About',
       title: 'Screen Sage Studios',
-      subtitle: 'Spirituality, science, and story — by Isa (@screenseiji)',
+      subtitle: 'A one-person studio by Isa (@screenseiji)',
       theme: 'site',
     },
   },
   apps: {
     path: '/apps',
-    title: 'Screen Sage Apps — Tarot, Journaling & Mindfulness Tools',
+    title: 'Screen Sage Apps · Tarot, Journaling & Mindfulness Tools',
     description:
-      'Seven apps from Screen Sage Studios, each named for the concept it embodies — Arcana tarot journal, Anicca mood journal, Yggdrasil, Carta Luna, and more.',
+      'Apps from Screen Sage Studios, each named for the idea behind it: the Arcana tarot journal, the Anicca mood journal, Yggdrasil, Carta Luna and more.',
     priority: 0.9,
     crumb: 'Apps',
     parent: 'home',
     og: {
       eyebrow: 'The App Universe',
-      title: 'Seven tools. One philosophy.',
+      title: 'Apps for seekers, from tarot to breathwork.',
       subtitle: 'Yggdrasil · Arcana · Carta Luna · Lumenwright · Anicca · Kairos · Sunya',
       theme: 'site',
     },
   },
   tarot: {
     path: '/tarot',
-    title: 'Tarot Readings Online — Written, Video & Live · Screen Sage',
+    title: 'Tarot Readings Online: Written, Video & Live · Screen Sage',
     description:
-      'Tarot as a mirror, not a forecast. Book a written, recorded video, or live tarot reading — by voice, video call, or VR — with Isa of Screen Sage Studios.',
+      'Tarot for self-reflection. Book a written, recorded video or live tarot reading by voice, video call or VR with Isa of Screen Sage Studios.',
     priority: 0.9,
     crumb: 'Tarot readings',
     parent: 'home',
     og: {
       eyebrow: 'Tarot readings',
-      title: 'A mirror, not a forecast.',
+      title: 'Tarot readings for self-reflection.',
       subtitle: 'Written · recorded video · live by voice, video call, or VR',
       theme: 'site',
     },
   },
   websites: {
     path: '/websites',
-    title: 'Websites for Small Businesses — Screen Sage Studios',
+    title: 'Websites for Small Businesses · Screen Sage Studios',
     description:
-      'Landing pages, business websites, and custom features like booking and Stripe payments — designed and built by Screen Sage Studios for small businesses.',
+      'Landing pages, business websites and custom features like booking and Stripe payments, designed and built for small businesses by Screen Sage Studios.',
     priority: 0.8,
     crumb: 'Websites',
     parent: 'home',
     og: {
       eyebrow: 'Screen Sage Studios · Websites',
-      title: 'Websites for small businesses and more.',
+      title: 'Websites for small businesses and creators.',
       subtitle: 'Landing pages · business websites · booking & payments',
       theme: 'site',
     },
   },
   sideQuests: {
     path: '/side-quests',
-    title: 'Side Quests — What Isa Is Building Now · Screen Sage',
+    title: 'Side Quests: What Isa Is Building Now · Screen Sage',
     description:
       "The Screen Sage Studios quest log: Isa's main quest, the apps and experiments in progress, and self-practice side quests, with a day-by-day log.",
     priority: 0.7,
@@ -133,7 +133,7 @@ export const PAGES = {
     path: '/sanctum',
     title: 'The Sanctum · Screen Sage',
     description:
-      'A private corner of the Screen Sage site: developer links and resources, kept behind a word of passage. Some doors require a key.',
+      'A private corner of the Screen Sage site: developer links and resources, kept behind a word of passage.',
     priority: 0,
     crumb: 'The Sanctum',
     parent: 'home',
@@ -142,32 +142,32 @@ export const PAGES = {
   },
   arcana: {
     path: '/apps/arcana',
-    title: 'Arcana — Tarot Journal App for iPhone · Screen Sage',
+    title: 'Arcana: Tarot Journal App for iPhone · Screen Sage',
     description:
-      'A warm, quiet tarot journal for iPhone: log every pull and spread in 10 seconds, with meaning hints for all 78 cards and beautiful exports.',
+      'A warm, quiet tarot journal for iPhone: log every pull and spread in 10 seconds, with meaning hints for all 78 cards and image or PDF export.',
     priority: 0.9,
     crumb: 'Arcana',
     parent: 'apps',
     og: {
       eyebrow: 'Arcana · Tarot journal for iPhone',
       title: 'Give your tarot cards a home.',
-      subtitle: 'Every pull, every spread, every thought — kept safe.',
+      subtitle: 'Your pulls, spreads, and notes, in one journal.',
       theme: 'arcana',
     },
   },
   arcanaSupport: {
     path: '/apps/arcana/support',
     title: 'Support & FAQ · Arcana Tarot Journal',
-    description: 'Help, FAQs, and contact for Arcana — the tarot journal by Screen Sage Studios.',
+    description: 'Help, FAQs, and contact for Arcana, the tarot journal by Screen Sage Studios.',
     priority: 0.5,
     crumb: 'Support',
     parent: 'arcana',
-    og: { eyebrow: 'Arcana · Support', title: 'How can we help?', subtitle: 'Help, FAQs, and contact', theme: 'arcana' },
+    og: { eyebrow: 'Arcana · Support', title: 'How can I help?', subtitle: 'Help, FAQs, and contact', theme: 'arcana' },
   },
   arcanaPrivacy: {
     path: '/apps/arcana/privacy',
     title: 'Privacy Policy · Arcana Tarot Journal',
-    description: 'How Arcana handles your data: local-first storage, optional sync, and no tracking — ever.',
+    description: 'How Arcana handles your data: local-first storage, optional sync, and no tracking.',
     priority: 0.3,
     crumb: 'Privacy',
     parent: 'arcana',
@@ -180,9 +180,9 @@ export const PAGES = {
   },
   cartaluna: {
     path: '/apps/cartaluna',
-    title: 'Carta Luna — Mixed-Reality Tarot for Meta Quest 3',
+    title: 'Carta Luna: Mixed-Reality Tarot for Meta Quest 3',
     description:
-      'A mixed-reality tarot reading for Meta Quest 3, right in the Quest Browser: the deck appears on your real table. Shuffle, draw, and reflect. No install.',
+      'A mixed-reality tarot reading for Meta Quest 3 that runs in the Quest Browser, with nothing to install. The deck appears on your real table.',
     priority: 0.9,
     crumb: 'Carta Luna',
     parent: 'apps',
@@ -193,9 +193,24 @@ export const PAGES = {
       theme: 'cartaluna',
     },
   },
+  lumenwright: {
+    path: '/apps/lumenwright',
+    title: 'Lumenwright: Hand-Tracked Mixed Reality Game for Quest 3',
+    description:
+      'A hand-tracked mixed reality game for Meta Quest 3 in the Quest Browser. Make hand signs to form constructs of hard light and hold off the Hollows.',
+    priority: 0.9,
+    crumb: 'Lumenwright',
+    parent: 'apps',
+    og: {
+      eyebrow: 'Lumenwright · Hand-tracked mixed reality',
+      title: 'Can willpower be a game mechanic?',
+      subtitle: 'Hand-tracked, for Meta Quest 3 and 3S',
+      theme: 'lumenwright',
+    },
+  },
   anicca: {
     path: '/apps/anicca',
-    title: 'Anicca — Mood & Energy (Chakra) Journal for iPhone',
+    title: 'Anicca: Mood & Energy (Chakra) Journal for iPhone',
     description:
       'A calm mood & energy journal for iPhone. Name how you feel, see it across seven energy centers from Root to Crown, and notice your patterns over time.',
     priority: 0.9,
@@ -203,7 +218,7 @@ export const PAGES = {
     parent: 'apps',
     og: {
       eyebrow: 'Anicca · Mood & energy journal for iPhone',
-      title: 'Read your energy. Understand yourself.',
+      title: 'Read your energy. Notice your patterns.',
       subtitle: 'Seven energy centers, from Root to Crown',
       theme: 'anicca',
     },
@@ -211,17 +226,17 @@ export const PAGES = {
   aniccaSupport: {
     path: '/apps/anicca/support',
     title: 'Support & FAQ · Anicca Mood & Energy Journal',
-    description: 'Help, FAQs, and contact for Anicca — the mood & energy journal by Screen Sage Studios.',
+    description: 'Help, FAQs, and contact for Anicca, the mood & energy journal by Screen Sage Studios.',
     priority: 0.5,
     crumb: 'Support',
     parent: 'anicca',
-    og: { eyebrow: 'Anicca · Support', title: 'How can we help?', subtitle: 'Help, FAQs, and contact', theme: 'anicca' },
+    og: { eyebrow: 'Anicca · Support', title: 'How can I help?', subtitle: 'Help, FAQs, and contact', theme: 'anicca' },
   },
   aniccaPrivacy: {
     path: '/apps/anicca/privacy',
     title: 'Privacy Policy · Anicca Mood & Energy Journal',
     description:
-      'How Anicca handles your data: on-device emotion matching, a private synced account, and no ads or tracking — ever.',
+      'How Anicca handles your data: on-device emotion matching, a private synced account, and no ads or tracking.',
     priority: 0.3,
     crumb: 'Privacy',
     parent: 'anicca',

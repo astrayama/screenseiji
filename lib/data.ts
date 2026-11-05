@@ -4,33 +4,33 @@ export const services = [
   {
     icon: '✦',
     step: 'Watch',
-    title: 'Video Essays',
+    title: 'Video essays',
     description:
-      'Philosophical essays using anime, film, and games as entry points. Beloved characters externalize internal struggles in ways that lower our defenses — and let us absorb difficult ideas.',
+      'Philosophy essays that start from anime, film, and games. When a character we love acts out a struggle we share, our guard drops and hard ideas get through.',
     cta: { label: 'Watch', href: 'https://www.youtube.com/@screenseiji' },
   },
   {
     icon: '🔮',
     step: 'Go deeper',
-    title: 'Tarot Readings',
+    title: 'Tarot readings',
     description:
-      'Tarot as a symbolic language for self-reflection — not prediction, but a mirror held up to what you already know. Written, recorded, or live.',
+      'I read tarot as a symbolic language for self-reflection, to help you see what you already know. Written, recorded, or live.',
     cta: { label: 'Book a reading', href: '#tarot' },
   },
   {
     icon: '∞',
     step: 'Practice daily',
-    title: 'Software for Seekers',
+    title: 'Software for seekers',
     description:
-      'Indie apps and web tools built on philosophical frameworks — from the Norse world tree to Buddhist impermanence. Each tool is named after the concept it embodies.',
+      'Indie apps and web tools built on philosophy, from the Norse world tree to Buddhist impermanence. Each one is named for the idea behind it.',
     cta: { label: 'Try the apps', href: '#apps' },
   },
   {
     icon: '🎮',
     step: 'Rest',
-    title: 'Mindful Gaming',
+    title: 'Mindful gaming',
     description:
-      'Games are maps for living — not escapism. Cozy gaming as rest, restoration, and spiritual practice.',
+      'Cozy gaming as rest, recovery, and spiritual practice, and a look at what games can teach about living.',
     cta: { label: 'Hang out', href: 'https://www.tiktok.com/@screenseiji' },
   },
 ]
@@ -63,7 +63,7 @@ export const intakePackages: Record<IntakePackageId, IntakePackage> = {
     eyebrow: 'Async · Written',
     title: 'Written reading',
     description: 'Isa answers your question in writing within 48 hours.',
-    details: ['A spread of 3–7 cards', 'Delivered within 48 hours'],
+    details: ['A spread of 3–7 cards'],
     cta: 'Order a written reading',
     price: '$10',
     priceUnit: 'per spread',
@@ -74,8 +74,8 @@ export const intakePackages: Record<IntakePackageId, IntakePackage> = {
     id: 'video',
     eyebrow: 'Async · Recorded',
     title: 'Recorded video reading',
-    description: 'A personal video reading, recorded for you and delivered within 48 hours.',
-    details: ['About 5 minutes of video', 'Delivered within 48 hours'],
+    description: 'A video reading recorded just for you, delivered within 48 hours.',
+    details: ['About 5 minutes of video'],
     cta: 'Order a video reading',
     price: '$18',
     priceUnit: 'per spread',
@@ -104,9 +104,9 @@ export interface LiveTier {
 export type TimeRange = [string, string]
 
 export const liveReading = {
-  eyebrow: 'Live · You pick the format',
+  eyebrow: 'Live · Together',
   title: 'Live reading',
-  description: 'A reading in real time, together. The format is yours to choose.',
+  description: 'We meet in real time and read the cards together.',
   formats: [
     { id: 'voice' as LiveFormat, label: 'Voice call' },
     { id: 'video' as LiveFormat, label: 'Video call' },
@@ -156,6 +156,17 @@ export const youtube = {
   featuredVideo: null as { id: string; title: string } | null,
 }
 
+// ─── Reviews ────────────────────────────────────────────────────────────────
+// Isa's film and series reviews live on their own site. The navbar, the home
+// page's Watch section, the footer, /about and llms.txt all link to it.
+
+export const reviewsSite = {
+  url: 'https://reviews.screenseiji.com',
+  host: 'reviews.screenseiji.com',
+  /** One line on what's there, for llms.txt. */
+  summary: 'Isa’s film and series reviews, each with a score, a spoiler-free verdict and a spoiler zone.',
+}
+
 export interface AppLinks {
   appStoreUrl: string
   /** While true, the App Store badge renders as a non-link "Coming soon". */
@@ -194,6 +205,12 @@ export interface WebAppLinks {
 
 export const cartalunaLinks: WebAppLinks = {
   appUrl: 'https://cartaluna-mr.vercel.app',
+  supportEmail: 'screenseiji@proton.me',
+  discord: 'https://discord.gg/2rFyT6nskc',
+}
+
+export const lumenwrightLinks: WebAppLinks = {
+  appUrl: 'https://lumenwright-nu.vercel.app',
   supportEmail: 'screenseiji@proton.me',
   discord: 'https://discord.gg/2rFyT6nskc',
 }
@@ -255,7 +272,7 @@ export const apps: AppNode[] = [
       { label: 'v1 (in development)', href: YGGDRASIL_V1 },
     ],
     status: 'beta',
-    statusNote: 'In beta — join the waitlist',
+    statusNote: 'In beta: join the waitlist',
     waitlist: true,
   },
   {
@@ -267,7 +284,7 @@ export const apps: AppNode[] = [
     platform: 'iPhone',
     href: '/apps/arcana',
     status: 'beta',
-    statusNote: 'In beta — try it on TestFlight',
+    statusNote: 'In beta: try it on TestFlight',
     tryUrl: arcanaLinks.testflightUrl,
   },
   {
@@ -275,23 +292,24 @@ export const apps: AppNode[] = [
     name: 'Carta Luna',
     concept: 'Card of the moon · mixed-reality tarot in WebXR',
     summary:
-      'A mixed-reality tarot reading for Meta Quest 3, in the Quest Browser: the deck appears on your real table, you shuffle and draw with your hands, and friends can join in or watch from a phone.',
+      'A mixed-reality tarot reading for Meta Quest 3, in the Quest Browser: the deck appears on your real table, you shuffle and draw with your hands, and friends can join in or watch from a phone or computer.',
     platform: 'WebXR',
     href: '/apps/cartaluna',
     status: 'beta',
-    statusNote: 'In beta — open it in the Quest Browser',
+    statusNote: 'In beta: open it in the Quest Browser',
     tryUrl: cartalunaLinks.appUrl,
   },
   {
     id: 'lumenwright',
     name: 'Lumenwright',
     concept: 'Maker of light · VR & AR',
-    summary: 'A hand-tracked VR & AR experiment asking whether willpower can be a game mechanic.',
+    summary:
+      'A hand-tracked game for Meta Quest 3, in the Quest Browser: make hand signs to form constructs of hard light and hold off waves of Hollows, in your own room or a virtual arena.',
     platform: 'VR & AR',
-    href: 'https://lumenwright-nu.vercel.app',
+    href: '/apps/lumenwright',
     status: 'beta',
-    statusNote: 'In beta — try it in VR & AR',
-    tryUrl: 'https://lumenwright-nu.vercel.app',
+    statusNote: 'In beta: open it in the Quest Browser',
+    tryUrl: lumenwrightLinks.appUrl,
   },
   {
     id: 'anicca',
@@ -337,7 +355,6 @@ export const socialLinks = {
     { label: 'TikTok', handle: '@screenseiji', href: 'https://www.tiktok.com/@screenseiji', profile: true },
     { label: 'Instagram', handle: '@screenseiji', href: 'https://instagram.com/screenseiji', profile: true },
     { label: 'Threads', handle: '@screenseiji', href: 'https://threads.net/@screenseiji', profile: true },
-    { label: 'X / Twitter', shortLabel: 'X', handle: '@screenseiji', href: 'https://x.com/screenseiji', profile: true },
     { label: 'Discord', handle: 'Join Community', href: 'https://discord.gg/2rFyT6nskc' },
   ],
   listen: [
@@ -379,7 +396,7 @@ export interface StudioWork {
 export const studio = {
   headline: 'Websites for small businesses and more.',
   subhead:
-    'Design, build, and launch — for small businesses, creators, and anyone with something to offer. Fast, accessible, and found on Google.',
+    'I design, build, and launch your site, and make it fast, accessible, and easy to find on Google.',
   // The scrolling ticker on the collapsed banner.
   marquee: [
     'Landing pages',
@@ -405,7 +422,7 @@ export const studio = {
     },
     {
       title: 'Custom features',
-      description: 'Booking, payments, waitlists, or a full web app — built in, not bolted on.',
+      description: 'Booking, payments, waitlists, or a full web app, built right into your site.',
       includes: ['Online booking calendars', 'Stripe checkout', 'Email capture & forms'],
     },
   ],
@@ -420,7 +437,7 @@ export const studio = {
     {
       name: 'Screen Sage',
       kind: 'My own product',
-      description: 'The site you’re on — native booking calendar, Stripe checkout, and email forms.',
+      description: 'The site you’re on, with a native booking calendar, Stripe checkout, and email forms.',
     },
     {
       name: 'Arcana',
@@ -440,7 +457,7 @@ export const studio = {
     },
   ] as StudioWork[],
   process: [
-    { title: 'Tell me about it', body: 'Fill out the short project form — two minutes, no commitment.' },
+    { title: 'Tell me about it', body: 'Fill out the short project form. It takes two minutes, with no commitment.' },
     { title: 'Proposal & quote', body: 'I reply with a plan, a timeline, and a quote for your project.' },
     { title: 'Design & build', body: 'You see progress along the way and give feedback as it comes together.' },
     { title: 'Launch', body: 'Your site goes live on your domain, ready for customers.' },
@@ -486,16 +503,16 @@ export const philosophyItems = [
   {
     symbol: '0',
     title: 'Nothingness',
-    body: "The void is not absence. It's pure potential — the space before the first note of a song that hasn't been written yet. Buddhism calls it śūnyatā. Quantum physics calls it the vacuum state. Both are pointing at the same door.",
+    body: "The void is full of potential, like the silence before the first note of a song nobody has written yet. Buddhism calls it śūnyatā and quantum physics calls it the vacuum state, and I think they're describing the same thing.",
   },
   {
     symbol: '1',
     title: 'The Self',
-    body: "You are a story the universe is telling. Separate enough to have perspective. Connected enough to matter. Jungian psychology calls this individuation. Advaita Vedanta calls it the witness. The observer effect in quantum mechanics may have something to say here too.",
+    body: "You are a story the universe is telling, separate enough to have a point of view and connected enough to matter. Jungian psychology calls this individuation and Advaita Vedanta calls it the witness. The observer effect in quantum mechanics may have something to say here too.",
   },
   {
     symbol: '∞',
     title: 'Everything',
-    body: "Infinity is not about size. It's about the impossibility of edges. You do not end where other things begin. The holographic principle. Indra's net. The mycorrhizal network. Different maps of the same territory.",
+    body: "Infinity has less to do with size than with having no edges: you don't end where other things begin. The holographic principle, Indra's net, and the mycorrhizal network each describe that in their own way.",
   },
 ]

@@ -77,7 +77,7 @@ export default function CartalunaFeatures() {
       <div className="mx-auto max-w-2xl text-center">
         <p className="cartaluna-eyebrow">How a reading works</p>
         <h2 id="how-title" className="mt-4 font-cartaluna-display text-3xl leading-tight sm:text-[2.6rem]">
-          The table, the cards, and you.
+          What happens in the headset.
         </h2>
       </div>
       <div className="mt-20 space-y-28 lg:space-y-36">

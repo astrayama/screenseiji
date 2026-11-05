@@ -30,6 +30,12 @@ export interface Quest {
   /** Calendar date the quest is aiming for, YYYY-MM-DD. */
   target?: string
   link?: string
+  /** How a finished quest turned out, in one line. */
+  outcome?: string
+  /** Calendar date the quest was finished, YYYY-MM-DD. */
+  finished?: string
+  /** Short labels for a finished quest, e.g. School, Capstone. Empty when the file has none. */
+  tags: string[]
   color: string
   /** Oldest first; entries on the same day keep their order in the file. */
   log: LogEntry[]
@@ -81,7 +87,7 @@ export const FALLBACK_PALETTE: readonly string[] = [
   '#24bfb2', '#e8b860', '#60a5fa', '#f472b6', '#a3e635', '#fb923c', '#c084fc', '#f87171',
 ]
 
-type Field = 'type' | 'status' | 'question' | 'milestone' | 'target' | 'link'
+type Field = 'type' | 'status' | 'question' | 'milestone' | 'target' | 'link' | 'outcome' | 'finished' | 'tags'
 
 const FIELDS: Record<string, Field> = {
   'type': 'type',
@@ -90,8 +96,11 @@ const FIELDS: Record<string, Field> = {
   'next milestone': 'milestone',
   'target': 'target',
   'link': 'link',
+  'outcome': 'outcome',
+  'finished': 'finished',
+  'tags': 'tags',
 }
-const FIELD_NAMES = 'Type, Status, Question, Next milestone, Target, Link'
+const FIELD_NAMES = 'Type, Status, Question, Next milestone, Target, Link, Outcome, Finished, Tags'
 
 const ITEM = /^[-*]\s+\*\*(.+?):\*\*\s*(.*)$/
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/
@@ -243,6 +252,9 @@ export function parseSideQuests(markdown: string): SideQuests {
   const pinned = colorsComment ? parseColors(colorsComment, drafts) : new Map<string, string>()
 
   for (const quest of quests) {
+    if (quest.type === 'main' && quest.status === 'complete' && !quest.outcome) {
+      warnings.push(`Main quest "${quest.title}" is complete but has no Outcome, so its row in Completed has no one-liner.`)
+    }
     const color = pinned.get(quest.title)
     if (color) {
       quest.color = color
@@ -314,7 +326,7 @@ export function parseInline(text: string): InlineSegment[] {
 }
 
 function finishQuest(draft: DraftQuest): Quest {
-  const { type, status, question, milestone, target, link } = draft.fields
+  const { type, status, question, milestone, target, link, outcome, finished, tags } = draft.fields
 
   if (type && !TYPES.includes(type.value as QuestType)) {
     throw new SideQuestsParseError(type.line, `Type must be main, self or dev (lowercase), got "${type.value}".`)
@@ -325,11 +337,12 @@ function finishQuest(draft: DraftQuest): Quest {
   }
   if (!question) throw new SideQuestsParseError(draft.line, `Quest "${draft.title}" is missing "- **Question:**".`)
   if (!question.value) throw new SideQuestsParseError(question.line, `Quest "${draft.title}" has an empty Question.`)
-  if (target && target.value) {
-    if (!ISO_DATE.test(target.value)) {
-      throw new SideQuestsParseError(target.line, `Target must be a date like 2027-05-15 (YYYY-MM-DD), got "${target.value}".`)
+  for (const [name, date] of [['Target', target], ['Finished', finished]] as const) {
+    if (!date || !date.value) continue
+    if (!ISO_DATE.test(date.value)) {
+      throw new SideQuestsParseError(date.line, `${name} must be a date like 2027-05-15 (YYYY-MM-DD), got "${date.value}".`)
     }
-    if (!isRealDate(target.value)) throw new SideQuestsParseError(target.line, `${target.value} is not a real date.`)
+    if (!isRealDate(date.value)) throw new SideQuestsParseError(date.line, `${date.value} is not a real date.`)
   }
   if (link && link.value && !HTTP_URL.test(link.value)) {
     throw new SideQuestsParseError(link.line, `Link must be an http(s) URL, got "${link.value}".`)
@@ -357,6 +370,9 @@ function finishQuest(draft: DraftQuest): Quest {
     milestone: milestone?.value || undefined,
     target: target?.value || undefined,
     link: link?.value || undefined,
+    outcome: outcome?.value || undefined,
+    finished: finished?.value || undefined,
+    tags: (tags?.value ?? '').split(',').map(tag => tag.trim()).filter(Boolean),
     color: '',
     log,
     latest: log[log.length - 1],

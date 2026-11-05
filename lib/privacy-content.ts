@@ -12,13 +12,13 @@ export const sitePrivacy: LegalDoc = {
       title: 'The short version',
       body: [
         'This site doesn’t sell your data, doesn’t run ads, and only asks for personal details when you fill in a form. Analytics help me see which pages people visit; nothing here builds a profile of you.',
-        'This policy covers the Screen Sage website. The apps have their own: [Arcana’s privacy policy](/apps/arcana/privacy), [Anicca’s privacy policy](/apps/anicca/privacy), and [how Carta Luna handles your data](/apps/cartaluna#privacy).',
+        'This policy covers the Screen Sage website. The apps have their own: [Arcana’s privacy policy](/apps/arcana/privacy), [Anicca’s privacy policy](/apps/anicca/privacy), [how Carta Luna handles your data](/apps/cartaluna#privacy), and [how Lumenwright handles your data](/apps/lumenwright#privacy).',
       ],
     },
     {
       title: 'Analytics',
       body: [
-        'Google Analytics (GA4) measures visits — pages viewed, rough location, device and browser — and sets cookies in your browser to do it. Google processes that data under its own privacy policy: https://policies.google.com/privacy',
+        'Google Analytics (GA4) measures visits (pages viewed, rough location, device and browser) and sets cookies in your browser to do it. Google processes that data under its own privacy policy: https://policies.google.com/privacy',
         'Vercel Web Analytics also counts page views. It doesn’t use cookies and doesn’t identify you.',
       ],
     },
@@ -33,7 +33,7 @@ export const sitePrivacy: LegalDoc = {
     {
       title: 'Payments',
       body: [
-        'Tarot readings are paid through Stripe Payment Links. Checkout happens on Stripe’s own secure page, so your card details go to Stripe — this site never sees or stores them. Stripe’s privacy policy: https://stripe.com/privacy',
+        'Tarot readings are paid through Stripe Payment Links. Checkout happens on Stripe’s own secure page, so your card details go to Stripe, and this site never sees or stores them. Stripe’s privacy policy: https://stripe.com/privacy',
       ],
     },
     {
@@ -63,7 +63,7 @@ export const sitePrivacy: LegalDoc = {
     {
       title: 'Your choices',
       body: [
-        'You can block or clear cookies in your browser, or use a tracker blocker; the site works without them. To see, correct, or delete what you’ve sent me — or to leave the waitlist or mailing list — just email me.',
+        'You can block or clear cookies in your browser, or use a tracker blocker; the site works without them. To see, correct, or delete what you’ve sent me, or to leave the waitlist or mailing list, just email me.',
       ],
     },
     {

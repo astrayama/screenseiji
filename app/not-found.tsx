@@ -30,7 +30,7 @@ export default function NotFound() {
           <h1 className={PAGE_TITLE} style={PAGE_TITLE_SIZE}>This page wandered off.</h1>
         </div>
         <p className="mt-6 text-base leading-8 text-plum-700 sm:text-lg">
-          Even the void is pure potential. Here are a few doors that do open:
+          Even the void is pure potential. Try one of these instead:
         </p>
         <nav aria-label="Ways on" className="mt-8">
           <ul className="flex flex-wrap gap-3">

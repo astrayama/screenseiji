@@ -28,12 +28,12 @@ export function energyCenter(id: EnergyCenterId) {
 export const aniccaHero = {
   eyebrow: 'Anicca',
   headlineTop: 'Read your energy.',
-  headlineGradient: 'Understand yourself.',
-  sub: 'A calm mood & energy journal for iPhone. Check in with how you feel, see where it sits across seven energy centers, and notice your patterns over time.',
-  chips: ['Seven energy centers', '98 emotions', 'Matched on-device'],
+  headlineGradient: 'Notice your patterns.',
+  sub: 'A calm mood & energy journal for iPhone. Check in with how you feel, and see where it sits across seven energy centers over time.',
+  chips: ['Seven energy centers', '98 emotions', 'Free to start'],
   // Closing CTA — the app is named for the Pali word for impermanence.
   meaning: 'Anicca · impermanence',
-  tagline: 'Nothing you feel is permanent — but all of it is worth noticing.',
+  tagline: 'Nothing you feel is permanent, but all of it is worth noticing.',
 }
 
 export interface AniccaFeature {
@@ -51,7 +51,7 @@ export const aniccaFeatures: AniccaFeature[] = [
     id: 'map',
     eyebrow: 'Map my feelings',
     headline: 'Say it in your own words.',
-    body: 'Type how you feel, however it comes out. Anicca matches your words to emotions right on your iPhone, using Apple’s built-in language tools — nothing is sent anywhere for analysis.',
+    body: 'Type how you feel, however it comes out. Anicca matches your words to emotions right on your iPhone, using Apple’s built-in language tools. Nothing is sent anywhere for analysis.',
     visual: 'map',
   },
   {
@@ -66,29 +66,29 @@ export const aniccaFeatures: AniccaFeature[] = [
     id: 'balance',
     eyebrow: 'Chakra balance',
     headline: 'See where your energy gathers.',
-    body: 'Every check-in belongs to one of seven energy centers, from Root to Crown. Your balance chart and energy-center breakdown show where your feelings have been gathering lately.',
+    body: 'Every check-in belongs to one of seven energy centers, from Root to Crown. Your balance chart and energy-center breakdown show which centers have come up most lately.',
     visual: 'balance',
   },
   {
     id: 'timeline',
     eyebrow: 'Mood timeline',
-    headline: 'Patterns, gently surfaced.',
-    body: 'Follow how your mood moves across the days, with your recent check-ins close at hand — so the shape of a week is easy to see.',
+    headline: 'See how your week went.',
+    body: 'Follow how your mood moves from day to day, with your recent check-ins close at hand, so a week’s shape is easy to see.',
     visual: 'timeline',
   },
   {
     id: 'reflection',
     eyebrow: 'Weekly reflection',
-    headline: 'A quiet look back, every week.',
-    body: 'Each week, Anicca offers a short reflection on your check-ins, with practices to try. It’s built right on your iPhone from your own entries — no AI service, nothing sent away to be analyzed.',
+    headline: 'A short look back at your week.',
+    body: 'Each week, Anicca writes a short reflection on your check-ins, with practices to try. It’s made on your iPhone from your own entries, with no AI service and nothing sent away.',
     visual: 'reflection',
     pro: true,
   },
   {
     id: 'keep',
     eyebrow: 'Reminders & export',
-    headline: 'Gentle nudges. Your data, to keep.',
-    body: 'Daily reminders are free for everyone, at the time you choose. And your journal is yours to take with you — export it as JSON anytime, or as a PDF with Pro.',
+    headline: 'Daily reminders, and exports you keep.',
+    body: 'Daily reminders are free on every plan, at the time you choose. You can export your journal as JSON anytime, or as a PDF with Pro.',
     visual: 'keep',
     chips: ['Daily reminders', 'JSON export', 'PDF with Pro'],
   },
@@ -100,12 +100,12 @@ export const aniccaPromises = [
     body: 'What you type into “Map my feelings” is analyzed on-device and never stored or sent. Only the emotions you confirm are saved.',
   },
   {
-    title: 'Your account, your rows',
+    title: 'Backed up to your account',
     body: 'Sign in with Apple, Google, or email. Check-ins sync to your account as a backup, readable only by you.',
   },
   {
     title: 'No ads, no tracking',
-    body: 'No third-party analytics in the app, and we never sell your data. Your feelings are yours.',
+    body: 'There are no third-party analytics in the app, and we never sell your data.',
   },
 ]
 
@@ -125,8 +125,8 @@ export const aniccaPlans: AniccaPlan[] = [
     id: 'free',
     name: 'Free',
     price: '$0',
-    blurb: 'Everything you need to start checking in.',
-    features: ['30 check-ins a month', 'Gentle daily reminders', 'Export as JSON'],
+    blurb: 'For starting a check-in habit.',
+    features: ['30 check-ins a month', 'Daily reminders', 'Export as JSON'],
   },
   {
     id: 'pro',
@@ -151,12 +151,12 @@ export const aniccaPlans: AniccaPlan[] = [
     cadence: '/month',
     yearly: 'or $69.99/year',
     blurb: 'Anicca and Yggdrasil, together.',
-    features: ['Everything in Pro', 'Yggdrasil integration', 'Deep sync — coming soon'],
+    features: ['Everything in Pro', 'Yggdrasil integration', 'Deep sync (coming soon)'],
   },
 ]
 
 export const aniccaPricingNote =
-  'Subscriptions renew automatically through Apple — cancel anytime in your App Store settings. Prices in USD; the App Store shows your local price.'
+  'Subscriptions renew automatically through Apple. Cancel anytime in your App Store settings. Prices are in USD; the App Store shows your local price.'
 
 export const aniccaDisclaimer =
   'Anicca is a tool for self-reflection. It isn’t medical advice, therapy, or a diagnosis.'
@@ -164,11 +164,11 @@ export const aniccaDisclaimer =
 export const aniccaFaq: FaqItem[] = [
   {
     q: 'What are the energy centers?',
-    a: 'Anicca looks at your feelings through seven energy centers, from Root to Crown: Root, Sacral, Solar Plexus, Heart, Throat, Third Eye, and Crown. Each check-in belongs to one of them, and over time your chakra balance chart and energy-center breakdown show where your feelings tend to gather. They’re a lens for reflection — not a medical or scientific measurement.',
+    a: 'Anicca looks at your feelings through seven energy centers: Root, Sacral, Solar Plexus, Heart, Throat, Third Eye, and Crown. Each check-in belongs to one of them, and over time your chakra balance chart and energy-center breakdown show which centers come up most. They’re a lens for reflection, not a medical or scientific measurement.',
   },
   {
     q: 'Is my journal private?',
-    a: 'Yes. When you use “Map my feelings”, what you type is matched to emotions on your iPhone with Apple’s built-in language tools — it’s never stored or sent anywhere. Only the emotions you confirm (and a note, if you add one) are saved. Your check-ins then sync to your Anicca account as a backup, in a database that only lets your account read them. No ads, no tracking, and we never sell your data.',
+    a: 'Yes. When you use “Map my feelings”, what you type is matched to emotions on your iPhone with Apple’s built-in language tools, and that text is never stored or sent anywhere. Only the emotions you confirm (and a note, if you add one) are saved. Your check-ins then sync to your Anicca account as a backup, in a database that only lets your account read them. There are no ads or tracking, and we never sell your data.',
   },
   {
     q: 'What’s the difference between Free and Pro?',
@@ -176,7 +176,7 @@ export const aniccaFaq: FaqItem[] = [
   },
   {
     q: 'How do I cancel my subscription?',
-    a: 'Subscriptions are managed by Apple. On your iPhone, open Settings → your name → Subscriptions → Anicca, then tap Cancel Subscription. Cancel at least 24 hours before the end of the current period to stop it renewing — you keep your plan until then. Deleting the app or your account doesn’t cancel a subscription on its own.',
+    a: 'Subscriptions are managed by Apple. On your iPhone, open Settings → your name → Subscriptions → Anicca, then tap Cancel Subscription. Cancel at least 24 hours before the end of the current period to stop it renewing. You keep your plan until then. Deleting the app or your account doesn’t cancel a subscription on its own.',
   },
   {
     q: 'How do I restore my purchases?',
@@ -184,11 +184,11 @@ export const aniccaFaq: FaqItem[] = [
   },
   {
     q: 'How do I export my data?',
-    a: 'You can export your check-ins anytime — as JSON on any plan, or as a PDF with Pro. Exports are created on your iPhone and only go where you choose to save or share them.',
+    a: 'You can export your check-ins anytime: as JSON on any plan, or as a PDF with Pro. Exports are created on your iPhone and only go where you choose to save or share them.',
   },
   {
     q: 'How do I delete my account?',
-    a: 'Go to Settings → Delete My Account in Anicca. You’ll be asked to sign in again to confirm; then your account and all synced data — profile, check-ins, and emotions — are permanently deleted. This can’t be undone, so export first if you’d like a copy. Deleting your account doesn’t cancel a subscription: do that in your App Store settings.',
+    a: 'Go to Settings → Delete My Account in Anicca. You’ll be asked to sign in again to confirm; then your account and all synced data (profile, check-ins, and emotions) is permanently deleted. This can’t be undone, so export first if you’d like a copy. Deleting your account doesn’t cancel a subscription: do that in your App Store settings.',
   },
   {
     q: 'My reminders aren’t arriving. What can I do?',
@@ -202,13 +202,13 @@ export const aniccaPrivacy: LegalDoc = {
     {
       title: 'The short version',
       body: [
-        'Anicca is a journal for your feelings, and we’ve tried to treat it like one. There are no ads, no tracking, and no analytics inside the app, and we never sell your data. The words you type to map your feelings are analyzed on your iPhone and never leave it. The check-ins you save are synced to your own account so they’re backed up — and only your account can read them.',
+        'Anicca is a journal for your feelings, and we’ve tried to treat it like one. There are no ads, no tracking, and no analytics inside the app, and we never sell your data. The words you type to map your feelings are analyzed on your iPhone and never leave it. The check-ins you save are synced to your own account so they’re backed up, and only your account can read them.',
       ],
     },
     {
       title: 'What Anicca stores',
       body: [
-        'Your account: your email address, display name, and how you sign in — with Apple (including Apple’s “Hide My Email” relay address, if you choose it), with Google, or with email and a password. Sign-in is handled by Supabase Auth.',
+        'Your account: your email address, display name, and how you sign in: with Apple (including Apple’s “Hide My Email” relay address, if you choose it), with Google, or with email and a password. Sign-in is handled by Supabase Auth.',
         'Your check-ins: the emotions you choose, how intense each one felt, its energy center, when you checked in, and the note you write, if you add one.',
         'Your profile stats: your streak, total check-ins, the date of your last check-in, whether reminders are on and at what time, and your plan.',
       ],
@@ -216,7 +216,7 @@ export const aniccaPrivacy: LegalDoc = {
     {
       title: 'Your journal text stays on your phone',
       body: [
-        'When you use “Map my feelings”, the words you type are matched to emotions on your iPhone, using Apple’s built-in language tools. That text is never stored and never sent anywhere — not to us, and not to anyone else. Only the emotions you confirm are saved, plus a note if you choose to write one.',
+        'When you use “Map my feelings”, the words you type are matched to emotions on your iPhone, using Apple’s built-in language tools. That text is never stored, and it’s never sent to us or anyone else. Only the emotions you confirm are saved, plus a note if you choose to write one.',
         'Your weekly reflection and practice suggestions are generated on your iPhone, too, from your own check-ins. Anicca doesn’t use AI services or send your entries anywhere to be analyzed.',
       ],
     },
@@ -229,20 +229,20 @@ export const aniccaPrivacy: LegalDoc = {
     {
       title: 'Subscriptions',
       body: [
-        'Pro and Bundle subscriptions are purchased through Apple, and Apple handles payment — we never see your card details. We use RevenueCat to process your subscription status and purchase history, linked to your Anicca account ID, so your plan follows you when you sign in.',
+        'Pro and Bundle subscriptions are purchased through Apple, and Apple handles payment, so we never see your card details. We use RevenueCat to process your subscription status and purchase history, linked to your Anicca account ID, so your plan follows you when you sign in.',
       ],
     },
     {
       title: 'Notifications',
       body: [
-        'Daily reminders are scheduled locally on your iPhone. There are no push servers involved — nothing leaves your device to make a reminder happen. You can change the time or switch reminders off whenever you like.',
+        'Daily reminders are scheduled locally on your iPhone. There are no push servers involved, and nothing leaves your device to make a reminder happen. You can change the time or switch reminders off whenever you like.',
       ],
     },
     {
       title: 'What we never do',
       body: [
-        'No ads. No tracking. No third-party analytics in the app. We never sell your data or share it with advertisers or data brokers. The only services that handle it are the ones named on this page — Supabase for your account and sync, RevenueCat and Apple for subscriptions, and the sign-in provider you choose — and only to run Anicca.',
-        '(This policy covers the Anicca app. This website, like most, uses standard visit analytics — the app itself contains none.)',
+        'Anicca has no ads, tracking, or third-party analytics. We never sell your data or share it with advertisers or data brokers. The only services that handle it are the ones named on this page (Supabase for your account and sync, RevenueCat and Apple for subscriptions, and the sign-in provider you choose), and only to run Anicca.',
+        '(This policy covers the Anicca app. This website, like most, uses standard visit analytics; the app itself contains none.)',
       ],
     },
     {
@@ -254,9 +254,9 @@ export const aniccaPrivacy: LegalDoc = {
     {
       title: 'Exporting & deleting your data',
       body: [
-        'You can export your check-ins anytime — as JSON on any plan, or as a PDF with Pro. Exports are created on your iPhone and only go where you choose to save or share them.',
-        'To delete everything, go to Settings → Delete My Account. You’ll be asked to sign in again to confirm. This permanently deletes your account and all synced data — your profile, check-ins, and emotions — and can’t be undone.',
-        'Deleting your account doesn’t cancel a subscription; cancel that separately in your App Store settings. Apple and RevenueCat keep their own subscription records — email us and we’ll help with any request about them.',
+        'You can export your check-ins anytime: as JSON on any plan, or as a PDF with Pro. Exports are created on your iPhone and only go where you choose to save or share them.',
+        'To delete everything, go to Settings → Delete My Account. You’ll be asked to sign in again to confirm. This permanently deletes your account and all synced data (your profile, check-ins, and emotions), and can’t be undone.',
+        'Deleting your account doesn’t cancel a subscription; cancel that separately in your App Store settings. Apple and RevenueCat keep their own subscription records; email us and we’ll help with any request about them.',
       ],
     },
     {
@@ -268,7 +268,7 @@ export const aniccaPrivacy: LegalDoc = {
     {
       title: 'Changes & contact',
       body: [
-        'If this policy ever changes, the update will appear on this page with a new effective date. Questions, concerns, or requests — write to screenseiji@proton.me and a human (the one who builds Anicca) will answer.',
+        'If this policy ever changes, the update will appear on this page with a new effective date. Questions, concerns, or requests? Write to screenseiji@proton.me and a human (the one who builds Anicca) will answer.',
       ],
     },
   ],
@@ -285,7 +285,7 @@ export const aniccaTerms: LegalDoc = {
       ],
     },
     {
-      title: 'What Anicca is — and isn’t',
+      title: 'What Anicca is and isn’t',
       body: [
         'Anicca is a self-reflection tool: a place to notice your feelings and the patterns in them, seen through seven energy centers.',
         'It is not medical advice, therapy, or a diagnosis, and it isn’t a substitute for care from a qualified professional. The energy-center framework is a lens for reflection, not a medical or scientific assessment.',
@@ -295,7 +295,7 @@ export const aniccaTerms: LegalDoc = {
     {
       title: 'Your account',
       body: [
-        'You can sign in with Apple, Google, or email. Please give accurate information and keep your sign-in details secure — you’re responsible for activity under your account.',
+        'You can sign in with Apple, Google, or email. Please give accurate information and keep your sign-in details secure. You’re responsible for activity under your account.',
         'You need to be at least 13 to use Anicca. If you’re under the age of majority where you live, please use it with a parent or guardian’s permission.',
       ],
     },
@@ -304,7 +304,7 @@ export const aniccaTerms: LegalDoc = {
       body: [
         'Anicca is free to use with up to 30 check-ins a month. Pro ($4.99/month or $39.99/year) and the Bundle ($8.99/month or $69.99/year) add more, as described in the app. Prices can vary by region; the App Store shows yours before you buy.',
         'Payment is charged to your Apple Account at confirmation of purchase. Your subscription renews automatically unless cancelled at least 24 hours before the end of the current period. Manage or cancel anytime in your App Store settings.',
-        'Refunds are handled by Apple under its policies — we can’t issue them directly. You can request one at [reportaproblem.apple.com](https://reportaproblem.apple.com).',
+        'Refunds are handled by Apple under its policies; we can’t issue them directly. You can request one at [reportaproblem.apple.com](https://reportaproblem.apple.com).',
         'Features marked “coming soon”, like Yggdrasil deep sync, aren’t promised on any particular timeline.',
       ],
     },
@@ -318,7 +318,7 @@ export const aniccaTerms: LegalDoc = {
       title: 'Your content',
       body: [
         'Your check-ins and notes are yours. We don’t claim ownership of anything you write in Anicca.',
-        'You give us permission only to store, sync, and process your content as needed to run Anicca for you — for example, backing up your check-ins to your account. We don’t use it for anything else.',
+        'You give us permission only to store, sync, and process your content as needed to run Anicca for you, for example backing up your check-ins to your account. We don’t use it for anything else.',
       ],
     },
     {
@@ -330,20 +330,20 @@ export const aniccaTerms: LegalDoc = {
     {
       title: 'Intellectual property',
       body: [
-        'Anicca — its design, code, text, and artwork, and the Anicca and Screen Sage names — belongs to Screen Sage Studios. These terms give you a personal, non-transferable right to use the app; they don’t transfer any ownership to you.',
+        'Anicca (its design, code, text, and artwork, and the Anicca and Screen Sage names) belongs to Screen Sage Studios. These terms give you a personal, non-transferable right to use the app; they don’t transfer any ownership to you.',
       ],
     },
     {
       title: 'Ending your account',
       body: [
-        'You can stop using Anicca at any time, and delete your account from Settings → Delete My Account. Deleting your account doesn’t cancel an App Store subscription — cancel that in your App Store settings.',
+        'You can stop using Anicca at any time, and delete your account from Settings → Delete My Account. Deleting your account doesn’t cancel an App Store subscription; cancel that in your App Store settings.',
         'We may suspend or close accounts that break these terms or put the service or other people at risk. If we ever discontinue Anicca, we’ll try to give you reasonable notice and a chance to export your data.',
       ],
     },
     {
       title: 'Disclaimers & limitation of liability',
       body: [
-        'Anicca is provided “as is” and “as available”. We work hard to keep it reliable, but we can’t promise it will always be available or error-free, or that data will never be lost — so exporting now and then is a good idea.',
+        'Anicca is provided “as is” and “as available”. We work hard to keep it reliable, but we can’t promise it will always be available or error-free, or that data will never be lost, so exporting now and then is a good idea.',
         'To the fullest extent the law allows, Screen Sage Studios isn’t liable for indirect, incidental, or consequential damages, or for decisions you make based on what you see in the app. Our total liability for any claim relating to Anicca is limited to the amount you paid for it in the 12 months before the claim.',
         'Some places don’t allow these limits, so they may not all apply to you. Nothing in these terms limits rights you have under consumer-protection laws that can’t be waived.',
       ],
@@ -363,7 +363,7 @@ export const aniccaTerms: LegalDoc = {
     {
       title: 'Contact',
       body: [
-        'Questions about these terms? Write to screenseiji@proton.me — a human (the one who builds Anicca) will answer.',
+        'Questions about these terms? Write to screenseiji@proton.me and a human (the one who builds Anicca) will answer.',
       ],
     },
   ],

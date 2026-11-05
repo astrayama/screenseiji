@@ -14,11 +14,11 @@ export default function AniccaSupportPage() {
       <JsonLd data={pageGraph('aniccaSupport', [faqPage('aniccaSupport', aniccaFaq)])} />
       <p className="anicca-eyebrow">Support</p>
       <h1 className="mt-3 font-anicca-display text-4xl leading-[1.1] text-anicca-ink sm:text-5xl">
-        How can we help?
+        How can I help?
       </h1>
       <p className="mt-4 max-w-xl text-base leading-7 text-anicca-body">
-        Real answers from the person who builds Anicca. Reach out directly, or see
-        if your question is already answered below.
+        Your question goes straight to the person who builds Anicca. Get in touch, or
+        check the answers below first.
       </p>
 
       <div className="mt-12">

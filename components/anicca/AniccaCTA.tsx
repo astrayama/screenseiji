@@ -24,7 +24,7 @@ export default function AniccaCTA() {
         <ChakraDots size={9} gap={7} breathe={!reduced} />
         <p className="anicca-eyebrow mt-7">{aniccaHero.meaning}</p>
         <p className="mt-4 font-anicca-display text-3xl italic leading-[1.3] text-anicca-ink sm:text-4xl">
-          “{aniccaHero.tagline}”
+          {aniccaHero.tagline}
         </p>
         <div className="mt-10 flex justify-center">
           <AppStoreBadge />

@@ -1,10 +1,10 @@
 import SiteShell from '@/components/SiteShell'
-import { CARD, CHIP, PAGE_EYEBROW, PAGE_TITLE, PAGE_TITLE_SIZE, SECTION_TITLE } from '@/components/ui'
+import { CARD, CHIP, PAGE_EYEBROW, PAGE_TITLE, PAGE_TITLE_SIZE, SECTION_TITLE, TEXT_LINK } from '@/components/ui'
 import { Sparkle } from '@/components/brand/SkyArt'
 import Philosophy from '@/components/about/Philosophy'
 import JsonLd from '@/components/JsonLd'
 import { about } from '@/lib/about-content'
-import { profileLinks, services } from '@/lib/data'
+import { profileLinks, reviewsSite, services } from '@/lib/data'
 import { pageMetadata } from '@/lib/seo'
 import { ORG_ID, founder, pageGraph, podcast } from '@/lib/structured-data'
 import { cn } from '@/lib/utils'
@@ -21,7 +21,7 @@ const PILLARS = [
   })),
   {
     title: 'Websites',
-    description: 'Websites for small businesses and creators — design, build, and launch, with booking, payments, and SEO built in.',
+    description: 'Landing pages and business sites for small businesses and creators, with booking, payments, and SEO.',
     label: 'See websites',
     href: '/websites',
   },
@@ -55,6 +55,14 @@ export default function AboutPage() {
             {about.story.map(paragraph => (
               <p key={paragraph} className="text-base leading-8 text-plum-700">{paragraph}</p>
             ))}
+            <p className="text-base leading-8 text-plum-700">
+              {about.reviews}{' '}
+              <a href={reviewsSite.url} target="_blank" rel="noopener noreferrer" className={TEXT_LINK}>
+                {reviewsSite.host}
+                <span className="sr-only"> (opens in a new tab)</span>
+              </a>
+              .
+            </p>
           </div>
         </section>
 

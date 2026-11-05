@@ -65,7 +65,7 @@ export default function AniccaHero() {
               <ChakraDots size={7} gap={4} breathe={!reduced} />
               {aniccaHero.eyebrow}
             </motion.span>
-            <span className="sr-only"> — </span>
+            <span className="sr-only">: </span>
 
             <motion.span
               variants={item}
@@ -109,7 +109,7 @@ export default function AniccaHero() {
           transition={{ duration: 0.9, delay: 0.35, ease: EASE }}
           className="relative mx-auto w-full max-w-[400px] lg:justify-self-center"
           role="img"
-          aria-label={`Anicca's chakra balance chart across the seven energy centers, Root to Crown, with Heart the strongest — beside a check-in of ${checkin.selected}, Heart, intensity ${checkin.intensity} of 5.`}
+          aria-label={`Anicca's chakra balance chart across the seven energy centers, Root to Crown, with Heart the strongest, beside a check-in of ${checkin.selected}, Heart, intensity ${checkin.intensity} of 5.`}
         >
           <motion.div style={parallax ? { y: cardY } : undefined}>
             <div className={cn('anicca-card p-5 sm:p-6', !reduced && 'animate-anicca-float')}>
