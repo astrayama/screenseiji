@@ -60,7 +60,7 @@ export default function Hero() {
               </span>
             ))}
           </span>
-          <span className="sr-only"> — </span>
+          <span className="sr-only">: </span>
           <span
             className="mt-2 block font-display font-semibold leading-[1.02] tracking-[-0.01em] text-plum-900 [text-shadow:0_0_40px_rgba(255,251,253,0.7)]"
             style={{ fontSize: 'clamp(4rem, 10.5vw, 8.5rem)' }}

@@ -14,15 +14,15 @@ import { intakePackages, liveReading, type IntakePackageId } from '@/lib/data'
 const STEPS = [
   {
     title: 'Fill the intake form',
-    body: 'Share your question — and anything Isa should know — in a short form right here.',
+    body: 'Share your question in a short form right here. For a written reading, add anything else I should know.',
   },
   {
     title: 'Pay via secure Stripe link',
-    body: 'You’re taken straight to a secure Stripe checkout to complete your order.',
+    body: 'You go straight to Stripe to pay and complete your order.',
   },
   {
     title: 'Receive or book',
-    body: 'Async readings are delivered within 48 hours. Live readings are booked right here — you pick voice, video, or VR, and a time; Isa confirms by email.',
+    body: 'Written and video readings arrive within 48 hours. For a live reading, pick voice, video, or VR and a time on this page, and I confirm by email.',
   },
 ]
 
@@ -95,10 +95,10 @@ export default function Readings() {
       <Sparkle className="right-[8%] top-14 h-5 w-5 text-orchid sm:right-[14%] sm:top-20 sm:h-6 sm:w-6" twinkle />
       <div className={CONTAINER}>
         <div className="max-w-2xl">
-          <p className={EYEBROW}>Tarot Readings</p>
-          <h2 id="tarot-readings-title" className={cn(H2, 'mt-3')}>A mirror, not a forecast.</h2>
+          <p className={EYEBROW}>Readings</p>
+          <h2 id="tarot-readings-title" className={cn(H2, 'mt-3')}>Choose your reading.</h2>
           <p className={cn(LEAD, 'mt-4')}>
-            Tarot as a symbolic language for self-reflection — not prediction, but a mirror held up to what you already know. Choose how you’d like to receive yours.
+            Three ways to have your cards read. Pick the one that suits you.
           </p>
         </div>
 

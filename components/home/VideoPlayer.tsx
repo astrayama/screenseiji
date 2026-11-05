@@ -4,18 +4,28 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { Play } from 'lucide-react'
 import { track } from '@/lib/track'
+import { cn } from '@/lib/utils'
 
-type VideoPlayerProps =
-  | { id: string; title: string; thumbnail: string; playlistId?: undefined }
-  /** When no single video could be found: the uploads playlist, newest first, behind a plain poster. */
-  | { playlistId: string; title: string; id?: undefined; thumbnail?: undefined }
+interface FrameOptions {
+  /** A Short: a 9:16 frame instead of 16:9. */
+  vertical?: boolean
+  /** Replaces the pastel frame (border, background, shadow, corners) for pages with their own theme. */
+  frameClassName?: string
+}
+
+type VideoPlayerProps = FrameOptions &
+  (
+    | { id: string; title: string; thumbnail: string; playlistId?: undefined }
+    /** When no single video could be found: the uploads playlist, newest first, behind a plain poster. */
+    | { playlistId: string; title: string; id?: undefined; thumbnail?: undefined }
+  )
 
 /**
  * A YouTube video that plays right here: a thumbnail and play button until
  * it's pressed, then the privacy-enhanced (youtube-nocookie) player. Nothing
  * loads from YouTube's player until then.
  */
-export default function VideoPlayer({ id, title, thumbnail, playlistId }: VideoPlayerProps) {
+export default function VideoPlayer({ id, title, thumbnail, playlistId, vertical, frameClassName }: VideoPlayerProps) {
   const [playing, setPlaying] = useState(false)
   const label = title || 'the latest video'
   // nocookie refuses /embed/videoseries ("Video unavailable"); listType=playlist plays.
@@ -24,7 +34,13 @@ export default function VideoPlayer({ id, title, thumbnail, playlistId }: VideoP
     : `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`
 
   return (
-    <div className="relative aspect-video overflow-hidden rounded-[1.5rem] border border-white bg-blush shadow-float">
+    <div
+      className={cn(
+        'relative overflow-hidden',
+        vertical ? 'aspect-[9/16]' : 'aspect-video',
+        frameClassName ?? 'rounded-[1.5rem] border border-white bg-blush shadow-float',
+      )}
+    >
       {playing ? (
         <iframe
           src={src}
@@ -44,7 +60,13 @@ export default function VideoPlayer({ id, title, thumbnail, playlistId }: VideoP
           className="group absolute inset-0"
         >
           {thumbnail ? (
-            <Image src={thumbnail} alt="" fill sizes="(min-width: 1024px) 640px, 100vw" className="object-cover" />
+            <Image
+              src={thumbnail}
+              alt=""
+              fill
+              sizes={vertical ? '(min-width: 640px) 320px, 80vw' : '(min-width: 1024px) 640px, 100vw'}
+              className="object-cover"
+            />
           ) : (
             <span aria-hidden className="absolute inset-0 bg-gradient-to-br from-blush via-glow to-mist" />
           )}

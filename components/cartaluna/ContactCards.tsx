@@ -9,7 +9,7 @@ const CARDS: ContactCard[] = [
     icon: Mail,
     title: 'Email',
     value: cartalunaLinks.supportEmail,
-    note: 'I read everything — usually answered within a day or two.',
+    note: 'I read every message and usually reply within a day or two.',
     href: `mailto:${cartalunaLinks.supportEmail}`,
     external: false,
     className: 'hover:border-cartaluna-gold/50',

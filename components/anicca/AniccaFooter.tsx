@@ -9,7 +9,7 @@ export default function AniccaFooter() {
         <ChakraDots vertical size={3} gap={1.5} />
         <span>
           Anicca
-          <span className="text-anicca-body"> — a Screen Sage Studios app</span>
+          <span className="text-anicca-body">, an app by Screen Sage Studios</span>
         </span>
       </p>
       <nav
@@ -32,6 +32,14 @@ export default function AniccaFooter() {
         More from Screen Sage Studios:{' '}
         <Link href="/apps/arcana" className="font-semibold text-anicca-violet-deep transition-colors hover:text-anicca-ink">
           Arcana
+        </Link>
+        {' · '}
+        <Link href="/apps/cartaluna" className="font-semibold text-anicca-violet-deep transition-colors hover:text-anicca-ink">
+          Carta Luna
+        </Link>
+        {' · '}
+        <Link href="/apps/lumenwright" className="font-semibold text-anicca-violet-deep transition-colors hover:text-anicca-ink">
+          Lumenwright
         </Link>
         {' · '}
         <Link href="/apps" className="font-semibold text-anicca-violet-deep transition-colors hover:text-anicca-ink">

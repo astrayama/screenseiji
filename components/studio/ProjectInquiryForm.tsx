@@ -71,7 +71,7 @@ export default function ProjectInquiryForm() {
   if (status === 'sent') {
     return (
       <div role="status" className="flex flex-col items-center gap-3 py-4 text-center">
-        <p className="text-2xl font-bold text-plum-900">Got it — thank you.</p>
+        <p className="text-2xl font-bold text-plum-900">Got it, thank you.</p>
         <p className="text-sm leading-6 text-plum-700">
           I’ll reply to <span className="font-bold text-plum-900">{form.email}</span> with next steps.
         </p>
@@ -120,7 +120,7 @@ export default function ProjectInquiryForm() {
         <p role="alert" className={FORM_ERROR}>{error}</p>
       )}
       <div className="flex flex-col-reverse items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-xs leading-5 text-plum-500">No commitment — I’ll reply with next steps.</p>
+        <p className="text-xs leading-5 text-plum-500">No commitment. I’ll reply with next steps.</p>
         <button type="submit" disabled={status === 'sending'} className={NEUTRAL_BUTTON}>
           {status === 'sending' ? 'Sending…' : 'Send inquiry'}
           <Send size={13} />

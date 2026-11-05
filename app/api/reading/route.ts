@@ -45,7 +45,7 @@ export async function POST(request: Request) {
     clean.question.length > LIMITS.question ||
     clean.notes.length > LIMITS.notes
   ) {
-    return Response.json({ error: 'That’s a little too long — try trimming it down.' }, { status: 400 })
+    return Response.json({ error: 'That’s a little too long. Try trimming it down.' }, { status: 400 })
   }
   if (!EMAIL_RE.test(clean.email)) {
     return Response.json({ error: 'That email address looks off.' }, { status: 400 })

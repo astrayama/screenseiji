@@ -55,7 +55,7 @@ export default function ArcanaHero() {
               {arcanaHero.eyebrow}
               <span aria-hidden className="animate-arcana-spark ml-2 inline-block text-arcana-star" style={{ animationDelay: '1.2s' }}>✦</span>
             </motion.span>
-            <span className="sr-only"> — </span>
+            <span className="sr-only">: </span>
 
             <motion.span
               variants={item}

@@ -12,9 +12,9 @@ export const arcanaHero = {
   eyebrow: 'ARCANA',
   headlineTop: 'Give your tarot cards',
   headlineGradient: 'a home.',
-  sub: 'A warm, quiet tarot journal — every pull, every spread, every thought, kept safe.',
-  chips: ['10-second logging', 'Meaning hints', 'RWS export'],
-  tagline: 'A quiet ledger for your cards, spreads, and the patterns between them.',
+  sub: 'A warm, quiet tarot journal for your daily pulls, your spreads, and the notes you add.',
+  chips: ['10-second logging', 'Meaning hints', 'Image & PDF export'],
+  tagline: 'Every card and spread you log, in a ledger you can page back through.',
 }
 
 export interface ArcanaFeature {
@@ -31,41 +31,41 @@ export const arcanaFeatures: ArcanaFeature[] = [
     id: 'log',
     eyebrow: 'Your daily card',
     headline: 'Logged in ten seconds.',
-    body: 'Pull your card, tap it in, add a line — done before your tea has steeped.',
+    body: 'Pull your card, tap it in, add a line. You’re done before your tea has steeped.',
     visual: 'quicklog',
   },
   {
     id: 'meanings',
     eyebrow: 'Card meaning hints',
-    headline: 'Never wonder what it means.',
-    body: 'Gentle hints for all 78 cards — upright and reversed — right where you write.',
+    headline: 'A hint for every card.',
+    body: 'Hints for all 78 cards, upright and reversed, right where you write.',
     visual: 'flip',
   },
   {
     id: 'journal',
     eyebrow: 'The journal',
     headline: 'A ledger of your practice.',
-    body: 'Months turn like pages. Streaks, stats, and every note — all kept for you.',
+    body: 'Page through it by month, with your streak, totals, and every note.',
     visual: 'journal',
   },
   {
     id: 'draw',
     eyebrow: 'Draw from the deck',
-    headline: 'No deck? No problem.',
+    headline: 'For when your deck isn’t nearby.',
     body: 'Hold a question in mind, hold the ring, and watch your card turn over.',
     visual: 'draw',
   },
   {
     id: 'spreads',
     eyebrow: 'Tarot spreads',
-    headline: 'Readings, laid out with care.',
-    body: 'Three-card, Celtic Cross, or a spread of your own design — with room to reflect.',
+    headline: 'Lay out a full reading.',
+    body: 'Three-card, Celtic Cross, or a spread of your own design, with room for notes.',
     visual: 'spread',
   },
   {
     id: 'export',
     eyebrow: 'Share & keep',
-    headline: 'Beautiful enough to share.',
+    headline: 'Ready to post, or keep as a PDF.',
     body: 'Turn any reading into a Rider–Waite–Smith image or a journal-page PDF.',
     visual: 'export',
     chips: ['Post 1:1', 'Story 9:16', 'Journal PDF'],
@@ -75,27 +75,27 @@ export const arcanaFeatures: ArcanaFeature[] = [
 export const arcanaFaq: FaqItem[] = [
   {
     q: 'How do I log a card?',
-    a: 'Tap the ⊕ button in the middle of the tab bar, search for your card, choose upright or reversed, and add a note if something stirred. Tap "Save to ledger ✦" and you\'re done — it takes about ten seconds. You can also draw a card straight from the in-app deck if yours isn\'t nearby.',
+    a: 'Tap the ⊕ button in the middle of the tab bar, search for your card, choose upright or reversed, and add a note if something stirred. Tap "Save to ledger ✦" and you\'re done. It takes about ten seconds. You can also draw a card straight from the in-app deck if yours isn\'t nearby.',
   },
   {
     q: 'What are meaning hints?',
-    a: 'Every one of the 78 cards carries gentle keyword hints for both upright and reversed orientations, right where you write. They\'re composed on-device from the card\'s traditional keywords, so they work offline — and they nudge you toward your own reflection rather than predicting anything for you.',
+    a: 'Each of the 78 cards has keyword hints for upright and reversed, shown where you write. They\'re built on your device from the card\'s traditional keywords, so they work offline, and they\'re there to prompt your own reflection, not to predict anything.',
   },
   {
     q: 'Where is my journal stored? Does it sync?',
-    a: 'By default your ledger lives entirely on your device — no account needed. If you\'d like it everywhere, you can turn on Sync to Cloud in Settings and sign in with email and password; entries then sync automatically, and only you can see your own rows. Sync is always optional and off until you enable it.',
+    a: 'Your ledger stays on your device by default, with no account needed. To have it on other devices too, turn on Sync to Cloud in Settings and sign in with email and password. Entries then sync automatically, and only you can read them. Sync stays off until you turn it on.',
   },
   {
     q: 'How do I export a reading?',
-    a: 'Open any spread and tap "↥ Export spread". Choose a canvas — Post 1:1, Story 9:16, or Journal PDF — toggle notes, card images, and the date, then tap "Render & share ↥" to send it anywhere through the iOS share sheet.',
+    a: 'Open any spread and tap "↥ Export spread". Pick a canvas (Post 1:1, Story 9:16, or Journal PDF), choose whether to include notes, card images, and the date, then tap "Render & share ↥" to send it anywhere through the iOS share sheet.',
   },
   {
     q: 'How do daily reminders work?',
-    a: 'Arcana sends at most one gentle reminder a day — "Pull tonight\'s card before the day slips away." You choose the time in Settings (9:00 PM by default), and you can switch it off any time. That\'s how streaks survive busy weeks.',
+    a: 'Arcana sends at most one reminder a day: "Pull tonight\'s card before the day slips away." Pick the time in Settings (9:00 PM by default), or switch it off any time. It helps a streak survive a busy week.',
   },
   {
     q: 'How do I delete my data?',
-    a: 'Settings → "Erase journal & start fresh" clears every entry on your device. If you use sync, deleting entries removes them from your synced account too, and you can sign out at any time. Nothing is kept that you can\'t see in your own ledger.',
+    a: 'Settings → "Erase journal & start fresh" clears every entry on your device. If you use sync, deleting entries removes them from your synced account too, and you can sign out at any time. To delete the sync account itself, email me.',
   },
   {
     q: 'What deck art does Arcana use?',
@@ -103,7 +103,7 @@ export const arcanaFaq: FaqItem[] = [
   },
   {
     q: 'Does Arcana have widgets?',
-    a: 'Yes — a "Today\'s card" home-screen widget showing your daily pull and streak, and a quiet crescent-moon lock-screen widget that fills in once today\'s card is in the ledger. Both tap through straight to logging or your journal.',
+    a: 'Yes. A "Today\'s card" home-screen widget shows your daily pull and streak, and a crescent-moon lock-screen widget fills in once today\'s card is in the ledger. Tap either to go straight to logging or your journal.',
   },
 ]
 
@@ -113,33 +113,33 @@ export const arcanaPrivacy = {
     {
       title: 'The short version',
       body: [
-        'Arcana is local-first. Your journal lives on your device, in your pocket, under your control. There are no ads, no analytics, no tracking — ever. The only time any of your data leaves your phone is if you turn on sync, and then it goes only to your own account.',
+        'Arcana is local-first: your journal is stored on your device. There are no ads, analytics, or tracking. Your data leaves your phone only if you turn on sync, and then it goes only to your own account.',
       ],
     },
     {
       title: 'What Arcana stores',
       body: [
-        'Your ledger holds exactly what you put in it: which card you pulled, its orientation, your note, the date, spread titles and layouts, and (if you open one) the card\'s insight text — composed on your device and kept with the entry.',
+        'Your ledger holds exactly what you put in it: which card you pulled, its orientation, your note, the date, spread titles and layouts, and (if you open one) the card\'s insight text, composed on your device and kept with the entry.',
         'All of it is kept in a single journal file on your device. No account is required to use Arcana.',
       ],
     },
     {
       title: 'Optional sync',
       body: [
-        'If you enable Sync to Cloud, your entries are stored in a private database (hosted on Supabase) tied to your email-and-password account. Access is protected by row-level security — you can only ever read and write your own rows. Sync is off by default and you can sign out or stop syncing at any time.',
+        'If you enable Sync to Cloud, your entries are stored in a private database (hosted on Supabase) tied to your email-and-password account. Access is protected by row-level security, so you can only ever read and write your own rows. Sync is off by default and you can sign out or stop syncing at any time.',
       ],
     },
     {
       title: 'What we never do',
       body: [
-        'No analytics SDKs. No advertising. No tracking pixels. No selling or sharing of data with third parties. No profiling. Your reflections are yours.',
-        '(This policy covers the Arcana app. This website, like most, uses standard visit analytics — the app itself contains none.)',
+        'Arcana contains no analytics SDKs, advertising, or tracking pixels. We don\'t sell or share your data with third parties, and we don\'t profile you.',
+        '(This policy covers the Arcana app. This website, like most, uses standard visit analytics; the app itself contains none.)',
       ],
     },
     {
       title: 'Network connections',
       body: [
-        'Arcana talks to the network for exactly two reasons: fetching public-domain Rider–Waite–Smith card art from Wikimedia Commons (cached after the first load), and syncing your entries if — and only if — you\'ve enabled sync. A future opt-in card-insight service is switched off in this version; if it ever ships, this policy will be updated first.',
+        'Arcana talks to the network for exactly two reasons: fetching public-domain Rider–Waite–Smith card art from Wikimedia Commons (cached after the first load), and syncing your entries, but only if you\'ve turned sync on. A future opt-in card-insight service is switched off in this version; if it ever ships, this policy will be updated first.',
       ],
     },
     {
@@ -158,7 +158,7 @@ export const arcanaPrivacy = {
     {
       title: 'Changes & contact',
       body: [
-        'If this policy ever changes, the update will appear on this page with a new effective date. Questions, concerns, or requests — write to screenseiji@proton.me and a human (the one who builds Arcana) will answer.',
+        'If this policy ever changes, the update will appear on this page with a new effective date. Questions, concerns, or requests? Write to screenseiji@proton.me and a human (the one who builds Arcana) will answer.',
       ],
     },
   ],

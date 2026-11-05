@@ -26,8 +26,8 @@ export const doors = [
     id: 'watch',
     title: 'Watch',
     tag: 'Free',
-    description: 'Video essays on anime, film and games as doorways inward.',
-    short: 'Video essays on anime, film and games.',
+    description: 'Video essays on anime, film and games, and written reviews.',
+    short: 'Video essays and reviews.',
   },
   {
     id: 'practice',
@@ -40,7 +40,7 @@ export const doors = [
     id: 'reflect',
     title: 'Reflect',
     tag: `From ${intakePackages.written.price}`,
-    description: 'Tarot readings as a mirror, written, recorded or live.',
+    description: 'Tarot readings for your question, written, recorded or live.',
     short: 'Tarot readings, written or live.',
   },
   {
@@ -48,7 +48,7 @@ export const doors = [
     title: 'Build',
     tag: 'For business',
     tagShort: 'Business',
-    description: 'Websites for small businesses and creators.',
+    description: 'Sites for small businesses, with booking and payments.',
     short: 'Websites for small businesses.',
   },
 ] as const
@@ -57,13 +57,19 @@ export const watch = {
   eyebrow: 'Watch',
   title: 'The latest from the channel',
   allVideos: 'All videos on YouTube',
-  lead: 'Long-form video essays that use anime, film and games as doorways into philosophy, psychology and inner work.',
+  lead: 'Long-form video essays that read anime, film and games for what they say about philosophy, psychology and inner work.',
   /** After "Latest video" or "Latest Short". */
   meta: 'YouTube @screenseiji · plays right here, no new tab',
   metaShort: 'plays right here',
   /** When the newest upload can't be looked up, the uploads playlist plays instead. */
   playlist: { label: 'Newest uploads', title: 'The newest videos and Shorts' },
   subscribe: 'Subscribe on YouTube',
+  reviews: {
+    eyebrow: 'Reviews',
+    title: 'Film and series reviews',
+    description: 'A score, a spoiler-free verdict and a spoiler zone for every film and episode I review.',
+    cta: 'Read the reviews',
+  },
   podcast: {
     eyebrow: 'Podcast',
     title: "Seeker's Soliloquy",
@@ -105,8 +111,8 @@ export const practice = {
       platform: 'iPhone',
       blurb: 'A quiet tarot journal. Log every pull in seconds, with hints for all 78 cards.',
       short: 'A quiet tarot journal with hints for all 78 cards.',
-      cta: 'Try it on TestFlight',
-      ctaShort: 'Try on TestFlight',
+      cta: 'About Arcana',
+      ctaShort: 'About',
     },
     {
       id: 'cartaluna',
@@ -114,8 +120,8 @@ export const practice = {
       platform: 'WebXR',
       blurb: 'A mixed-reality tarot table. Shuffle with your hands, read under a night sky.',
       short: 'A mixed-reality tarot table you shuffle by hand.',
-      cta: 'Open Carta Luna',
-      ctaShort: 'Open',
+      cta: 'About Carta Luna',
+      ctaShort: 'About',
     },
     {
       id: 'lumenwright',
@@ -124,8 +130,8 @@ export const practice = {
       platformShort: 'VR, AR',
       blurb: 'A hand-tracked experiment: can willpower be a game mechanic?',
       short: 'Can willpower be a game mechanic?',
-      cta: 'Open Lumenwright',
-      ctaShort: 'Open',
+      cta: 'About Lumenwright',
+      ctaShort: 'About',
     },
   ] satisfies PracticeCard[],
 }
@@ -162,7 +168,7 @@ export const reflect = {
 export const build = {
   eyebrow: 'Build · Screen Sage Studios',
   title: 'Websites for small businesses and creators.',
-  lead: 'Landing pages, business sites and custom features like booking and payments. Mobile first, accessible and fast, with forms that email you.',
+  lead: 'Landing pages, business sites and custom features like booking and payments, built phone-first, fast and accessible, with forms that email you.',
   short: 'Landing pages, business sites and custom features like booking and payments.',
   cta: 'Start a project',
   more: 'Services and process',

@@ -80,10 +80,7 @@ export default function Philosophy({ className }: { className?: string }) {
           0 = 1 = ∞
         </h2>
         <p className="mt-6 text-[15px] leading-7 text-plum-700">
-          Nothingness, individuality, and infinity are ultimately expressions of the same thing. Emptiness is potential. The self is not separate from the whole. The universe is inherently infinite and interconnected.
-        </p>
-        <p className="mt-4 text-[15px] leading-7 text-plum-700">
-          This draws from Buddhist philosophy, Advaita Vedanta, quantum physics, and Jungian psychology. Not because these disciplines agree — but because the places where they rhyme are worth paying attention to.
+          The equation is shorthand for one idea: nothingness, the self, and infinity are the same thing seen from three sides. The three panels take each one in turn.
         </p>
         <div
           ref={ref}
@@ -93,15 +90,9 @@ export default function Philosophy({ className }: { className?: string }) {
           )}
         >
           <p className="font-display text-xl font-medium italic leading-relaxed text-plum-900">
-            &quot;Screen Sage lives at the crossroads where a tarot card, a character arc, and a physics equation all say the same thing.&quot;
+            &quot;Screen Sage is for the moments when a tarot card, a character arc, and a physics equation say the same thing.&quot;
           </p>
         </div>
-        <p className="mt-6 text-[15px] leading-7 text-plum-700">
-          Ultimately, this space is dedicated to the practices of <strong className="font-bold text-plum-900">self-awareness</strong>, <strong className="font-bold text-plum-900">self-improvement</strong>, and <strong className="font-bold text-plum-900">self-mastery</strong>. By converting ancient philosophy, modern psychology, and pop-culture stories into interactive tools and media, I help people see themselves clearly and evolve intentionally.
-        </p>
-        <p className="mt-8 text-xs font-bold uppercase tracking-[0.2em] text-plum-500">
-          Evolved from Omniversal Seeker · <em>Seeker&apos;s Soliloquy</em>
-        </p>
       </div>
 
       {/* Right: accordion */}

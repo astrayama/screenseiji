@@ -120,7 +120,7 @@ export default function CartalunaHero() {
               {cartalunaHero.eyebrow}
               <span className="text-cartaluna-faint"> · {cartalunaHero.meaning}</span>
             </motion.span>
-            <span className="sr-only"> — </span>
+            <span className="sr-only">: </span>
             <motion.span
               variants={item}
               className="mt-5 block font-cartaluna-display text-[2.75rem] font-normal leading-[1.06] tracking-tight sm:text-6xl lg:text-[4.25rem]"

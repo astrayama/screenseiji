@@ -102,7 +102,7 @@ export default function BookingForm() {
           <br />
           {fullLabel(slot)} <span className="font-normal text-plum-700">(your time)</span>
         </p>
-        <p className="text-[15px] leading-6 text-plum-700">Isa will reply by email to confirm your time.</p>
+        <p className="text-[15px] leading-6 text-plum-700">I’ll reply by email to confirm your time.</p>
         {tier.paymentUrl ? (
           <>
             <a
@@ -112,7 +112,7 @@ export default function BookingForm() {
               Continue to payment
               <ArrowUpRight size={15} aria-hidden />
             </a>
-            <p className="text-[13px] leading-5 text-plum-700">Use the same email at checkout so Isa can match it to your booking.</p>
+            <p className="text-[13px] leading-5 text-plum-700">Use the same email at checkout so I can match it to your booking.</p>
           </>
         ) : (
           <p className="text-[15px] leading-6 text-plum-700">She’ll include payment details when she confirms.</p>
@@ -124,7 +124,7 @@ export default function BookingForm() {
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-6">
       <fieldset className="flex min-w-0 flex-col gap-2">
-        <legend className={cn(LABEL, 'mb-2')}>Format — you pick</legend>
+        <legend className={cn(LABEL, 'mb-2')}>Format</legend>
         <div className="grid grid-cols-3 gap-2">
           {liveReading.formats.map(f => {
             const Icon = FORMAT_ICONS[f.id]
@@ -159,7 +159,7 @@ export default function BookingForm() {
             No open times in the next few weeks.{' '}
             {/* eslint-disable-next-line @next/next/no-html-link-for-pages -- hash link to the home page's contact form (see Navbar); leaving the page closes the dialog */}
             <a href="/#contact" className={TEXT_LINK}>Send a note</a>{' '}
-            and Isa will find a time with you.
+            and I’ll find a time with you.
           </p>
         ) : (
           <>
@@ -205,7 +205,7 @@ export default function BookingForm() {
       </div>
       <div className="flex flex-col gap-2">
         <label htmlFor={`${id}-notes`} className={LABEL}>
-          Anything Isa should know <span className="font-normal text-plum-500">(optional)</span>
+          Anything I should know <span className="font-normal text-plum-500">(optional)</span>
         </label>
         <textarea
           id={`${id}-notes`}
@@ -219,14 +219,14 @@ export default function BookingForm() {
 
       {format && tier && slot !== null && (
         <p className="rounded-xl border border-lilac bg-glow px-4 py-3 text-sm leading-6 text-plum-900">
-          {formatLabel} · {tier.label} · {fullLabel(slot)} — <span className="font-bold">{tier.price}</span>
+          {formatLabel} · {tier.label} · {fullLabel(slot)} · <span className="font-bold">{tier.price}</span>
         </p>
       )}
       {error && (
         <p role="alert" className={FORM_ERROR}>{error}</p>
       )}
       <div className="flex flex-col-reverse items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-[13px] leading-5 text-plum-700">Isa confirms every request by email.</p>
+        <p className="text-[13px] leading-5 text-plum-700">I confirm every request by email.</p>
         <button type="submit" disabled={status === 'sending'} className={PRIMARY_BUTTON}>
           {status === 'sending' ? 'Sending…' : 'Request this time'}
           <Send size={14} aria-hidden />

@@ -22,6 +22,9 @@ Never copy quest text into either site's code. If you're editing it in two place
 - **Next milestone:** What's next (optional; leave empty to hide the row)
 - **Target:** 2027-05-15 (optional; main quests show it as a countdown)
 - **Link:** https://… (optional; the card's "View project" button)
+- **Outcome:** How it ended, in one line (optional; finished main quests)
+- **Finished:** 2026-11-03 (optional; the date it was done)
+- **Tags:** School, Capstone (optional; comma-separated)
 
 ### Log
 - **2026-10-07:** What happened. Long entries can wrap onto
@@ -33,6 +36,8 @@ Never copy quest text into either site's code. If you're editing it in two place
   - `main` is the life quest of the moment (e.g. Graduation Sprint). The active one gets the big card at the
     top of the page, and `queued` main quests line up beside it as "Up next", in the order they appear here.
     Only one main quest can be active at a time: when it's done, mark it `complete` and set the next one `active`.
+    `complete` main quests are listed under "Completed", newest **Finished** date first: the title, the
+    **Outcome** as a one-liner, then a "Finished" chip and one chip per **Tag**.
   - `self` is practice and growth (fitness, critiquing…) and `dev` is projects. They're the Self and Dev
     filters on the Quests tab, where cards sort by their newest log entry.
 - **Status** is `active`, `paused`, `queued` or `complete`, all lowercase.

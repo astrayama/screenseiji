@@ -5,6 +5,7 @@ import SiteFooter from '@/components/SiteFooter'
 import SideQuestsView from '@/components/side-quests/SideQuestsView'
 import MainQuestCard from '@/components/side-quests/MainQuestCard'
 import MainQuestQueue from '@/components/side-quests/MainQuestQueue'
+import CompletedMainQuests from '@/components/side-quests/CompletedMainQuests'
 import JsonLd from '@/components/JsonLd'
 import { Sparkle } from '@/components/brand/SkyArt'
 import { PAGE_EYEBROW, PAGE_TITLE, PAGE_TITLE_SIZE } from '@/components/ui'
@@ -19,7 +20,8 @@ export const metadata = pageMetadata('sideQuests')
 // Built once from content/side-quests.md — edit that file, not this page.
 export default function SideQuestsPage() {
   const { tagline, quests, entriesByDate } = loadSideQuests()
-  const { main, queue, side } = splitQuests(quests)
+  const { main, queue, side, completed } = splitQuests(quests)
+  const aside = queue.length > 0 || completed.length > 0
 
   return (
     <>
@@ -32,13 +34,18 @@ export default function SideQuestsPage() {
           <p className={PAGE_EYEBROW}>Side Quests</p>
           <h1 className={PAGE_TITLE} style={PAGE_TITLE_SIZE}>{tagline}</h1>
         </header>
-        {(main || queue.length > 0) && (
+        {(main || aside) && (
           <section
-            aria-label="Main quest"
-            className={cn('mt-12 grid gap-5 sm:mt-14', main && queue.length > 0 && 'lg:grid-cols-[2fr_1fr]')}
+            aria-label="Main quests"
+            className={cn('mt-12 grid gap-5 sm:mt-14', main && aside && 'lg:grid-cols-[2fr_1fr]')}
           >
             {main && <MainQuestCard quest={main} />}
-            {queue.length > 0 && <MainQuestQueue quests={queue} />}
+            {aside && (
+              <div className="flex flex-col gap-5">
+                {queue.length > 0 && <MainQuestQueue quests={queue} />}
+                {completed.length > 0 && <CompletedMainQuests quests={completed} />}
+              </div>
+            )}
           </section>
         )}
         <SideQuestsView side={side} quests={quests} entriesByDate={entriesByDate} />

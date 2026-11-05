@@ -30,7 +30,7 @@ export default function WaitlistForm({ appId, appName }: { appId: string; appNam
         <span aria-hidden className="text-3xl text-orchid">✦</span>
         <p className="font-display text-[1.75rem] font-medium text-plum-900">You’re on the list.</p>
         <p className="text-sm leading-6 text-plum-700">
-          Isa will email you at <span className="font-bold text-plum-900">{form.email}</span> when {appName} opens up.
+          I’ll email you at <span className="font-bold text-plum-900">{form.email}</span> when {appName} opens up.
         </p>
       </div>
     )
@@ -39,7 +39,7 @@ export default function WaitlistForm({ appId, appName }: { appId: string; appNam
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-5">
       <p className="text-sm leading-6 text-plum-700">
-        {appName} is in beta. Leave your email and you’ll hear the moment there’s room for you.
+        Leave your email and you’ll hear as soon as there’s room for you.
       </p>
       <div className="flex flex-col gap-2">
         <label htmlFor={`${id}-name`} className={LABEL}>

@@ -180,8 +180,10 @@ export interface QuestBoard {
   main?: Quest
   /** Queued main quests in file order: "Up next". */
   queue: Quest[]
-  /** Self and dev quests, most recently updated first. Paused or complete main quests only live in the Log. */
+  /** Self and dev quests, most recently updated first. Paused main quests only live in the Log. */
   side: Quest[]
+  /** Complete main quests, most recently finished first (undated ones last, in file order): "Completed". */
+  completed: Quest[]
 }
 
 /** Splits the parsed quests (status order, then file order) into the page's sections. */
@@ -190,6 +192,13 @@ export function splitQuests(quests: Quest[]): QuestBoard {
     main: quests.find(q => q.type === 'main' && q.status === 'active'),
     queue: quests.filter(q => q.type === 'main' && q.status === 'queued'),
     side: byLatestUpdate(quests.filter(q => q.type !== 'main')),
+    completed: quests
+      .filter(q => q.type === 'main' && q.status === 'complete')
+      .sort((a, b) => {
+        const x = a.finished ?? ''
+        const y = b.finished ?? ''
+        return x < y ? 1 : x > y ? -1 : 0
+      }),
   }
 }
 

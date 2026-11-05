@@ -56,7 +56,7 @@ export default function Practice() {
   )
 }
 
-/** Join the waitlist, or try it now if there's a public beta. */
+/** Join the waitlist, else the app's page on this site, else its public beta. */
 function AppCta({ card, app }: { card: PracticeCard; app: AppNode }) {
   const label = (
     <>
@@ -70,6 +70,13 @@ function AppCta({ card, app }: { card: PracticeCard; app: AppNode }) {
       <WaitlistButton appId={app.id} appName={app.name} className={CTA}>
         {label}
       </WaitlistButton>
+    )
+  }
+  if (app.href?.startsWith('/')) {
+    return (
+      <a href={app.href} aria-label={card.cta} className={CTA}>
+        {label}
+      </a>
     )
   }
   const href = app.tryUrl ?? app.href

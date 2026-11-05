@@ -21,6 +21,9 @@ const TINTS: Record<string, string> = {
   ...Object.fromEntries(practice.cards.map(card => [card.id, card.tint])),
 }
 
+const COUNT_WORDS = ['No', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve']
+const COUNT = COUNT_WORDS[apps.length] ?? String(apps.length)
+
 const LINK =
   'inline-flex items-center gap-1.5 text-sm font-bold text-plum-900 decoration-[1.5px] underline-offset-4 hover:underline sm:text-[15px]'
 
@@ -31,11 +34,11 @@ function appLinks(app: AppNode): LabeledLink[] {
   if (app.href) {
     links.push({ label: app.href.startsWith('/') ? `About ${app.name}` : `Open ${app.name}`, href: app.href })
   }
-  if (app.tryUrl && app.tryUrl !== app.href) links.push({ label: appStatusText(app), href: app.tryUrl })
+  if (app.tryUrl && app.tryUrl !== app.href) links.push({ label: `Try ${app.name}`, href: app.tryUrl })
   return links
 }
 
-// The app hub: all seven apps as plain, crawlable cards (the home page shows
+// The app hub: every app as a plain, crawlable card (the home page shows
 // the ones in beta as cards too).
 export default function AppsPage() {
   return (
@@ -47,9 +50,8 @@ export default function AppsPage() {
           <p className={PAGE_EYEBROW}>The App Universe</p>
           <h1 className={PAGE_TITLE} style={PAGE_TITLE_SIZE}>Screen Sage apps</h1>
           <p className="mt-6 text-base leading-8 text-plum-700 sm:text-lg">
-            Seven tools, one philosophy. Each app is named after the concept it embodies — a
-            constellation of software for seekers, from tarot and journaling to breathwork, built
-            by Screen Sage Studios.
+            {COUNT} apps for seekers, from tarot and journaling to breathwork, built by Screen Sage
+            Studios. Each one is named for the idea behind it.
           </p>
         </header>
 

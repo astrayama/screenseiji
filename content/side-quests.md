@@ -2,17 +2,19 @@
 > Main quest: self-mastery and self-expression.
 <!-- colors: Heed: #2dd4bf, Lumenwright: #7c5cff, Arcana: #f6ce55, Carta Luna: #e8a2c8, Duality: #e8e4da, Pantheon: #60a5fa, Yggdrasil: #6fbf73, Graduation Sprint: #f4a261, First Full-Time Job: #94a3b8, Fitness: #f87171, Critiquing: #a3e635, Japanese: #e0245e -->
 
-## Graduation Sprint
-- **Type:** main
-- **Status:** active
-- **Question:** Can I cross the finish line strong, not just finished?
-- **Next milestone:** Wrap up final projects and exams
-- **Target:** 2026-11-03
-
 ## First Full-Time Job
 - **Type:** main
-- **Status:** queued
+- **Status:** active
 - **Question:** Where do I want to spend my days once school is done?
+- **Next milestone:** 3 job applications a day
+
+## Graduation Sprint
+- **Type:** main
+- **Status:** complete
+- **Question:** Can I cross the finish line strong, not just finished?
+- **Outcome:** Finished my degree. Capstone: a wholesale ordering site on Google Cloud.
+- **Finished:** 2026-11-03
+- **Tags:** School, Capstone
 
 ## Fitness
 - **Type:** self
@@ -32,15 +34,19 @@
 
 ### Log
 - **2026-10-17:** Published the first reviews: [VisionQuest S1E1 and S1E2](https://reviews.screenseiji.com/series/visionquest).
+- **2026-11-01:** Reviewed the film [Forgotten Island](https://reviews.screenseiji.com/films/forgotten-island): 6.2 out of 10.
+- **2026-11-04:** Reviewed [VisionQuest S1E7, "Immolation"](https://reviews.screenseiji.com/series/visionquest/seasons/1/episodes/7):
+  9.2, the show's best episode yet.
 
 ## Japanese
 - **Type:** self
 - **Status:** active
 - **Question:** Can I speak Japanese fluently, watch anime without subtitles and talk with locals on our upcoming trip to Japan?
-- **Next milestone:** Pass the JLPT N5 in December
+- **Next milestone:** Pass the JLPT N5 in December 2027
 
 ### Log
 - **2026-10-13:** Hit a 200-day streak on Duolingo, at level 15.
+- **2026-10-28:** Started the Genki textbook, 3rd edition.
 
 ## Heed
 - **Type:** dev
@@ -67,9 +73,9 @@
 
 ### Log
 - **2026-10-03:** New build from a fresh design spec: hand tracking, sensing and a clip recorder.
-- **2026-10-04:** Devlog 01 is live — [#lanterns made me build my own ring](https://www.youtube.com/shorts/SJ_dLZOa5X4)
+- **2026-10-04:** Devlog 01 is live: [#lanterns made me build my own ring](https://www.youtube.com/shorts/SJ_dLZOa5X4)
 - **2026-10-04:** Added a guided recording session.
-- **2026-10-07:** Demo Shorts in production — strongest construct in the
+- **2026-10-07:** Demo Shorts in production: strongest construct in the
   first 3 seconds, ending on "what construct should I build next?"
 - **2026-10-10:** Hand signs now drive the game: summon, sculpt and strike, plus a fist
   to the chest to charge a shot.

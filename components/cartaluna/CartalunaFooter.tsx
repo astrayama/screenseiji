@@ -10,7 +10,7 @@ export default function CartalunaFooter() {
       <p className="flex items-center justify-center gap-2 font-cartaluna-display text-lg text-cartaluna-text/90">
         <MoonCardMark size={22} />
         Carta Luna
-        <span className="text-cartaluna-faint"> — a Screen Sage Studios app</span>
+        <span className="text-cartaluna-faint">, an app by Screen Sage Studios</span>
       </p>
       <nav className="mt-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[13px] font-medium text-cartaluna-muted">
         <a href={cartalunaLinks.appUrl} target="_blank" rel="noopener noreferrer" className={LINK}>
@@ -30,6 +30,14 @@ export default function CartalunaFooter() {
         More from Screen Sage Studios:{' '}
         <Link href="/apps/arcana" className="font-medium text-cartaluna-muted transition-colors hover:text-cartaluna-text">
           Arcana
+        </Link>
+        {' · '}
+        <Link href="/apps/anicca" className="font-medium text-cartaluna-muted transition-colors hover:text-cartaluna-text">
+          Anicca
+        </Link>
+        {' · '}
+        <Link href="/apps/lumenwright" className="font-medium text-cartaluna-muted transition-colors hover:text-cartaluna-text">
+          Lumenwright
         </Link>
         {' · '}
         <Link href="/apps" className="font-medium text-cartaluna-muted transition-colors hover:text-cartaluna-text">

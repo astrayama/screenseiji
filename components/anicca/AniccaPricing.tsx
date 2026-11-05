@@ -24,9 +24,9 @@ export default function AniccaPricing() {
           transition={{ duration: 0.7, ease: EASE }}
           className="anicca-card p-7 sm:p-10"
         >
-          <p className="anicca-eyebrow">Private by design</p>
+          <p className="anicca-eyebrow">Privacy</p>
           <h2 className="mt-3 font-anicca-display text-3xl leading-[1.15] text-anicca-ink sm:text-4xl">
-            Your inner life stays yours.
+            Only you can read your check-ins.
           </h2>
           <div className="mt-8 grid gap-7 sm:grid-cols-3">
             {aniccaPromises.map((p, i) => {
@@ -55,7 +55,7 @@ export default function AniccaPricing() {
         <div className="text-center">
           <p className="anicca-eyebrow">Plans</p>
           <h2 className="mt-3 font-anicca-display text-4xl leading-[1.12] text-anicca-ink sm:text-5xl">
-            Start free. Go deeper when you’re ready.
+            Start free, and upgrade when you want more.
           </h2>
         </div>
 

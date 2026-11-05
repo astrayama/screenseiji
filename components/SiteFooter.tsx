@@ -1,7 +1,7 @@
 import { Wordmark } from '@/components/brand/SBadge'
 import { CloudBand, Sparkle } from '@/components/brand/SkyArt'
 import { OpenAccessibilityButton } from '@/components/AccessibilityPanel'
-import { socialLinks, type SocialLink } from '@/lib/data'
+import { reviewsSite, socialLinks, type SocialLink } from '@/lib/data'
 import { cn } from '@/lib/utils'
 
 // Every page links to every main page from here — the paths search engines
@@ -15,7 +15,7 @@ const PAGES_NAV = [
   { label: 'Apps', href: '/apps' },
   { label: 'Tarot', href: '/tarot' },
   { label: 'Websites', href: '/websites' },
-  { label: 'Reviews', href: 'https://reviews.screenseiji.com', external: true },
+  { label: 'Reviews', href: reviewsSite.url, external: true },
   { label: 'Side Quests', href: '/side-quests' },
   { label: 'Store', href: gumroad.href, external: true },
 ]
@@ -43,7 +43,7 @@ export default function SiteFooter() {
         <a href="/#home" className="inline-block transition-opacity hover:opacity-80">
           <Wordmark size={44} className="text-[2rem]" />
         </a>
-        <p className="mt-3 font-display text-xl italic text-plum-900">You belong here, fellow seeker.</p>
+        <p className="mt-3 font-display text-xl italic text-plum-900">Thanks for stopping by.</p>
 
         <nav aria-label="Site" className="mt-7">
           <ul className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[15px] font-bold text-plum-900">

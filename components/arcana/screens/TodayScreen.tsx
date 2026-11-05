@@ -39,7 +39,7 @@ export default function TodayScreen() {
           <div className="mt-0.5 text-[13px] text-arcana-muted">{m.meta}</div>
           <div className="mt-2.5 text-[13px] italic leading-[1.45] text-arcana-muted">{m.note}</div>
           <div className="mt-3 flex items-center gap-1.5 border-t border-arcana-stroke/50 pt-2.5 text-[13px] font-bold text-arcana-purple-soft">
-            <span className="animate-arcana-spark text-arcana-star">✦</span> AI insight
+            <span className="animate-arcana-spark text-arcana-star">✦</span> Card insight
             <span className="ml-auto text-arcana-faint">⌄</span>
           </div>
         </div>
