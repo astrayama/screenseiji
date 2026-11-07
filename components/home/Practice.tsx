@@ -1,5 +1,3 @@
-'use client'
-
 import { ArrowRight } from 'lucide-react'
 import WaitlistButton from '@/components/WaitlistButton'
 import { Sparkle } from '@/components/brand/SkyArt'

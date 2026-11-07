@@ -1,9 +1,9 @@
 'use client'
 
 import { useState } from 'react'
+import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import Modal from '@/components/Modal'
-import ProjectInquiryForm from '@/components/studio/ProjectInquiryForm'
 import Fit from '@/components/home/Fit'
 import { CALM_BUTTON, CALM_EYEBROW, CALM_H2, CONTAINER, TEXT_LINK } from '@/components/ui'
 import { build } from '@/lib/home-content'
@@ -13,6 +13,9 @@ import arcanaShot from '@/public/work/arcana.jpg'
 import formlessShot from '@/public/work/formless-guide.jpg'
 
 const SHOTS = { arcana: arcanaShot, formless: formlessShot }
+
+// The form's code downloads when the dialog first opens, not with the page.
+const ProjectInquiryForm = dynamic(() => import('@/components/studio/ProjectInquiryForm'))
 
 // Websites for small businesses, by Screen Sage Studios — in the calm skin:
 // cloud white, Nunito headings, thin lilac rules, no decoration. /websites

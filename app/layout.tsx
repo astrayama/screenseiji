@@ -25,11 +25,14 @@ const nunitoSans = Nunito_Sans({
   display: 'swap',
 })
 
+// Not preloaded: it only sets the small eyebrow lines, so it can arrive a beat
+// later (swapping in) instead of competing with the hero for a phone's bandwidth.
 const josefin = Josefin_Sans({
   subsets: ['latin'],
   weight: ['600'],
   variable: '--font-josefin',
   display: 'swap',
+  preload: false,
 })
 
 // Site-wide defaults. Pages set their own title, description, canonical and

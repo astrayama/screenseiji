@@ -1,8 +1,11 @@
 'use client'
 
 import { useState } from 'react'
+import dynamic from 'next/dynamic'
 import Modal from '@/components/Modal'
-import WaitlistForm from '@/components/WaitlistForm'
+
+// The form's code downloads when the dialog first opens, not with the page.
+const WaitlistForm = dynamic(() => import('@/components/WaitlistForm'))
 
 /** A button that opens an app's waitlist form (/api/waitlist) in a dialog. */
 export default function WaitlistButton({

@@ -78,6 +78,8 @@ export function Heart({ className, style }: { className?: string; style?: React.
 /**
  * The cloud bank from the channel banner, across the bottom of its parent
  * (which must be `relative`). Its top fades out so it melts into any sky above.
+ * `eager` is for the hero, where it's the page's largest paint on phones:
+ * fetched first, at high priority, instead of lazily.
  */
 export function CloudBand({ className, eager }: { className?: string; eager?: boolean }) {
   return (
@@ -91,7 +93,7 @@ export function CloudBand({ className, eager }: { className?: string; eager?: bo
         alt=""
         fill
         sizes="100vw"
-        preload={eager}
+        {...(eager && { loading: 'eager', fetchPriority: 'high' } as const)}
         className="object-cover object-bottom"
       />
     </div>
