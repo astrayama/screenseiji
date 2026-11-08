@@ -105,7 +105,7 @@ export const aniccaPromises = [
   },
   {
     title: 'No ads, no tracking',
-    body: 'There are no third-party analytics in the app, and we never sell your data.',
+    body: 'We never sell your data. Anonymous usage counts help improve the app, never what you write, and you can switch them off in Settings.',
   },
 ]
 
@@ -168,7 +168,7 @@ export const aniccaFaq: FaqItem[] = [
   },
   {
     q: 'Is my journal private?',
-    a: 'Yes. When you use “Map my feelings”, what you type is matched to emotions on your iPhone with Apple’s built-in language tools, and that text is never stored or sent anywhere. Only the emotions you confirm (and a note, if you add one) are saved. Your check-ins then sync to your Anicca account as a backup, in a database that only lets your account read them. There are no ads or tracking, and we never sell your data.',
+    a: 'Yes. When you use “Map my feelings”, what you type is matched to emotions on your iPhone with Apple’s built-in language tools, and that text is never stored or sent anywhere. Only the emotions you confirm (and a note, if you add one) are saved. Your check-ins then sync to your Anicca account as a backup, in a database that only lets your account read them. There are no ads or tracking, and we never sell your data. The app does count how it’s used, anonymously and never including what you write, and you can switch that off in Settings.',
   },
   {
     q: 'What’s the difference between Free and Pro?',
@@ -197,12 +197,12 @@ export const aniccaFaq: FaqItem[] = [
 ]
 
 export const aniccaPrivacy: LegalDoc = {
-  effective: 'Effective September 2026 · Applies to Anicca 1.0.0',
+  effective: 'Effective November 2026 · Applies to Anicca 1.0.0',
   sections: [
     {
       title: 'The short version',
       body: [
-        'Anicca is a journal for your feelings, and we’ve tried to treat it like one. There are no ads, no tracking, and no analytics inside the app, and we never sell your data. The words you type to map your feelings are analyzed on your iPhone and never leave it. The check-ins you save are synced to your own account so they’re backed up, and only your account can read them.',
+        'Anicca is a journal for your feelings, and we’ve tried to treat it like one. There are no ads and no tracking, and we never sell your data. The app counts how it’s used, anonymously, to help us improve it; that never includes what you write, and you can switch it off in Settings. The words you type to map your feelings are analyzed on your iPhone and never leave it. The check-ins you save are synced to your own account so they’re backed up, and only your account can read them.',
       ],
     },
     {
@@ -239,10 +239,19 @@ export const aniccaPrivacy: LegalDoc = {
       ],
     },
     {
+      title: 'Anonymous usage data',
+      body: [
+        'To learn which parts of Anicca help and where people get stuck, the app sends anonymous usage counts to PostHog (PostHog, Inc.), an analytics service that stores them for us on servers in the EU, in Frankfurt. Sharing is on by default, and the sign-in screen says so. Nothing is sent until that note has appeared, and you can switch it off anytime in Settings → Share anonymous usage data.',
+        'What’s sent: what happened, such as the app opening, a check-in being saved, the paywall being shown, a purchase starting or finishing, or an export being made. Alongside that come simple counts and categories: how many feelings a check-in had, whether you typed or picked them, whether it has a note, and which plan you’re on. And basic app and device details: app version, iPhone model, iOS version, language, time zone, screen size, whether you’re on Wi-Fi, and whether it’s a test build.',
+        'What’s never sent: anything you write or choose to describe how you feel. That means no typed text, notes, emotion words, energy centers, intensities, or reflections, and no name, email address, or account ID. Your IP address is discarded and isn’t used to work out where you are. There’s no session replay or screen recording.',
+        'This data isn’t linked to your account. It’s grouped under a random ID kept on your iPhone, which is replaced when you sign out, delete your account, or switch sharing off. Because it isn’t tied to you, we can’t look up or delete one person’s usage data, but switching sharing off stops anything new from being sent. It’s kept according to PostHog’s retention settings for our plan.',
+      ],
+    },
+    {
       title: 'What we never do',
       body: [
-        'Anicca has no ads, tracking, or third-party analytics. We never sell your data or share it with advertisers or data brokers. The only services that handle it are the ones named on this page (Supabase for your account and sync, RevenueCat and Apple for subscriptions, and the sign-in provider you choose), and only to run Anicca.',
-        '(This policy covers the Anicca app. This website, like most, uses standard visit analytics; the app itself contains none.)',
+        'Anicca has no ads and no tracking. We never sell your data or share it with advertisers or data brokers. The only services that handle it are the ones named on this page (Supabase for your account and sync, RevenueCat and Apple for subscriptions, the sign-in provider you choose, and PostHog for anonymous usage counts), and only to run and improve Anicca.',
+        '(This policy covers the Anicca app. This website, like most, uses its own visit analytics, described in the site’s privacy policy.)',
       ],
     },
     {
