@@ -30,7 +30,7 @@ export const aniccaHero = {
   headlineTop: 'Read your energy.',
   headlineGradient: 'Notice your patterns.',
   sub: 'A calm mood & energy journal for iPhone. Check in with how you feel, and see where it sits across seven energy centers over time.',
-  chips: ['Seven energy centers', '98 emotions', 'Free to start'],
+  chips: ['Seven energy centers', '70+ emotions', 'Free to start'],
   // Closing CTA — the app is named for the Pali word for impermanence.
   meaning: 'Anicca · impermanence',
   tagline: 'Nothing you feel is permanent, but all of it is worth noticing.',
@@ -58,9 +58,9 @@ export const aniccaFeatures: AniccaFeature[] = [
     id: 'checkin',
     eyebrow: 'The emotion library',
     headline: 'Or find the exact word.',
-    body: 'Browse a library of 98 emotions, rate how strongly you feel it from 1 to 5, and add a note if you want to remember why.',
+    body: 'Browse a library of 70+ emotions, rate how strongly you feel it from 1 to 5, and add a note if you want to remember why.',
     visual: 'checkin',
-    chips: ['98 emotions', 'Intensity 1–5', 'Optional note'],
+    chips: ['70+ emotions', 'Intensity 1–5', 'Optional note'],
   },
   {
     id: 'balance',
@@ -105,7 +105,7 @@ export const aniccaPromises = [
   },
   {
     title: 'No ads, no tracking',
-    body: 'We never sell your data. Anonymous usage counts help improve the app, never what you write, and you can switch them off in Settings.',
+    body: 'We never sell your data. Usage counts are anonymous: they help improve the app, never include what you write, and you can switch them off in Settings.',
   },
 ]
 
@@ -144,15 +144,15 @@ export const aniccaPlans: AniccaPlan[] = [
     ],
     highlight: true,
   },
-  {
-    id: 'bundle',
-    name: 'Bundle',
-    price: '$8.99',
-    cadence: '/month',
-    yearly: 'or $69.99/year',
-    blurb: 'Anicca and Yggdrasil, together.',
-    features: ['Everything in Pro', 'Yggdrasil integration', 'Deep sync (coming soon)'],
-  },
+  // {
+  //   id: 'bundle',
+  //   name: 'Bundle',
+  //   price: '$8.99',
+  //   cadence: '/month',
+  //   yearly: 'or $69.99/year',
+  //   blurb: 'Anicca and Yggdrasil, together.',
+  //   features: ['Everything in Pro', 'Yggdrasil integration', 'Deep sync (coming soon)'],
+  // },
 ]
 
 export const aniccaPricingNote =
