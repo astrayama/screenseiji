@@ -5,6 +5,7 @@ import AniccaCTA from '@/components/anicca/AniccaCTA'
 import JsonLd from '@/components/JsonLd'
 import { aniccaLinks } from '@/lib/data'
 import { aniccaApp, aniccaPlans } from '@/lib/anicca-content'
+import { RECOVERY_FORWARD_SCRIPT } from '@/lib/anicca-reset'
 import { pageMetadata } from '@/lib/seo'
 import { mobileApplication, pageGraph } from '@/lib/structured-data'
 
@@ -26,6 +27,8 @@ const APP = mobileApplication({
 export default function AniccaPage() {
   return (
     <main>
+      {/* Reset links that fell back to this page (the Site URL) go on to the reset page. */}
+      <script dangerouslySetInnerHTML={{ __html: RECOVERY_FORWARD_SCRIPT }} />
       <JsonLd data={pageGraph('anicca', [APP], 'WebPage', { mainEntity: { '@id': APP['@id'] } })} />
       <AniccaHero />
       <AniccaFeatures />

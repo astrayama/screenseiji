@@ -232,6 +232,17 @@ export const PAGES = {
     parent: 'anicca',
     og: { eyebrow: 'Anicca · Support', title: 'How can I help?', subtitle: 'Help, FAQs, and contact', theme: 'anicca' },
   },
+  aniccaResetPassword: {
+    path: '/apps/anicca/reset-password',
+    title: 'Reset Your Password · Anicca',
+    description:
+      'Choose a new password for your Anicca account from the link in your reset email, then sign back in to the app on your iPhone.',
+    priority: 0,
+    crumb: 'Reset password',
+    parent: 'anicca',
+    noindex: true,
+    og: { eyebrow: 'Anicca · Account', title: 'Choose a new password', theme: 'anicca' },
+  },
   aniccaPrivacy: {
     path: '/apps/anicca/privacy',
     title: 'Privacy Policy · Anicca Mood & Energy Journal',
