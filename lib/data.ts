@@ -188,10 +188,8 @@ export const arcanaLinks: AppLinks = {
 }
 
 export const aniccaLinks: AppLinks = {
-  // PLACEHOLDER — swap for the real App Store URL once the app is live,
-  // then flip appStorePlaceholder to false.
-  appStoreUrl: 'https://apps.apple.com/app/id0000000000',
-  appStorePlaceholder: true,
+  appStoreUrl: 'https://apps.apple.com/us/app/anicca-chakra-tracker/id6832098125',
+  appStorePlaceholder: false,
   supportEmail: 'screenseiji@proton.me',
   discord: 'https://discord.gg/2rFyT6nskc',
 }
@@ -215,9 +213,11 @@ export const lumenwrightLinks: WebAppLinks = {
   discord: 'https://discord.gg/2rFyT6nskc',
 }
 
-export type AppStatus = 'beta' | 'lab'
+/** live: released (e.g. on the App Store) · beta: public beta · lab: nothing public yet. */
+export type AppStatus = 'live' | 'beta' | 'lab'
 
 export const appStatusLabel: Record<AppStatus, string> = {
+  live: 'Out now',
   beta: 'In beta',
   lab: 'In the lab',
 }
@@ -243,7 +243,7 @@ export interface AppNode {
   status: AppStatus
   /** Specific status line, e.g. how to get into the beta. Defaults to appStatusLabel. */
   statusNote?: string
-  /** Public beta anyone can try right now (e.g. TestFlight). */
+  /** Where anyone can get it right now: the store listing once live, else a public beta (e.g. TestFlight). */
   tryUrl?: string
   /** Takes waitlist signups (/api/waitlist): a "Join the waitlist" button on the home page and /apps. */
   waitlist?: boolean
@@ -319,7 +319,9 @@ export const apps: AppNode[] = [
       'A calm mood & energy journal for iPhone: name how you feel and see it across seven energy centers, from Root to Crown.',
     platform: 'iPhone',
     href: '/apps/anicca',
-    status: 'lab',
+    status: 'live',
+    statusNote: 'Out now on the App Store',
+    tryUrl: aniccaLinks.appStoreUrl,
   },
   {
     id: 'kairos',

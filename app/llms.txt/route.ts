@@ -28,7 +28,8 @@ function body() {
     ...apps.map(app => {
       const versions = app.links?.map(l => `${l.label}: ${l.href}`).join('; ')
       const where = versions ?? (app.href ? link(app.href) : 'not public yet')
-      const tryIt = app.tryUrl && app.tryUrl !== app.href ? `; try it: ${app.tryUrl}` : ''
+      const tryIt =
+        app.tryUrl && app.tryUrl !== app.href ? `; ${app.status === 'live' ? 'get it' : 'try it'}: ${app.tryUrl}` : ''
       return `- ${app.name} (${app.platform}, ${appStatusText(app)}): ${app.summary} Link: ${where}${tryIt}`
     }),
     '',
