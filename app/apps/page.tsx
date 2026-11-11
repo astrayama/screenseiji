@@ -15,8 +15,8 @@ const LIST = appList()
 
 // Letter-badge tints: the home page's for the apps it features, then these.
 const TINTS: Record<string, string> = {
-  anicca: 'bg-glow',
-  kairos: 'bg-lilac',
+  yggdrasil: 'bg-glow',
+  kairos: 'bg-mist',
   sunya: 'bg-blush',
   ...Object.fromEntries(practice.cards.map(card => [card.id, card.tint])),
 }
@@ -34,7 +34,9 @@ function appLinks(app: AppNode): LabeledLink[] {
   if (app.href) {
     links.push({ label: app.href.startsWith('/') ? `About ${app.name}` : `Open ${app.name}`, href: app.href })
   }
-  if (app.tryUrl && app.tryUrl !== app.href) links.push({ label: `Try ${app.name}`, href: app.tryUrl })
+  if (app.tryUrl && app.tryUrl !== app.href) {
+    links.push({ label: `${app.status === 'live' ? 'Get' : 'Try'} ${app.name}`, href: app.tryUrl })
+  }
   return links
 }
 

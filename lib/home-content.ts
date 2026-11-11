@@ -8,8 +8,9 @@ const NUMBER_WORDS = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'sev
 const word = (n: number) => NUMBER_WORDS[n] ?? String(n)
 const capitalized = (s: string) => s.charAt(0).toUpperCase() + s.slice(1)
 
-const betaCount = apps.filter(a => a.status === 'beta').length
-const labCount = apps.length - betaCount
+// Out now or in beta: anything people can use today.
+const availableCount = apps.filter(a => a.status !== 'lab').length
+const labCount = apps.filter(a => a.status === 'lab').length
 
 export const hero = {
   eyebrow: ['Spirituality', 'Science', 'Story'],
@@ -93,17 +94,18 @@ export interface PracticeCard {
 
 export const practice = {
   eyebrow: 'Practice',
-  title: 'Apps for seekers, in beta now',
-  lead: `${capitalized(word(betaCount))} tools you can try today. ${capitalized(word(labCount))} more are in the lab.`,
+  title: 'Apps for seekers, out now and in beta',
+  lead: `${capitalized(word(availableCount))} tools you can try today. ${capitalized(word(labCount))} more are in the lab.`,
   seeAll: `See all ${word(apps.length)} apps`,
   cards: [
     {
-      id: 'yggdrasil',
+      id: 'anicca',
       tint: 'bg-lilac',
-      platform: 'Web',
-      blurb: 'A journal that shows you the shape of your own growth.',
-      short: 'A journal that shows the shape of your growth.',
-      cta: 'Join the waitlist',
+      platform: 'iPhone',
+      blurb: 'A calm mood and energy journal. Name a feeling, see it across seven energy centers.',
+      short: 'Name a feeling, see it across seven energy centers.',
+      cta: 'About Anicca',
+      ctaShort: 'About',
     },
     {
       id: 'arcana',
