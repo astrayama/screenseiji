@@ -3,7 +3,7 @@
 import { useId } from 'react'
 import { motion } from 'framer-motion'
 import { Bell, FileBraces, FileText, Smartphone } from 'lucide-react'
-import { useInView } from '@/hooks/useInView'
+import { useMotionPreference } from '@/hooks/useMotionPreference'
 import { cn } from '@/lib/utils'
 import { aniccaMock, energyCenter, energyCenters, type EnergyCenterId } from '@/lib/anicca-content'
 
@@ -81,7 +81,7 @@ function ring(r: number) {
 export function BalanceRadar({ values = aniccaMock.balance, className }: { values?: number[]; className?: string }) {
   const points = values.map((v, i) => polar(i, v * R))
   const fillId = useId()
-  const { ref, inView } = useInView<SVGGElement>({ threshold: 0.6 })
+  const { reduced } = useMotionPreference()
 
   return (
     <svg viewBox="-52 8 404 290" className={cn('w-full', className)} aria-hidden>
@@ -100,14 +100,12 @@ export function BalanceRadar({ values = aniccaMock.balance, className }: { value
         return <line key={c.id} x1={CX} y1={CY} x2={x} y2={y} stroke="#C4A8FF" strokeOpacity="0.4" strokeWidth="1" />
       })}
 
-      {/* A CSS transition rather than framer-motion, which overrides SVG
-          transform-origin — this way it grows from the chart's centre. */}
+      {/* Grows from the chart's centre with a CSS animation that plays on load
+          (framer-motion overrides SVG transform-origin). Don't gate it on an
+          IntersectionObserver: when that never fired, the shape stayed hidden.
+          The chart is in the hero, so it's on screen at load anyway. */}
       <g
-        ref={ref}
-        className={cn(
-          'transition-[opacity,transform] duration-[1100ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)] motion-reduce:scale-100',
-          inView ? 'scale-100 opacity-100' : 'scale-[0.55] opacity-0',
-        )}
+        className={cn(!reduced && 'animate-anicca-grow motion-reduce:animate-none')}
         style={{ transformBox: 'view-box', transformOrigin: `${CX}px ${CY}px` }}
       >
         <polygon
