@@ -17,10 +17,13 @@
 
   --animate-anicca-float:   anicca-float 7s ease-in-out infinite;
   --animate-anicca-breathe: anicca-breathe 6s ease-in-out infinite;
+  /* Plays once on load, so the shape never waits on JS or an observer to appear. */
+  --animate-anicca-grow:    anicca-grow 1.1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s both;
 }
 
 @keyframes anicca-float   { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-8px) } }
 @keyframes anicca-breathe { 0%,100% { transform: scale(1); opacity: .85 } 50% { transform: scale(1.25); opacity: 1 } }
+@keyframes anicca-grow    { from { transform: scale(0.55); opacity: 0 } to { transform: scale(1); opacity: 1 } }
 
 /* The section is light-only: repaint the page behind it (the site default is
    dark), so overscroll and the mobile browser chrome match. */
