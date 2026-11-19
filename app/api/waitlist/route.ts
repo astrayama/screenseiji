@@ -1,10 +1,12 @@
 import { apps } from '@/lib/data'
-import { EMAIL_RE, escapeHtml, saveContact, sendToIsa, str } from '@/lib/email'
+import { EMAIL_RE, isFlagged, saveContact, sendToClient, sendToIsa, str, submittedNow } from '@/lib/email'
+import { waitlistEmails } from '@/lib/form-emails'
 import { SITE_HOST } from '@/lib/site'
 
 // App waitlist signups. Each one is saved to Isa's Resend Contacts list (so she
-// can export it or email everyone at launch) and announced to her inbox. Either
-// one succeeding is enough for the signup not to be lost.
+// can export it or email everyone at launch), announced to her inbox, and
+// confirmed to the person. Either of the first two succeeding is enough for the
+// signup not to be lost.
 
 const LIMITS = { name: 100, email: 200 }
 
@@ -17,11 +19,7 @@ export async function POST(request: Request) {
   }
 
   const body = (payload ?? {}) as Record<string, unknown>
-
-  // Honeypot — hidden from real people, irresistible to bots. Accept and drop.
-  if (str(body.website) !== '') {
-    return Response.json({ ok: true })
-  }
+  const flagged = isFlagged(body)
 
   const app = apps.find(a => a.id === str(body.app))
   if (!app) {
@@ -40,28 +38,23 @@ export async function POST(request: Request) {
     return Response.json({ error: 'That email address looks off.' }, { status: 400 })
   }
 
-  const saved = await saveContact({ email: clean.email, firstName: clean.name || undefined })
-  const listNote = saved
-    ? 'They’re saved in your Resend Contacts list.'
-    : 'Saving them to your Resend Contacts list failed — add them there by hand.'
-  const who = clean.name ? `${clean.name} <${clean.email}>` : clean.email
+  // Possible bots stay off the list until Isa adds them by hand.
+  const saved = flagged ? false : await saveContact({ email: clean.email, firstName: clean.name || undefined })
 
-  const failure = await sendToIsa({
-    replyTo: clean.email,
-    subject: `[${app.name} waitlist] ${clean.name || clean.email} joined`,
-    text: `${who} joined the ${app.name} waitlist.\n\n${listNote}`,
-    html: `
-      <div style="font-family:system-ui,sans-serif;line-height:1.6;color:#1a1a1a">
-        <p style="margin:0 0 12px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#C9943C">${escapeHtml(app.name)} waitlist</p>
-        <p style="margin:0 0 4px"><strong>${escapeHtml(clean.name || '(no name given)')}</strong></p>
-        <p style="margin:0 0 20px;color:#666">${escapeHtml(clean.email)}</p>
-        <p style="margin:0;color:#666">${escapeHtml(listNote)}</p>
-        <p style="margin-top:28px;font-size:12px;color:#999">Sent from the waitlist form at ${SITE_HOST}.</p>
-      </div>
-    `,
+  const emails = waitlistEmails({
+    host: SITE_HOST,
+    appName: app.name,
+    ...clean,
+    savedToContacts: saved,
+    submitted: submittedNow(),
+    flagged,
   })
+
+  const failure = await sendToIsa({ replyTo: clean.email, ...emails.toIsa })
 
   // Only fail the signup if it landed nowhere.
   if (failure && !saved) return failure
+
+  if (!flagged) await sendToClient(clean.email, emails.toClient)
   return Response.json({ ok: true })
 }

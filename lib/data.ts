@@ -55,6 +55,8 @@ export interface IntakePackage {
   paymentUrl: string | null
   /** Whether the intake form asks "Anything Isa should know?" */
   notesField: boolean
+  /** How long after payment the reading is delivered. */
+  turnaroundHours: number
 }
 
 export const intakePackages: Record<IntakePackageId, IntakePackage> = {
@@ -69,6 +71,7 @@ export const intakePackages: Record<IntakePackageId, IntakePackage> = {
     priceUnit: 'per spread',
     paymentUrl: 'https://buy.stripe.com/5kQ28q41I2ZK70GaxO8EM02',
     notesField: true,
+    turnaroundHours: 48,
   },
   video: {
     id: 'video',
@@ -81,6 +84,7 @@ export const intakePackages: Record<IntakePackageId, IntakePackage> = {
     priceUnit: 'per spread',
     paymentUrl: 'https://buy.stripe.com/6oUeVc8hYasc0Ci49q8EM03',
     notesField: false,
+    turnaroundHours: 48,
   },
 }
 

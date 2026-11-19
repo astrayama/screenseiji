@@ -6,6 +6,8 @@ import { postForm } from '@/lib/postForm'
 import { track } from '@/lib/track'
 import { cn } from '@/lib/utils'
 import { FIELD, FORM_ERROR, LABEL, NEUTRAL_BUTTON } from '@/components/formStyles'
+import Honeypot from '@/components/Honeypot'
+import { useFormDraft } from '@/hooks/useFormDraft'
 import {
   budgetRanges, projectTimelines, projectTypes,
   type BudgetRange, type ProjectTimeline, type ProjectType,
@@ -41,9 +43,9 @@ export default function ProjectInquiryForm() {
   const id = useId()
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent'>('idle')
   const [error, setError] = useState<string | null>(null)
-  // `site` is their current website; `website` is the honeypot — hidden from
-  // people, filled in by bots.
-  const [form, setForm] = useState({
+  // `site` is their current website. Kept as a draft so closing the dialog by
+  // accident doesn't lose what they wrote.
+  const [form, setForm, clearDraft] = useFormDraft('studio-project', {
     name: '',
     email: '',
     business: '',
@@ -52,8 +54,8 @@ export default function ProjectInquiryForm() {
     budget: 'Not sure yet' as BudgetRange,
     timeline: 'Flexible' as ProjectTimeline,
     message: '',
-    website: '',
   })
+  const [website, setWebsite] = useState('') // anti-spam field, never saved in the draft
 
   const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setForm(v => ({ ...v, [k]: e.target.value }))
@@ -62,9 +64,10 @@ export default function ProjectInquiryForm() {
     e.preventDefault()
     setStatus('sending')
     setError(null)
-    const failure = await postForm('/api/project', form)
+    const failure = await postForm('/api/project', { ...form, website })
     setError(failure)
     setStatus(failure ? 'idle' : 'sent')
+    if (!failure) clearDraft()
     if (!failure) track('generate_lead', { project_type: form.projectType, budget: form.budget })
   }
 
@@ -126,13 +129,8 @@ export default function ProjectInquiryForm() {
           <Send size={13} />
         </button>
       </div>
-      {/* Honeypot — kept last so the dialog's initial focus lands on Name. */}
-      <div aria-hidden className="sr-only">
-        <label>
-          Website
-          <input tabIndex={-1} autoComplete="off" value={form.website} onChange={set('website')} />
-        </label>
-      </div>
+      {/* Kept last so the dialog's initial focus lands on Name. */}
+      <Honeypot value={website} onChange={setWebsite} />
     </form>
   )
 }

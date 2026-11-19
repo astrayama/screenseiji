@@ -4,12 +4,13 @@ import { FormEvent, useId, useState } from 'react'
 import { Send } from 'lucide-react'
 import { postForm } from '@/lib/postForm'
 import { FIELD, FORM_ERROR, LABEL, PRIMARY_BUTTON } from '@/components/formStyles'
+import Honeypot from '@/components/Honeypot'
 
 export default function WaitlistForm({ appId, appName }: { appId: string; appName: string }) {
   const id = useId()
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent'>('idle')
   const [error, setError] = useState<string | null>(null)
-  // `website` is the honeypot — hidden from people, filled in by bots.
+  // `website` is the hidden anti-spam field (see components/Honeypot).
   const [form, setForm] = useState({ name: '', email: '', website: '' })
 
   const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -58,13 +59,8 @@ export default function WaitlistForm({ appId, appName }: { appId: string; appNam
         {status === 'sending' ? 'Joining…' : 'Join the waitlist'}
         <Send size={13} aria-hidden />
       </button>
-      {/* Honeypot — kept last so the dialog's initial focus lands on Name. */}
-      <div aria-hidden className="sr-only">
-        <label>
-          Website
-          <input tabIndex={-1} autoComplete="off" value={form.website} onChange={set('website')} />
-        </label>
-      </div>
+      {/* Kept last so the dialog's initial focus lands on Name. */}
+      <Honeypot value={form.website} onChange={website => setForm(v => ({ ...v, website }))} />
     </form>
   )
 }

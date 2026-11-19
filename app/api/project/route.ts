@@ -1,10 +1,12 @@
 import { budgetRanges, projectTimelines, projectTypes } from '@/lib/data'
-import { EMAIL_RE, escapeHtml, sendToIsa, str } from '@/lib/email'
+import { EMAIL_RE, isFlagged, sendToClient, sendToIsa, str, submittedNow } from '@/lib/email'
+import { projectEmails } from '@/lib/form-emails'
 import { SITE_HOST } from '@/lib/site'
 
 // Studio project inquiries — website leads from the "Start a project" form.
-// Emailed to Isa only: they're deliberately not saved to Resend Contacts, which
-// holds the app waitlist (business leads shouldn't get app launch emails).
+// Emailed to Isa (plus a copy to the client) only: they're deliberately not
+// saved to Resend Contacts, which holds the app waitlist (business leads
+// shouldn't get app launch emails).
 
 const LIMITS = { name: 100, email: 200, business: 150, website: 300, message: 5000 }
 
@@ -22,11 +24,8 @@ export async function POST(request: Request) {
   }
 
   const body = (payload ?? {}) as Record<string, unknown>
-
-  // Honeypot — hidden from real people, irresistible to bots. Accept and drop.
-  if (str(body.website) !== '') {
-    return Response.json({ ok: true })
-  }
+  // `website` is the hidden anti-spam field; their real site comes in as `site`.
+  const flagged = isFlagged(body)
 
   const clean = {
     name: str(body.name),
@@ -56,37 +55,23 @@ export async function POST(request: Request) {
     return Response.json({ error: 'That email address looks off.' }, { status: 400 })
   }
 
-  const who = clean.business ? `${clean.name} / ${clean.business}` : clean.name
-  const rows: [string, string][] = [
-    ['Name', clean.name],
-    ['Email', clean.email],
-    ['Business', clean.business || '—'],
-    ['Current site', clean.site || '—'],
-    ['Project', clean.projectType],
-    ['Budget', clean.budget],
-    ['Timeline', clean.timeline],
-  ]
-
-  const failure = await sendToIsa({
-    replyTo: clean.email,
-    subject: `[Studio lead] ${clean.projectType} · ${clean.budget} — ${who}`,
-    text: `${rows.map(([k, v]) => `${k}: ${v}`).join('\n')}\n\n${clean.message}`,
-    html: `
-      <div style="font-family:system-ui,sans-serif;line-height:1.6;color:#1a1a1a">
-        <p style="margin:0 0 12px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#666">Studio · new project inquiry</p>
-        <table style="border-collapse:collapse;margin:0 0 20px">
-          ${rows
-            .map(
-              ([k, v]) =>
-                `<tr><td style="padding:2px 16px 2px 0;color:#666">${k}</td><td style="padding:2px 0"><strong>${escapeHtml(v)}</strong></td></tr>`,
-            )
-            .join('')}
-        </table>
-        <div style="white-space:pre-wrap;border-left:3px solid #1a1a1a;padding-left:16px">${escapeHtml(clean.message)}</div>
-        <p style="margin-top:28px;font-size:12px;color:#999">Sent from the Studio project form at ${SITE_HOST} — just hit reply.</p>
-      </div>
-    `,
+  const emails = projectEmails({
+    host: SITE_HOST,
+    name: clean.name,
+    email: clean.email,
+    business: clean.business,
+    website: clean.site,
+    projectType: clean.projectType,
+    budget: clean.budget,
+    timeline: clean.timeline,
+    message: clean.message,
+    submitted: submittedNow(),
+    flagged,
   })
 
-  return failure ?? Response.json({ ok: true })
+  const failure = await sendToIsa({ replyTo: clean.email, ...emails.toIsa })
+  if (failure) return failure
+
+  if (!flagged) await sendToClient(clean.email, emails.toClient)
+  return Response.json({ ok: true })
 }
