@@ -17,10 +17,15 @@ interface Props {
 }
 
 // A native <dialog> shown with showModal(): focus trap, Esc-to-close and the
-// top layer come for free. Content only mounts while open, so forms start fresh.
+// top layer come for free. Content only mounts while open; the longer forms
+// keep a draft (hooks/useFormDraft) so closing by accident loses nothing.
 export default function Modal({ open, onClose, eyebrow, title, size = 'md', tone = 'brand', children }: Props) {
   const ref = useRef<HTMLDialogElement>(null)
   const titleId = useId()
+  // Whether the current press started on the backdrop. Without this, dragging a
+  // text selection out of a field and letting go past the panel's edge fires a
+  // click on the dialog itself, which closed it and wiped what had been typed.
+  const pressedBackdrop = useRef(false)
 
   useEffect(() => {
     const dialog = ref.current
@@ -34,8 +39,13 @@ export default function Modal({ open, onClose, eyebrow, title, size = 'md', tone
       ref={ref}
       aria-labelledby={titleId}
       onClose={onClose}
-      // A click on the dialog element itself (not the panel inside it) is a backdrop click.
-      onClick={e => { if (e.target === e.currentTarget) onClose() }}
+      // A press and release both on the dialog element itself (not the panel
+      // inside it) is a backdrop click.
+      onPointerDown={e => { pressedBackdrop.current = e.target === e.currentTarget }}
+      onClick={e => {
+        if (pressedBackdrop.current && e.target === e.currentTarget) onClose()
+        pressedBackdrop.current = false
+      }}
       className={cn(
         'fixed inset-0 m-auto h-fit max-h-[90svh] overflow-y-auto rounded-3xl border border-mist bg-cloud p-0 text-plum-700 shadow-float backdrop:bg-plum-900/35 backdrop:backdrop-blur-sm',
         size === 'lg' ? 'w-[min(40rem,calc(100%-2rem))]' : 'w-[min(34rem,calc(100%-2rem))]',

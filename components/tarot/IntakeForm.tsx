@@ -3,36 +3,43 @@
 import { FormEvent, useEffect, useId, useState } from 'react'
 import { ArrowUpRight, Send } from 'lucide-react'
 import type { IntakePackage } from '@/lib/data'
+import { withPrefilledEmail } from '@/lib/form-emails'
 import { postForm } from '@/lib/postForm'
 import { FIELD, FORM_ERROR, LABEL, PRIMARY_BUTTON } from '@/components/formStyles'
+import Honeypot from '@/components/Honeypot'
+import { useFormDraft } from '@/hooks/useFormDraft'
 import { cn } from '@/lib/utils'
 
 export default function IntakeForm({ pkg }: { pkg: IntakePackage }) {
   const id = useId()
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent'>('idle')
   const [error, setError] = useState<string | null>(null)
-  // `website` is the honeypot — hidden from people, filled in by bots.
-  const [form, setForm] = useState({ name: '', email: '', question: '', notes: '', website: '' })
+  // Kept as a draft so closing the dialog by accident doesn't lose the question.
+  const [form, setForm, clearDraft] = useFormDraft(`tarot-${pkg.id}`, { name: '', email: '', question: '', notes: '' })
+  const [website, setWebsite] = useState('') // anti-spam field, never saved in the draft
 
   const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setForm(v => ({ ...v, [k]: e.target.value }))
 
+  // Stripe checkout opens with their email filled in, so the payment matches the request.
+  const paymentUrl = pkg.paymentUrl ? withPrefilledEmail(pkg.paymentUrl, form.email) : null
+
   // Once the request is in, hand off to Stripe. Closing the dialog unmounts
   // this form, which cancels the redirect.
   useEffect(() => {
-    const paymentUrl = pkg.paymentUrl
     if (status !== 'sent' || !paymentUrl) return
     const timer = window.setTimeout(() => window.location.assign(paymentUrl), 3000)
     return () => window.clearTimeout(timer)
-  }, [status, pkg.paymentUrl])
+  }, [status, paymentUrl])
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     setStatus('sending')
     setError(null)
-    const failure = await postForm('/api/reading', { package: pkg.id, ...form })
+    const failure = await postForm('/api/reading', { package: pkg.id, ...form, website })
     setError(failure)
     setStatus(failure ? 'idle' : 'sent')
+    if (!failure) clearDraft()
   }
 
   if (status === 'sent') {
@@ -40,13 +47,13 @@ export default function IntakeForm({ pkg }: { pkg: IntakePackage }) {
       <div role="status" className="flex flex-col items-center gap-3 py-4 text-center">
         <span aria-hidden className="text-3xl text-orchid">✦</span>
         <p className="font-display text-[2rem] font-medium leading-tight text-plum-900">Request received.</p>
-        {pkg.paymentUrl ? (
+        {paymentUrl ? (
           <>
             <p className="text-[15px] leading-6 text-plum-700">
               Taking you to secure payment with Stripe… Use the same email at checkout so I can match it to your question.
             </p>
             <a
-              href={pkg.paymentUrl}
+              href={paymentUrl}
               className={cn(PRIMARY_BUTTON, 'mt-2')}
             >
               Continue to payment
@@ -117,13 +124,8 @@ export default function IntakeForm({ pkg }: { pkg: IntakePackage }) {
           <Send size={14} aria-hidden />
         </button>
       </div>
-      {/* Honeypot — kept last so the dialog's initial focus lands on Name. */}
-      <div aria-hidden className="sr-only">
-        <label>
-          Website
-          <input tabIndex={-1} autoComplete="off" value={form.website} onChange={set('website')} />
-        </label>
-      </div>
+      {/* Kept last so the dialog's initial focus lands on Name. */}
+      <Honeypot value={website} onChange={setWebsite} />
     </form>
   )
 }

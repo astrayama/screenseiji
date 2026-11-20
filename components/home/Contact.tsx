@@ -3,6 +3,7 @@
 import { FormEvent, useId, useState } from 'react'
 import { ChevronDown } from 'lucide-react'
 import { FIELD, FORM_ERROR, LABEL } from '@/components/formStyles'
+import Honeypot from '@/components/Honeypot'
 import { BUTTON_PRIMARY, CARD, CONTAINER, EYEBROW, H2 } from '@/components/ui'
 import { contactCategories, type ContactCategory } from '@/lib/data'
 import { contact } from '@/lib/home-content'
@@ -13,7 +14,7 @@ export default function Contact() {
   const id = useId()
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent'>('idle')
   const [error, setError] = useState<string | null>(null)
-  // `website` is the honeypot — hidden from people, filled in by bots.
+  // `website` is the hidden anti-spam field (see components/Honeypot).
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -83,13 +84,8 @@ export default function Contact() {
             <button type="submit" disabled={status === 'sending'} className={cn(BUTTON_PRIMARY, 'w-full py-3.5 sm:w-fit')}>
               {status === 'sending' ? 'Sending…' : 'Send message'}
             </button>
-            {/* Honeypot — kept last so tabbing never reaches it first. */}
-            <div aria-hidden className="sr-only">
-              <label>
-                Website
-                <input tabIndex={-1} autoComplete="off" value={form.website} onChange={set('website')} />
-              </label>
-            </div>
+            {/* Kept last so tabbing never reaches it first. */}
+            <Honeypot value={form.website} onChange={website => setForm(v => ({ ...v, website }))} />
           </form>
         )}
       </div>

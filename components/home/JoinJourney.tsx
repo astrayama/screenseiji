@@ -3,6 +3,7 @@
 import { FormEvent, useId, useState } from 'react'
 import { Sparkle } from '@/components/brand/SkyArt'
 import { FIELD, FORM_ERROR, LABEL } from '@/components/formStyles'
+import Honeypot from '@/components/Honeypot'
 import { BUTTON_PRIMARY, CONTAINER, EYEBROW } from '@/components/ui'
 import { journey } from '@/lib/home-content'
 import { postForm } from '@/lib/postForm'
@@ -19,7 +20,7 @@ export default function JoinJourney() {
   const id = useId()
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent'>('idle')
   const [error, setError] = useState<string | null>(null)
-  // `website` is the honeypot — hidden from people, filled in by bots.
+  // `website` is the hidden anti-spam field (see components/Honeypot).
   const [form, setForm] = useState({ email: '', website: '' })
 
   const handleSubmit = async (e: FormEvent) => {
@@ -72,13 +73,7 @@ export default function JoinJourney() {
               ) : (
                 <p className="mt-2 text-[13px] text-plum-700">{journey.note}</p>
               )}
-              {/* Honeypot */}
-              <div aria-hidden className="sr-only">
-                <label>
-                  Website
-                  <input tabIndex={-1} autoComplete="off" value={form.website} onChange={e => setForm(v => ({ ...v, website: e.target.value }))} />
-                </label>
-              </div>
+              <Honeypot value={form.website} onChange={website => setForm(v => ({ ...v, website }))} />
             </form>
           )}
         </div>

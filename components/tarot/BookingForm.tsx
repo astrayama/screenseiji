@@ -5,9 +5,12 @@ import { ArrowUpRight, Glasses, Phone, Send, Video, type LucideIcon } from 'luci
 import { cn } from '@/lib/utils'
 import { liveReading, type LiveFormat, type LiveTierId } from '@/lib/data'
 import { getSlots } from '@/lib/booking'
+import { withPrefilledEmail } from '@/lib/form-emails'
 import { postForm } from '@/lib/postForm'
 import { FIELD, FORM_ERROR, LABEL, PRIMARY_BUTTON } from '@/components/formStyles'
+import Honeypot from '@/components/Honeypot'
 import { TEXT_LINK } from '@/components/ui'
+import { useFormDraft } from '@/hooks/useFormDraft'
 
 export const FORMAT_ICONS: Record<LiveFormat, LucideIcon> = { voice: Phone, video: Video, vr: Glasses }
 
@@ -41,20 +44,30 @@ function Choice({ name, value, checked, onChange, className, children }: {
 
 export default function BookingForm() {
   const id = useId()
-  const [format, setFormat] = useState<LiveFormat | null>(null)
-  const [tierId, setTierId] = useState<LiveTierId | null>(null)
-  const [pickedDay, setPickedDay] = useState<string | null>(null)
-  const [pickedSlot, setPickedSlot] = useState<number | null>(null)
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent'>('idle')
   const [error, setError] = useState<string | null>(null)
-  // `website` is the honeypot — hidden from people, filled in by bots.
-  const [form, setForm] = useState({ name: '', email: '', notes: '', website: '' })
+  // Everything they pick and type is kept as a draft, so closing the dialog by
+  // accident doesn't lose their notes or the time they chose.
+  const [form, setForm, clearDraft] = useFormDraft('tarot-live', {
+    format: null as LiveFormat | null,
+    tierId: null as LiveTierId | null,
+    pickedDay: null as string | null,
+    pickedSlot: null as number | null,
+    name: '',
+    email: '',
+    notes: '',
+  })
+  const [website, setWebsite] = useState('') // anti-spam field, never saved in the draft
 
-  const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+  const pick = <K extends keyof typeof form>(k: K, value: (typeof form)[K]) => setForm(v => ({ ...v, [k]: value }))
+  const set = (k: 'name' | 'email' | 'notes') => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setForm(v => ({ ...v, [k]: e.target.value }))
 
-  const tier = liveReading.tiers.find(t => t.id === tierId) ?? null
+  // A restored draft is re-checked here: anything that's no longer offered falls away.
+  const format = liveReading.formats.find(f => f.id === form.format)?.id ?? null
+  const tier = liveReading.tiers.find(t => t.id === form.tierId) ?? null
   const formatLabel = liveReading.formats.find(f => f.id === format)?.label
+  const { pickedDay, pickedSlot } = form
 
   // This form only mounts inside the open dialog, so the clock and timezone
   // used here are always the visitor's — never the server's.
@@ -86,10 +99,14 @@ export default function BookingForm() {
       tier: tier.id,
       start: slot,
       timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-      ...form,
+      name: form.name,
+      email: form.email,
+      notes: form.notes,
+      website,
     })
     setError(failure)
     setStatus(failure ? 'idle' : 'sent')
+    if (!failure) clearDraft()
   }
 
   if (status === 'sent' && tier && slot !== null) {
@@ -106,7 +123,7 @@ export default function BookingForm() {
         {tier.paymentUrl ? (
           <>
             <a
-              href={tier.paymentUrl}
+              href={withPrefilledEmail(tier.paymentUrl, form.email)}
               className={cn(PRIMARY_BUTTON, 'mt-2')}
             >
               Continue to payment
@@ -115,7 +132,7 @@ export default function BookingForm() {
             <p className="text-[13px] leading-5 text-plum-700">Use the same email at checkout so I can match it to your booking.</p>
           </>
         ) : (
-          <p className="text-[15px] leading-6 text-plum-700">She’ll include payment details when she confirms.</p>
+          <p className="text-[15px] leading-6 text-plum-700">I’ll include payment details when I confirm.</p>
         )}
       </div>
     )
@@ -129,7 +146,7 @@ export default function BookingForm() {
           {liveReading.formats.map(f => {
             const Icon = FORMAT_ICONS[f.id]
             return (
-              <Choice key={f.id} name={`${id}-format`} value={f.label} checked={format === f.id} onChange={() => setFormat(f.id)} className="flex flex-col items-center gap-1.5 py-3 text-center">
+              <Choice key={f.id} name={`${id}-format`} value={f.label} checked={format === f.id} onChange={() => pick('format', f.id)} className="flex flex-col items-center gap-1.5 py-3 text-center">
                 <Icon size={18} aria-hidden />
                 <span className="text-xs font-bold sm:text-sm">{f.label}</span>
               </Choice>
@@ -142,7 +159,7 @@ export default function BookingForm() {
         <legend className={cn(LABEL, 'mb-2')}>Length</legend>
         <div className="grid grid-cols-3 gap-2">
           {liveReading.tiers.map(t => (
-            <Choice key={t.id} name={`${id}-tier`} value={`${t.label} ${t.price}`} checked={tierId === t.id} onChange={() => setTierId(t.id)} className="text-center">
+            <Choice key={t.id} name={`${id}-tier`} value={`${t.label} ${t.price}`} checked={tier?.id === t.id} onChange={() => pick('tierId', t.id)} className="text-center">
               <span className="block font-bold">{t.label}</span>
               <span className="block text-xs font-semibold">{t.price}</span>
             </Choice>
@@ -168,7 +185,7 @@ export default function BookingForm() {
                 <button
                   key={key}
                   type="button"
-                  onClick={() => setPickedDay(key)}
+                  onClick={() => pick('pickedDay', key)}
                   aria-pressed={key === activeDay?.[0]}
                   className={cn(
                     'shrink-0 rounded-full border-[1.5px] px-3.5 py-1.5 text-xs font-bold transition-colors',
@@ -181,7 +198,7 @@ export default function BookingForm() {
             </div>
             <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
               {activeDay?.[1].map(s => (
-                <Choice key={s} name={`${id}-slot`} value={timeLabel(s)} checked={slot === s} onChange={() => setPickedSlot(s)} className="py-2 text-center text-xs sm:text-sm">
+                <Choice key={s} name={`${id}-slot`} value={timeLabel(s)} checked={slot === s} onChange={() => pick('pickedSlot', s)} className="py-2 text-center text-xs sm:text-sm">
                   {timeLabel(s)}
                 </Choice>
               ))}
@@ -232,13 +249,8 @@ export default function BookingForm() {
           <Send size={14} aria-hidden />
         </button>
       </div>
-      {/* Honeypot — kept last so it never takes the dialog's initial focus. */}
-      <div aria-hidden className="sr-only">
-        <label>
-          Website
-          <input tabIndex={-1} autoComplete="off" value={form.website} onChange={set('website')} />
-        </label>
-      </div>
+      {/* Kept last so it never takes the dialog's initial focus. */}
+      <Honeypot value={website} onChange={setWebsite} />
     </form>
   )
 }

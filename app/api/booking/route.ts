@@ -1,11 +1,13 @@
 import { liveReading } from '@/lib/data'
 import { formatSlot, getSlots, isValidTimeZone } from '@/lib/booking'
-import { EMAIL_RE, escapeHtml, sendToIsa, str } from '@/lib/email'
+import { EMAIL_RE, isFlagged, sendToClient, sendToIsa, str, submittedNow } from '@/lib/email'
+import { bookingEmails } from '@/lib/form-emails'
 import { SITE_HOST } from '@/lib/site'
 
 // Live-reading requests. The requested time is re-checked against Isa's weekly
-// hours, then emailed to her with a calendar file. She confirms by replying —
-// there's no database, so nothing is locked until she does.
+// hours, then emailed to her with a calendar file, and a copy goes to the
+// client. She confirms by replying — there's no database, so nothing is locked
+// until she does.
 
 const LIMITS = { name: 100, email: 200, notes: 3000 }
 
@@ -30,11 +32,7 @@ export async function POST(request: Request) {
   }
 
   const body = (payload ?? {}) as Record<string, unknown>
-
-  // Honeypot — hidden from real people, irresistible to bots. Accept and drop.
-  if (str(body.website) !== '') {
-    return Response.json({ ok: true })
-  }
+  const flagged = isFlagged(body)
 
   const format = liveReading.formats.find(f => f.id === str(body.format))
   const tier = liveReading.tiers.find(t => t.id === str(body.tier))
@@ -71,20 +69,18 @@ export async function POST(request: Request) {
     return Response.json({ error: 'That email address looks off.' }, { status: 400 })
   }
 
-  const isaTime = formatSlot(start, liveReading.availability.timeZone)
-  const theirTime = clean.timeZone ? `${formatSlot(start, clean.timeZone)} (${clean.timeZone})` : 'unknown timezone'
-  const paymentNote = tier.paymentUrl
-    ? `They were offered the ${tier.price} Stripe payment link — match the payment by email.`
-    : `No Stripe link is set for this length yet — include payment details (${tier.price}) when you confirm.`
-  const rows: [string, string][] = [
-    ['Format', format.label],
-    ['Length', `${tier.label} · ${tier.price} (holds ${tier.blockMinutes} min)`],
-    ['Your time', isaTime],
-    ['Their time', theirTime],
-    ['Name', clean.name],
-    ['Email', clean.email],
-    ...(clean.notes ? [['Anything Isa should know', clean.notes] as [string, string]] : []),
-  ]
+  const emails = bookingEmails({
+    host: SITE_HOST,
+    format: format.label,
+    tier,
+    isaTime: formatSlot(start, liveReading.availability.timeZone),
+    theirTime: clean.timeZone ? `${formatSlot(start, clean.timeZone)} (${clean.timeZone})` : null,
+    name: clean.name,
+    email: clean.email,
+    notes: clean.notes,
+    submitted: submittedNow(),
+    flagged,
+  })
 
   const ics = [
     'BEGIN:VCALENDAR',
@@ -105,33 +101,11 @@ export async function POST(request: Request) {
 
   const failure = await sendToIsa({
     replyTo: clean.email,
-    subject: `[Live reading] ${isaTime} — ${format.label}, ${tier.label} — ${clean.name}`,
-    text: [
-      'Live reading request — reply to this email to confirm.',
-      '',
-      ...rows.map(([k, v]) => `${k}: ${v}`),
-      '',
-      paymentNote,
-      'The attached calendar file adds the slot to your calendar.',
-    ].join('\n'),
-    html: `
-      <div style="font-family:system-ui,sans-serif;line-height:1.6;color:#1a1a1a">
-        <p style="margin:0 0 4px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#C9943C">Live reading request</p>
-        <p style="margin:0 0 20px;color:#666">Reply to this email to confirm with ${escapeHtml(clean.name)}.</p>
-        <table style="border-collapse:collapse">
-          ${rows.map(([k, v]) => `
-          <tr>
-            <td style="padding:4px 16px 4px 0;color:#666;vertical-align:top;white-space:nowrap">${escapeHtml(k)}</td>
-            <td style="padding:4px 0;white-space:pre-wrap">${escapeHtml(v)}</td>
-          </tr>`).join('')}
-        </table>
-        <p style="margin-top:20px;color:#666">${escapeHtml(paymentNote)}</p>
-        <p style="margin:4px 0 0;color:#666">The attached calendar file adds the slot to your calendar.</p>
-        <p style="margin-top:28px;font-size:12px;color:#999">Sent from the live booking form at ${SITE_HOST} — just hit reply.</p>
-      </div>
-    `,
+    ...emails.toIsa,
     attachments: [{ filename: 'live-reading.ics', content: Buffer.from(ics), contentType: 'text/calendar' }],
   })
+  if (failure) return failure
 
-  return failure ?? Response.json({ ok: true })
+  if (!flagged) await sendToClient(clean.email, emails.toClient)
+  return Response.json({ ok: true })
 }

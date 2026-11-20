@@ -1,10 +1,12 @@
-import { EMAIL_RE, escapeHtml, saveContact, sendToIsa, str } from '@/lib/email'
+import { EMAIL_RE, isFlagged, saveContact, sendToClient, sendToIsa, str, submittedNow } from '@/lib/email'
+import { newsletterEmails } from '@/lib/form-emails'
 import { SITE_HOST } from '@/lib/site'
 
 // "Join the journey" mailing-list signups from the home page. Like the app
 // waitlists: saved to Isa's Resend Contacts list (where she can send
-// broadcasts, with unsubscribe handled by Resend) and announced to her inbox.
-// Either one succeeding is enough for the signup not to be lost.
+// broadcasts, with unsubscribe handled by Resend), announced to her inbox and
+// confirmed to the person. Either of the first two succeeding is enough for
+// the signup not to be lost.
 
 const MAX_EMAIL = 200
 
@@ -17,11 +19,7 @@ export async function POST(request: Request) {
   }
 
   const body = (payload ?? {}) as Record<string, unknown>
-
-  // Honeypot — hidden from real people, irresistible to bots. Accept and drop.
-  if (str(body.website) !== '') {
-    return Response.json({ ok: true })
-  }
+  const flagged = isFlagged(body)
 
   const email = str(body.email)
   if (!email) {
@@ -34,26 +32,16 @@ export async function POST(request: Request) {
     return Response.json({ error: 'That email address looks off.' }, { status: 400 })
   }
 
-  const saved = await saveContact({ email })
-  const listNote = saved
-    ? 'They’re saved in your Resend Contacts list.'
-    : 'Saving them to your Resend Contacts list failed — add them there by hand.'
+  // Possible bots stay off the list until Isa adds them by hand.
+  const saved = flagged ? false : await saveContact({ email })
 
-  const failure = await sendToIsa({
-    replyTo: email,
-    subject: `[Mailing list] ${email} joined`,
-    text: `${email} joined the mailing list.\n\n${listNote}`,
-    html: `
-      <div style="font-family:system-ui,sans-serif;line-height:1.6;color:#1a1a1a">
-        <p style="margin:0 0 12px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#6A4D86">Mailing list</p>
-        <p style="margin:0 0 20px"><strong>${escapeHtml(email)}</strong></p>
-        <p style="margin:0;color:#666">${escapeHtml(listNote)}</p>
-        <p style="margin-top:28px;font-size:12px;color:#999">Sent from the “Join the journey” form at ${SITE_HOST}.</p>
-      </div>
-    `,
-  })
+  const emails = newsletterEmails({ host: SITE_HOST, email, savedToContacts: saved, submitted: submittedNow(), flagged })
+
+  const failure = await sendToIsa({ replyTo: email, ...emails.toIsa })
 
   // Only fail the signup if it landed nowhere.
   if (failure && !saved) return failure
+
+  if (!flagged) await sendToClient(email, emails.toClient)
   return Response.json({ ok: true })
 }
