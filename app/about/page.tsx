@@ -23,7 +23,7 @@ const PILLARS = [
     title: 'Websites',
     description: 'Landing pages and business sites for small businesses and creators, with booking, payments, and SEO.',
     label: 'See websites',
-    href: '/websites',
+    href: '/studio',
   },
 ]
 

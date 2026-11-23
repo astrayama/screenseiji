@@ -15,8 +15,8 @@ import formlessShot from '@/public/work/formless-guide.jpg'
 const SHOTS = { arcana: arcanaShot, formless: formlessShot }
 
 // Websites for small businesses, by Screen Sage Studios — in the calm skin:
-// cloud white, Nunito headings, thin lilac rules, no decoration. /websites
-// has the full pitch.
+// cloud white, Nunito headings, thin lilac rules, no decoration. /studio
+// (Studio Services) has the full pitch.
 export default function Build() {
   const [formOpen, setFormOpen] = useState(false)
 
@@ -70,13 +70,13 @@ export default function Build() {
             <button type="button" onClick={openForm} className={cn(CALM_BUTTON, 'w-full py-3.5 sm:w-auto')}>
               {build.cta}
             </button>
-            <a href="/websites" className={cn(TEXT_LINK, 'hidden text-[15px] sm:inline')}>
+            <a href="/studio" className={cn(TEXT_LINK, 'hidden text-[15px] sm:inline')}>
               {build.more}
             </a>
           </div>
           <p className="mt-3 text-center text-sm text-plum-700 sm:text-left">
             {build.note}{' '}
-            <a href="/websites" className={cn(TEXT_LINK, 'sm:hidden')}>
+            <a href="/studio" className={cn(TEXT_LINK, 'sm:hidden')}>
               {build.moreShort}
             </a>
           </p>

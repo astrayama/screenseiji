@@ -162,24 +162,38 @@ export function tarotService(): Node {
   }
 }
 
-export function webDesignService(): Node {
-  const url = pageUrl('websites')
+export function studioService(): Node {
+  const url = pageUrl('studio')
   return {
     '@type': 'Service',
     '@id': `${url}#service`,
-    name: 'Websites for small businesses',
+    name: 'Studio Services',
     serviceType: 'Web design',
-    description: PAGES.websites.description,
+    description: PAGES.studio.description,
     provider: ref(ORG_ID),
     areaServed: 'Worldwide',
-    audience: { '@type': 'BusinessAudience', name: 'Small businesses and creators' },
+    audience: { '@type': 'BusinessAudience', name: 'Local shops and small businesses' },
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
-      name: 'Website services',
-      itemListElement: studio.services.map(service => ({
-        '@type': 'Offer',
-        itemOffered: { '@type': 'Service', name: service.title, description: service.description },
-      })),
+      name: 'Studio Services packages',
+      itemListElement: [
+        ...studio.packages.map(pkg => ({
+          ...offer(pkg.name, pkg.price, `${pkg.includes.join(', ')}.${pkg.note ? ` ${pkg.note}` : ''}`, url),
+          // Upkeep is billed monthly.
+          ...(pkg.per && {
+            priceSpecification: {
+              '@type': 'UnitPriceSpecification',
+              price: usd(pkg.price),
+              priceCurrency: 'USD',
+              unitCode: 'MON',
+            },
+          }),
+        })),
+        ...studio.services.map(service => ({
+          '@type': 'Offer',
+          itemOffered: { '@type': 'Service', name: service.title, description: service.description },
+        })),
+      ],
     },
   }
 }

@@ -14,7 +14,7 @@ const WAYS_ON = [
   { label: 'Home', href: '/' },
   { label: 'Apps', href: '/apps' },
   { label: 'Tarot readings', href: '/tarot' },
-  { label: 'Websites', href: '/websites' },
+  { label: 'Websites', href: '/studio' },
   { label: 'Side Quests', href: '/side-quests' },
   { label: 'About', href: '/about' },
 ]

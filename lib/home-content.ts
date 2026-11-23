@@ -1,5 +1,5 @@
 // Copy for the home page. Each section is a short teaser that hands off to its
-// own page (/tarot, /apps, /websites, /about, /side-quests). Where the phone
+// own page (/tarot, /apps, /studio, /about, /side-quests). Where the phone
 // layout uses shorter copy, `short` holds it.
 
 import { apps, intakePackages, liveReadingRange } from '@/lib/data'
