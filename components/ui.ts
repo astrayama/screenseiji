@@ -1,6 +1,6 @@
 // Shared classes for the Screen Sage skin. Two moods, one palette:
 // - Brand (everywhere else): sky, serif headings, Josefin eyebrows, pill buttons.
-// - Calm (the Studio band and /websites): cloud white, Nunito headings,
+// - Calm (the home page's Studio band and project form): cloud white, Nunito headings,
 //   thin lilac rules, no decoration.
 // Text is always plum; the sky colours are for backgrounds only.
 

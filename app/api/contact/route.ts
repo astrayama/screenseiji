@@ -1,9 +1,9 @@
-import { contactCategories, type ContactCategory } from '@/lib/data'
+import { contactCategories, studioPackageChoices, type ContactCategory } from '@/lib/data'
 import { EMAIL_RE, isFlagged, sendToClient, sendToIsa, str, submittedNow } from '@/lib/email'
 import { contactEmails } from '@/lib/form-emails'
 import { SITE_HOST } from '@/lib/site'
 
-const LIMITS = { name: 100, email: 200, message: 5000 }
+const LIMITS = { name: 100, email: 200, business: 200, message: 5000 }
 
 export async function POST(request: Request) {
   let payload: unknown
@@ -24,6 +24,15 @@ export async function POST(request: Request) {
     category: (contactCategories as readonly unknown[]).includes(body.category)
       ? (body.category as ContactCategory)
       : contactCategories[0],
+    // Only the /studio form asks these, so they're left out (not blank) when
+    // another form sends the message. Unknown packages count as "Not sure yet".
+    business: 'business' in body ? str(body.business) : undefined,
+    pkg:
+      'package' in body
+        ? (studioPackageChoices as readonly unknown[]).includes(body.package)
+          ? (body.package as string)
+          : studioPackageChoices.at(-1)
+        : undefined,
   }
 
   if (!clean.name || !clean.email || !clean.message) {
@@ -32,6 +41,7 @@ export async function POST(request: Request) {
   if (
     clean.name.length > LIMITS.name ||
     clean.email.length > LIMITS.email ||
+    (clean.business?.length ?? 0) > LIMITS.business ||
     clean.message.length > LIMITS.message
   ) {
     return Response.json({ error: 'That message is a little too long.' }, { status: 400 })

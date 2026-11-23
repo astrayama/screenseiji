@@ -22,7 +22,7 @@ export const metadata = pageMetadata('home')
 export const revalidate = 3600
 
 // Each section is a short teaser that ends with one next step and hands off
-// to its own page: /apps, /tarot, /websites, /about, /side-quests.
+// to its own page: /apps, /tarot, /studio, /about, /side-quests.
 export default function Home() {
   const { quests } = loadSideQuests()
 

@@ -84,18 +84,18 @@ export const PAGES = {
       theme: 'site',
     },
   },
-  websites: {
-    path: '/websites',
-    title: 'Websites for Small Businesses · Screen Sage Studios',
+  studio: {
+    path: '/studio',
+    title: 'Studio Services: Websites for Local Shops · Screen Sage',
     description:
-      'Landing pages, business websites and custom features like booking and Stripe payments, designed and built for small businesses by Screen Sage Studios.',
+      'Websites and a full online presence for local shops, built by Isa: a one-page site for $200, Google Business Profile setup, and monthly upkeep.',
     priority: 0.8,
-    crumb: 'Websites',
+    crumb: 'Studio Services',
     parent: 'home',
     og: {
-      eyebrow: 'Screen Sage Studios · Websites',
-      title: 'Websites for small businesses and creators.',
-      subtitle: 'Landing pages · business websites · booking & payments',
+      eyebrow: 'Screen Sage Studios · Studio Services',
+      title: 'Websites and a full online presence for local shops.',
+      subtitle: 'One-page website $200 · Full online presence $350 · Upkeep $50/month',
       theme: 'site',
     },
   },

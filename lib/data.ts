@@ -384,43 +384,72 @@ export const profileLinks = Object.values(socialLinks)
   .flat()
   .filter((link: SocialLink) => link.profile)
 
-// ─── Studio: client web work ───────────────────────────────────────────────
-// Websites for small businesses, offered by Screen Sage Studios — styled apart
-// from the brand sections, but part of it (and of its SEO: see /websites).
-// Leads come in through the project form (/api/project), which emails Isa.
+// ─── Studio Services: websites and online presence ─────────────────────────
+// Websites and a full online presence for local shops and small businesses,
+// built by Isa — the /studio page. The prices and terms here are the ones Isa
+// set; don't add to them. Leads come in through the contact form on /studio
+// (/api/contact, with the shop and package), and the home page's project form
+// (/api/project).
+
+export type StudioPackageId = 'one-page' | 'presence' | 'upkeep'
+
+export interface StudioPackage {
+  id: StudioPackageId
+  name: string
+  /** As shown, e.g. "$200". */
+  price: string
+  /** After the price, e.g. "/ month". */
+  per?: string
+  includes: string[]
+  /** The limit to read before choosing. */
+  note?: string
+  /** The card's button, which picks this package in the contact form. */
+  cta: string
+}
 
 export interface StudioWork {
   name: string
-  kind: 'Client site' | 'My own product'
+  kind: string
   description: string
-  /** Omitted when the piece is the page you're already on. */
-  href?: string
-  /** Extra labelled versions, shown under the description. */
-  links?: LabeledLink[]
+  href: string
+  /** The address as typed in the card's browser bar. */
+  host: string
+  image: 'formless' | 'cebu'
 }
 
 export const studio = {
-  headline: 'Websites for small businesses and more.',
-  subhead:
-    'I design, build, and launch your site, and make it fast, accessible, and easy to find on Google.',
-  // The scrolling ticker on the collapsed banner.
-  marquee: [
-    'Landing pages',
-    'Business websites',
-    'Booking & payments',
-    'SEO',
-    'Mobile-first',
-    'Accessible',
-    'Waitlists & email capture',
-    'Web apps',
-    'Redesigns',
-  ],
-  services: [
+  email: 'screenseiji@proton.me',
+  packages: [
     {
-      title: 'Landing page',
-      description: 'One focused page that turns visitors into calls, bookings, or sales.',
-      includes: ['Copy and layout help', 'Contact or booking form', 'Live on your own domain'],
+      id: 'one-page',
+      name: 'One-Page Website',
+      price: '$200',
+      includes: ['Services', 'Hours', 'Booking or contact', 'Map', 'Photos'],
+      cta: 'Start with this one',
     },
+    {
+      id: 'presence',
+      name: 'Full Online Presence',
+      price: '$350',
+      includes: [
+        'The one-page website',
+        'Google Business Profile, claimed and filled in',
+        'Instagram and social media basics, tidied',
+      ],
+      cta: 'Start with this one',
+    },
+    {
+      id: 'upkeep',
+      name: 'Monthly Upkeep',
+      price: '$50',
+      per: '/ month',
+      includes: ['Small updates', 'New photos or promos', 'Listing checks'],
+      note: 'Capped at about 1 hour of updates a month. Extra work costs extra.',
+      cta: 'Add upkeep',
+    },
+  ] as StudioPackage[],
+  // Bigger builds, beyond the packages — quoted separately first.
+  services: [
     {
       title: 'Business website',
       description: 'A multi-page home for your services, your story, and how to reach you.',
@@ -432,46 +461,49 @@ export const studio = {
       includes: ['Online booking calendars', 'Stripe checkout', 'Email capture & forms'],
     },
   ],
-  included: ['Mobile-first design', 'SEO', 'Accessibility', 'Fast hosting', 'Forms that email you', 'Analytics'],
+  included: ['Mobile-first design', 'SEO', 'Accessibility', 'Forms that email you', 'Analytics'],
+  steps: [
+    { title: 'Say hello', body: 'Tell me about your shop.' },
+    {
+      title: 'Deposit & materials',
+      body: 'A 50% deposit before work starts. You provide the text, photos, and logo.',
+    },
+    {
+      title: 'Launch',
+      body: 'The balance is due on launch day. Logins are handed over once you’ve paid in full.',
+    },
+  ],
   work: [
     {
       name: 'The Formless Guide',
+      kind: 'Brand site',
+      description: 'A brand site I built. Not a paying client.',
+      href: 'https://theformlessguide.vercel.app',
+      host: 'theformlessguide.vercel.app',
+      image: 'formless',
+    },
+    {
+      name: 'CEBU Inc.',
       kind: 'Client site',
-      description: 'A website for a mindfulness and personal-growth practice.',
-      href: 'https://theformlessguide.vercel.app/',
-    },
-    {
-      name: 'Screen Sage',
-      kind: 'My own product',
-      description: 'The site you’re on, with a native booking calendar, Stripe checkout, and email forms.',
-    },
-    {
-      name: 'Arcana',
-      kind: 'My own product',
-      description: 'App Store marketing, support, and privacy pages for an iOS app.',
-      href: '/apps/arcana',
-    },
-    {
-      name: 'Yggdrasil',
-      kind: 'My own product',
-      description: 'A journaling web app with interactive visualizations and AI insights.',
-      href: YGGDRASIL_MVP,
-      links: [
-        { label: 'MVP', href: YGGDRASIL_MVP },
-        { label: 'v1', href: YGGDRASIL_V1 },
-      ],
+      description: 'My first Studio Services client. Live, with some placeholder copy still in spots.',
+      href: 'https://cebu.screenseiji.com',
+      host: 'cebu.screenseiji.com',
+      image: 'cebu',
     },
   ] as StudioWork[],
-  process: [
-    { title: 'Tell me about it', body: 'Fill out the short project form. It takes two minutes, with no commitment.' },
-    { title: 'Proposal & quote', body: 'I reply with a plan, a timeline, and a quote for your project.' },
-    { title: 'Design & build', body: 'You see progress along the way and give feedback as it comes together.' },
-    { title: 'Launch', body: 'Your site goes live on your domain, ready for customers.' },
-  ],
-  email: 'screenseiji@proton.me',
-  // Discovery-call link (Cal.com, Calendly…). A "Book a call" button shows once set.
-  callUrl: null as string | null,
+  // The fine print, as receipt lines: label, then the term.
+  finePrint: [
+    ['Deposit', '50% before work starts'],
+    ['Balance', 'Due on launch day'],
+    ['Revisions', 'Two rounds included'],
+    ['Domain & hosting', 'Yours to pay, unless we agree otherwise'],
+    ['Anything not listed', 'Quoted separately, first'],
+  ] as [label: string, term: string][],
+  payment: 'Payment by Stripe invoice or payment link.',
 }
+
+/** The contact form's package choices on /studio. */
+export const studioPackageChoices = [...studio.packages.map(p => p.name), 'Not sure yet'] as const
 
 export const projectTypes = [
   'New website',

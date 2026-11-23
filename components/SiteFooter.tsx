@@ -14,7 +14,7 @@ const PAGES_NAV = [
   { label: 'About', href: '/about' },
   { label: 'Apps', href: '/apps' },
   { label: 'Tarot', href: '/tarot' },
-  { label: 'Websites', href: '/websites' },
+  { label: 'Websites', href: '/studio' },
   { label: 'Reviews', href: reviewsSite.url, external: true },
   { label: 'Side Quests', href: '/side-quests' },
   { label: 'Store', href: gumroad.href, external: true },

@@ -10,7 +10,7 @@ Screen Sage Studios is Isa's one-person studio: anime edits and philosophical vi
 | [/about](https://screenseiji.vercel.app/about) | Who Screen Sage Studios is |
 | [/apps](https://screenseiji.vercel.app/apps) | All seven apps — [Arcana](https://screenseiji.vercel.app/apps/arcana) (tarot journal for iPhone), [Anicca](https://screenseiji.vercel.app/apps/anicca) (mood & energy journal), [Carta Luna](https://screenseiji.vercel.app/apps/cartaluna) (mixed-reality tarot for Meta Quest 3), Yggdrasil, Lumenwright, Kairos, Sunya |
 | [/tarot](https://screenseiji.vercel.app/tarot) | Written, video, and live tarot readings |
-| [/websites](https://screenseiji.vercel.app/websites) | Websites for small businesses |
+| [/studio](https://screenseiji.vercel.app/studio) | Studio Services: websites and online presence for local shops (/websites redirects here) |
 | [/side-quests](https://screenseiji.vercel.app/side-quests) | What's being built right now |
 
 ## Stack

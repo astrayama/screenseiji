@@ -282,19 +282,28 @@ export interface ContactInput {
   email: string
   category: string
   message: string
+  /** Shop or business — only the /studio form asks; undefined when not asked. */
+  business?: string
+  /** Studio Services package — /studio project inquiries only. */
+  pkg?: string
   submitted: string
   flagged: boolean
 }
 
 export function contactEmails(input: ContactInput): FormEmails {
-  const { host, name, email, category, message, submitted, flagged } = input
+  const { host, name, email, category, message, business, pkg, submitted, flagged } = input
+  // The /studio extras, in the order the form asks them.
+  const studioRows: Row[] = [
+    ...(business !== undefined ? [['Business', business || BLANK] as Row] : []),
+    ...(pkg !== undefined ? [['Package', pkg] as Row] : []),
+  ]
 
   const isa = toIsa({
     subject: `[${category}] Screen Sage — message from ${name}`,
     eyebrow: `Message · ${category}`,
     flagged,
     blocks: [
-      { rows: [['Name', name], ['Email', email], ['Topic', category], ['Submitted', submitted]] },
+      { rows: [['Name', name], ['Email', email], ...studioRows, ['Topic', category], ['Submitted', submitted]] },
       { label: 'Message', quote: message },
     ],
     footer: sentFrom('contact form', host, name),
@@ -305,7 +314,7 @@ export function contactEmails(input: ContactInput): FormEmails {
     name,
     blocks: [
       { p: 'Thanks for writing. I’ll answer at this address as soon as I can. Here’s a copy of your message.' },
-      { rows: [['Topic', category]] },
+      { rows: [['Topic', category], ...(pkg !== undefined ? [['Package', pkg] as Row] : [])] },
       { label: 'Your message', quote: message },
     ],
     why: `You’re getting this because you used the contact form at ${host}.`,

@@ -35,7 +35,7 @@ In the search bar at the top of Search Console, paste each URL → Enter → **R
 - [ ] `https://screenseiji.vercel.app/about`
 - [ ] `https://screenseiji.vercel.app/apps`
 - [ ] `https://screenseiji.vercel.app/tarot`
-- [ ] `https://screenseiji.vercel.app/websites`
+- [ ] `https://screenseiji.vercel.app/studio`
 
 ✅ Done when each one says **"Indexing requested"**.
 

@@ -26,11 +26,13 @@ const NAV: NavLink[] = [
   { label: 'Reviews',  href: reviewsSite.url, external: true },
   { label: 'Apps',     href: '/apps'     },
   { label: 'Tarot',    href: '/tarot'    },
-  { label: 'Websites', href: '/websites' },
+  { label: 'Websites', href: '/studio' },
   { label: 'About',    href: '/about'    },
 ]
 
 const SAY_HELLO: NavLink = { label: 'Say hello', href: '/#contact' }
+// Pages with a contact form of their own, where Say hello stays on the page.
+const SAY_HELLO_HERE: Record<string, string> = { '/studio': '#hello' }
 
 const NEW_TAB = { target: '_blank', rel: 'noopener noreferrer' }
 
@@ -47,6 +49,7 @@ export default function Navbar() {
   }, [])
 
   const solid = scrolled || menuOpen
+  const sayHello = { ...SAY_HELLO, href: SAY_HELLO_HERE[pathname] ?? SAY_HELLO.href }
 
   return (
     <header
@@ -84,10 +87,10 @@ export default function Navbar() {
             </a>
           ))}
           <a
-            href={SAY_HELLO.href}
+            href={sayHello.href}
             className="ml-1 rounded-full border-[1.5px] border-plum-900 bg-cloud/40 px-5 py-2 text-[15px] font-bold text-plum-900 transition-colors hover:bg-cloud"
           >
-            {SAY_HELLO.label}
+            {sayHello.label}
           </a>
         </nav>
 
@@ -108,7 +111,7 @@ export default function Navbar() {
       {menuOpen && (
         <nav id="mobile-menu" aria-label="Main" className="px-5 pb-5 pt-1 lg:hidden">
           <ul className="flex flex-col gap-1">
-            {[...NAV, SAY_HELLO].map(link => (
+            {[...NAV, sayHello].map(link => (
               <li key={link.href}>
                 <a
                   href={link.href}
