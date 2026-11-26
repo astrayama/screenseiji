@@ -1,4 +1,4 @@
-import { budgetRanges, projectTimelines, projectTypes } from '@/lib/data'
+import { projectPackages, projectTimelines, projectTypes } from '@/lib/data'
 import { EMAIL_RE, isFlagged, sendToClient, sendToIsa, str, submittedNow } from '@/lib/email'
 import { projectEmails } from '@/lib/form-emails'
 import { SITE_HOST } from '@/lib/site'
@@ -35,7 +35,7 @@ export async function POST(request: Request) {
     message: str(body.message),
     // Unknown or missing choices fall back to "not sure" rather than failing.
     projectType: pick(projectTypes, body.projectType, 'Not sure yet'),
-    budget: pick(budgetRanges, body.budget, 'Not sure yet'),
+    package: pick(projectPackages, body.package, 'Not sure yet'),
     timeline: pick(projectTimelines, body.timeline, 'Flexible'),
   }
 
@@ -62,7 +62,7 @@ export async function POST(request: Request) {
     business: clean.business,
     website: clean.site,
     projectType: clean.projectType,
-    budget: clean.budget,
+    package: clean.package,
     timeline: clean.timeline,
     message: clean.message,
     submitted: submittedNow(),

@@ -333,7 +333,8 @@ export interface ProjectInput {
   /** Their current website, if they have one. */
   website: string
   projectType: string
-  budget: string
+  /** The package they picked, with its price. */
+  package: string
   timeline: string
   message: string
   submitted: string
@@ -341,11 +342,11 @@ export interface ProjectInput {
 }
 
 export function projectEmails(input: ProjectInput): FormEmails {
-  const { host, name, email, business, website, projectType, budget, timeline, message, submitted, flagged } = input
+  const { host, name, email, business, website, projectType, package: pkg, timeline, message, submitted, flagged } = input
   const who = business ? `${name} / ${business}` : name
 
   const isa = toIsa({
-    subject: `[Studio lead] ${projectType} · ${budget} — ${who}`,
+    subject: `[Studio lead] ${projectType} · ${pkg} — ${who}`,
     eyebrow: 'Studio · new project inquiry',
     flagged,
     blocks: [
@@ -356,7 +357,7 @@ export function projectEmails(input: ProjectInput): FormEmails {
           ['Business', business || BLANK],
           ['Current site', website || BLANK],
           ['Project', projectType],
-          ['Budget', budget],
+          ['Package', pkg],
           ['Timeline', timeline],
           ['Submitted', submitted],
         ],
@@ -377,7 +378,7 @@ export function projectEmails(input: ProjectInput): FormEmails {
           ...(business ? [['Business', business] as Row] : []),
           ...(website ? [['Current site', website] as Row] : []),
           ['Project', projectType],
-          ['Budget', budget],
+          ['Package', pkg],
           ['Timeline', timeline],
         ],
       },

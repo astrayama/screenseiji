@@ -513,19 +513,20 @@ export const projectTypes = [
   'Not sure yet',
 ] as const
 
-// These quietly signal Isa's price level — adjust to taste.
-export const budgetRanges = [
-  'Under $1,000',
-  '$1,000–$2,500',
-  '$2,500–$5,000',
-  '$5,000+',
+/**
+ * The home "Start a project" form's package choices, with the /studio prices.
+ * Anything else is quoted separately first, as the fine print says.
+ */
+export const projectPackages = [
+  ...studio.packages.map(p => `${p.name} (${p.price}${p.per ? ` ${p.per}` : ''})`),
+  'Something else (quoted first)',
   'Not sure yet',
 ] as const
 
 export const projectTimelines = ['ASAP', '1–3 months', '3+ months', 'Flexible'] as const
 
 export type ProjectType = (typeof projectTypes)[number]
-export type BudgetRange = (typeof budgetRanges)[number]
+export type ProjectPackage = (typeof projectPackages)[number]
 export type ProjectTimeline = (typeof projectTimelines)[number]
 
 export const contactCategories = [
