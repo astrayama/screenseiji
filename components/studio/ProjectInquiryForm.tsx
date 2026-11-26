@@ -9,8 +9,8 @@ import { FIELD, FORM_ERROR, LABEL, NEUTRAL_BUTTON } from '@/components/formStyle
 import Honeypot from '@/components/Honeypot'
 import { useFormDraft } from '@/hooks/useFormDraft'
 import {
-  budgetRanges, projectTimelines, projectTypes,
-  type BudgetRange, type ProjectTimeline, type ProjectType,
+  projectPackages, projectTimelines, projectTypes,
+  type ProjectPackage, type ProjectTimeline, type ProjectType,
 } from '@/lib/data'
 
 // The calm skin's squarer corners, to match its buttons.
@@ -51,7 +51,7 @@ export default function ProjectInquiryForm() {
     business: '',
     site: '',
     projectType: projectTypes[0] as ProjectType,
-    budget: 'Not sure yet' as BudgetRange,
+    package: 'Not sure yet' as ProjectPackage,
     timeline: 'Flexible' as ProjectTimeline,
     message: '',
   })
@@ -68,7 +68,7 @@ export default function ProjectInquiryForm() {
     setError(failure)
     setStatus(failure ? 'idle' : 'sent')
     if (!failure) clearDraft()
-    if (!failure) track('generate_lead', { project_type: form.projectType, budget: form.budget })
+    if (!failure) track('generate_lead', { project_type: form.projectType, package: form.package })
   }
 
   if (status === 'sent') {
@@ -102,9 +102,10 @@ export default function ProjectInquiryForm() {
           <input id={`${id}-site`} autoComplete="url" value={form.site} onChange={set('site')} className={STUDIO_FIELD} placeholder="yoursite.com" />
         </div>
       </div>
-      <div className="grid gap-5 sm:grid-cols-3">
+      {/* Package gets its own row: the names and prices need the width. */}
+      <Select id={`${id}-package`} label="Package" value={form.package} options={projectPackages} onChange={pkg => setForm(v => ({ ...v, package: pkg }))} />
+      <div className="grid gap-5 sm:grid-cols-2">
         <Select id={`${id}-type`} label="Project" value={form.projectType} options={projectTypes} onChange={projectType => setForm(v => ({ ...v, projectType }))} />
-        <Select id={`${id}-budget`} label="Budget" value={form.budget} options={budgetRanges} onChange={budget => setForm(v => ({ ...v, budget }))} />
         <Select id={`${id}-timeline`} label="Timeline" value={form.timeline} options={projectTimelines} onChange={timeline => setForm(v => ({ ...v, timeline }))} />
       </div>
       <div className="flex flex-col gap-2">
