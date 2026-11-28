@@ -98,8 +98,10 @@ export default function Hero() {
           className="mt-5 inline-flex items-center gap-2 rounded-full border border-white bg-cloud/90 px-4 py-2 text-sm font-bold text-plum-900 shadow-card transition-colors hover:bg-cloud sm:mt-6 sm:px-5 sm:text-[15px]"
         >
           <ShoppingBag size={16} aria-hidden />
-          {shop.heroLink}
-          <span className="hidden sm:inline">: {shop.heroLinkMore}</span>
+          <span>
+            {shop.heroLink}
+            <span className="hidden sm:inline">: {shop.heroLinkMore}</span>
+          </span>
           <ArrowUpRight size={16} aria-hidden />
           <span className="sr-only">at {storeSite.host} (opens in a new tab)</span>
         </a>
