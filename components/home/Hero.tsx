@@ -1,8 +1,9 @@
-import { AppWindow, CirclePlay, Smartphone } from 'lucide-react'
+import { AppWindow, ArrowUpRight, CirclePlay, ShoppingBag, Smartphone } from 'lucide-react'
 import { CloudBand, FlowerOfLife, Heart, Sparkle } from '@/components/brand/SkyArt'
 import Fit from '@/components/home/Fit'
 import { CONTAINER, TAG } from '@/components/ui'
-import { doors, hero } from '@/lib/home-content'
+import { storeSite } from '@/lib/data'
+import { doors, hero, shop } from '@/lib/home-content'
 import { cn } from '@/lib/utils'
 
 // The sky from the channel banner: orchid on the left, blush up top, mist on the right.
@@ -89,8 +90,22 @@ export default function Hero() {
           </span>
         </p>
 
+        {/* The store, above the fold on every screen */}
+        <a
+          href={storeSite.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-5 inline-flex items-center gap-2 rounded-full border border-white bg-cloud/90 px-4 py-2 text-sm font-bold text-plum-900 shadow-card transition-colors hover:bg-cloud sm:mt-6 sm:px-5 sm:text-[15px]"
+        >
+          <ShoppingBag size={16} aria-hidden />
+          {shop.heroLink}
+          <span className="hidden sm:inline">: {shop.heroLinkMore}</span>
+          <ArrowUpRight size={16} aria-hidden />
+          <span className="sr-only">at {storeSite.host} (opens in a new tab)</span>
+        </a>
+
         {/* The four doors, each one tap from its section */}
-        <nav aria-label="Start here" className="mt-9 sm:mt-14">
+        <nav aria-label="Start here" className="mt-8 sm:mt-12">
           <ul className="grid grid-cols-2 gap-3 text-left sm:gap-4 lg:grid-cols-4">
             {doors.map(door => {
               const { icon, tint } = DOOR_ICONS[door.id]

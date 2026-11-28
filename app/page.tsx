@@ -3,6 +3,7 @@ import Navbar from '@/components/Navbar'
 import AccessibilityPanel from '@/components/AccessibilityPanel'
 import SiteFooter from '@/components/SiteFooter'
 import Hero from '@/components/home/Hero'
+import Shop from '@/components/home/Shop'
 import Watch from '@/components/home/Watch'
 import Practice from '@/components/home/Practice'
 import Reflect from '@/components/home/Reflect'
@@ -22,7 +23,8 @@ export const metadata = pageMetadata('home')
 export const revalidate = 3600
 
 // Each section is a short teaser that ends with one next step and hands off
-// to its own page: /apps, /tarot, /studio, /about, /side-quests.
+// to its own page: /apps, /tarot, /studio, /about, /side-quests. Shop hands
+// off to the store, store.screenseiji.com.
 export default function Home() {
   const { quests } = loadSideQuests()
 
@@ -33,6 +35,8 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
+        {/* The store, right under the hero, so it's the first thing past the doors. */}
+        <Shop />
         <Watch />
         <Practice />
         <Reflect />

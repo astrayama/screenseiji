@@ -171,6 +171,60 @@ export const reviewsSite = {
   summary: 'Isa’s film and series reviews, each with a score, a spoiler-free verdict and a spoiler zone.',
 }
 
+// ─── Store ──────────────────────────────────────────────────────────────────
+// Screen Sage Sanctuary, Isa's Shopify store, lives on its own subdomain. The
+// navbar, the hero, the home page's Shop section (right under the hero), the
+// footer and llms.txt all link to it. The featured pieces are live listings
+// with photos in public/shop/: swap them when the collection changes.
+
+export interface StoreItem {
+  name: string
+  /** A one-word mood for the card's corner. */
+  tag: string
+  href: string
+  image: string
+  alt: string
+}
+
+export const storeSite = {
+  name: 'Screen Sage Sanctuary',
+  url: 'https://store.screenseiji.com',
+  host: 'store.screenseiji.com',
+  shipping: 'Free US shipping on orders $12+',
+  /** One line on what's there, for llms.txt. */
+  summary: 'Isa’s store for tarot, cozy and cosmic merch, made to order. Free US shipping on orders $12+.',
+  featured: [
+    {
+      name: 'Hermit Season Sweatshirt',
+      tag: 'Tarot',
+      href: 'https://store.screenseiji.com/products/hermit-season-crew-neck-sweatshirt',
+      image: '/shop/hermit-season-sweatshirt.webp',
+      alt: 'A smiling model in a light pink Hermit Season crewneck with a tarot card design',
+    },
+    {
+      name: 'Cosmic Cocoa Club Mug',
+      tag: 'Cosmic',
+      href: 'https://store.screenseiji.com/products/cosmic-cocoa-club-enamel-mug',
+      image: '/shop/cosmic-cocoa-mug.webp',
+      alt: 'Hands holding a white enamel camp mug with a pink ringed planet on it',
+    },
+    {
+      name: 'Rest Is Sacred Throw',
+      tag: 'Cozy',
+      href: 'https://store.screenseiji.com/products/rest-is-sacred-throw-blanket-dreamy-moon-and-clouds-soft-cozy-throw',
+      image: '/shop/rest-is-sacred-blanket.webp',
+      alt: 'A purple throw with a crescent moon and pink clouds, draped over a sofa',
+    },
+    {
+      name: 'Hibernate Intentionally Candle',
+      tag: 'Ritual',
+      href: 'https://store.screenseiji.com/products/hibernate-intentionally-soy-candle',
+      image: '/shop/hibernate-candle.webp',
+      alt: 'A soy candle in a glass jar with a lilac Hibernate Intentionally label',
+    },
+  ] satisfies StoreItem[],
+}
+
 export interface AppLinks {
   appStoreUrl: string
   /** While true, the App Store badge renders as a non-link "Coming soon". */

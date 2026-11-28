@@ -54,6 +54,18 @@ export const doors = [
   },
 ] as const
 
+/** Right under the hero: the store, Screen Sage Sanctuary (storeSite in lib/data). */
+export const shop = {
+  eyebrow: 'Shop',
+  title: 'Take a little sanctuary home.',
+  lead: 'Tarot, cozy and cosmic pieces for slow mornings and quiet nights in. Every one is made to order, just for you.',
+  short: 'Tarot, cozy and cosmic pieces, made to order just for you.',
+  cta: 'Shop the store',
+  /** The hero's line to the store, above the fold. */
+  heroLink: 'The shop is open',
+  heroLinkMore: 'tarot, cozy and cosmic merch',
+}
+
 export const watch = {
   eyebrow: 'Watch',
   title: 'The latest from the channel',

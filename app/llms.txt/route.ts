@@ -1,4 +1,4 @@
-import { apps, appStatusText, intakePackages, liveReading, profileLinks, reviewsSite, studio } from '@/lib/data'
+import { apps, appStatusText, intakePackages, liveReading, profileLinks, reviewsSite, storeSite, studio } from '@/lib/data'
 import { indexablePages } from '@/lib/routes'
 import { FOUNDER, HANDLE, ORG_NAME, SITE_NAME, absoluteUrl } from '@/lib/site'
 
@@ -35,6 +35,9 @@ function body() {
     '',
     '## Reviews',
     `- [Reviews](${reviewsSite.url}): ${reviewsSite.summary}`,
+    '',
+    '## Store',
+    `- [${storeSite.name}](${storeSite.url}): ${storeSite.summary}`,
     '',
     '## Tarot readings',
     `- ${written.title}: ${written.price} ${written.priceUnit}. ${written.description}`,
