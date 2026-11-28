@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation'
 import { ArrowUpRight, Menu, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Wordmark } from '@/components/brand/SBadge'
-import { reviewsSite, storeSite } from '@/lib/data'
+import { reviewsSite, storeLink } from '@/lib/data'
 
 // Pages get their own links (each is a search landing page); home sections
 // start with "/" so they also work from sub-pages like /side-quests.
@@ -27,7 +27,7 @@ const NAV: NavLink[] = [
   { label: 'Apps',     href: '/apps'     },
   { label: 'Tarot',    href: '/tarot'    },
   { label: 'Websites', href: '/studio' },
-  { label: 'Shop',     href: storeSite.url, external: true },
+  { label: 'Shop',     href: storeLink('nav'), external: true },
   { label: 'About',    href: '/about'    },
 ]
 

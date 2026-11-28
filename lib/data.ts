@@ -225,6 +225,20 @@ export const storeSite = {
   ] satisfies StoreItem[],
 }
 
+/**
+ * A store link tagged for analytics, so Shopify can tell which spot on this
+ * site sent the visit (the site's links open with rel="noreferrer", which
+ * hides the referrer). `spot` names where the link sits: nav, hero, footer…
+ * Keep storeSite.url itself untagged; it's also the store's public address.
+ */
+export function storeLink(spot: string, href: string = storeSite.url): string {
+  const url = new URL(href)
+  url.searchParams.set('utm_source', 'screenseiji')
+  url.searchParams.set('utm_medium', 'referral')
+  url.searchParams.set('utm_content', spot)
+  return url.toString()
+}
+
 export interface AppLinks {
   appStoreUrl: string
   /** While true, the App Store badge renders as a non-link "Coming soon". */

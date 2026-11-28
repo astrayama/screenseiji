@@ -2,7 +2,7 @@ import { AppWindow, ArrowUpRight, CirclePlay, ShoppingBag, Smartphone } from 'lu
 import { CloudBand, FlowerOfLife, Heart, Sparkle } from '@/components/brand/SkyArt'
 import Fit from '@/components/home/Fit'
 import { CONTAINER, TAG } from '@/components/ui'
-import { storeSite } from '@/lib/data'
+import { storeLink, storeSite } from '@/lib/data'
 import { doors, hero, shop } from '@/lib/home-content'
 import { cn } from '@/lib/utils'
 
@@ -92,7 +92,7 @@ export default function Hero() {
 
         {/* The store, above the fold on every screen */}
         <a
-          href={storeSite.url}
+          href={storeLink('hero')}
           target="_blank"
           rel="noopener noreferrer"
           className="mt-5 inline-flex items-center gap-2 rounded-full border border-white bg-cloud/90 px-4 py-2 text-sm font-bold text-plum-900 shadow-card transition-colors hover:bg-cloud sm:mt-6 sm:px-5 sm:text-[15px]"

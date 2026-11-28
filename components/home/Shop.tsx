@@ -3,7 +3,7 @@ import { ArrowUpRight, Truck } from 'lucide-react'
 import { Sparkle } from '@/components/brand/SkyArt'
 import Fit from '@/components/home/Fit'
 import { BUTTON_PRIMARY, CONTAINER, EYEBROW, H2, TAG } from '@/components/ui'
-import { storeSite } from '@/lib/data'
+import { storeLink, storeSite } from '@/lib/data'
 import { shop } from '@/lib/home-content'
 import { cn } from '@/lib/utils'
 
@@ -49,7 +49,7 @@ export default function Shop() {
             {storeSite.featured.map(item => (
               <li key={item.href}>
                 <a
-                  href={item.href}
+                  href={storeLink('home-shop-card', item.href)}
                   {...NEW_TAB}
                   className="group flex h-full flex-col overflow-hidden rounded-[1.375rem] border border-white bg-cloud shadow-card transition-transform duration-300 hover:-translate-y-1"
                 >
@@ -85,7 +85,7 @@ export default function Shop() {
 
 function ShopButton() {
   return (
-    <a href={storeSite.url} {...NEW_TAB} className={cn(BUTTON_PRIMARY, 'w-full py-3.5 sm:w-auto')}>
+    <a href={storeLink('home-shop-button')} {...NEW_TAB} className={cn(BUTTON_PRIMARY, 'w-full py-3.5 sm:w-auto')}>
       {shop.cta}
       <ArrowUpRight size={17} aria-hidden />
       <span className="sr-only">at {storeSite.host} (opens in a new tab)</span>

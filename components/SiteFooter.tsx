@@ -1,7 +1,7 @@
 import { Wordmark } from '@/components/brand/SBadge'
 import { CloudBand, Sparkle } from '@/components/brand/SkyArt'
 import { OpenAccessibilityButton } from '@/components/AccessibilityPanel'
-import { reviewsSite, socialLinks, storeSite, type SocialLink } from '@/lib/data'
+import { reviewsSite, socialLinks, storeLink, type SocialLink } from '@/lib/data'
 import { cn } from '@/lib/utils'
 
 // Every page links to every main page from here — the paths search engines
@@ -17,7 +17,7 @@ const PAGES_NAV = [
   { label: 'Websites', href: '/studio' },
   { label: 'Reviews', href: reviewsSite.url, external: true },
   { label: 'Side Quests', href: '/side-quests' },
-  { label: 'Shop', href: storeSite.url, external: true },
+  { label: 'Shop', href: storeLink('footer'), external: true },
 ]
 
 const SOCIALS: SocialLink[] = [...socialLinks.content, ...socialLinks.listen]
