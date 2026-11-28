@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation'
 import { ArrowUpRight, Menu, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Wordmark } from '@/components/brand/SBadge'
-import { reviewsSite } from '@/lib/data'
+import { reviewsSite, storeSite } from '@/lib/data'
 
 // Pages get their own links (each is a search landing page); home sections
 // start with "/" so they also work from sub-pages like /side-quests.
@@ -13,8 +13,8 @@ import { reviewsSite } from '@/lib/data'
 // in-page scroll on the home page, a full load that lands on the section from
 // elsewhere). Next's client router can double the hash ("/#watch#contact") on
 // these, and a same-route <Link> wouldn't reset the Side Quests tab from #log.
-// Reviews is its own site, so it opens in a new tab.
-// Side Quests, the Store and the rest live in the footer.
+// Reviews and Shop are their own sites, so they open in a new tab.
+// Side Quests and the rest live in the footer.
 interface NavLink {
   label: string
   href: string
@@ -27,6 +27,7 @@ const NAV: NavLink[] = [
   { label: 'Apps',     href: '/apps'     },
   { label: 'Tarot',    href: '/tarot'    },
   { label: 'Websites', href: '/studio' },
+  { label: 'Shop',     href: storeSite.url, external: true },
   { label: 'About',    href: '/about'    },
 ]
 

@@ -1,7 +1,7 @@
 import { Wordmark } from '@/components/brand/SBadge'
 import { CloudBand, Sparkle } from '@/components/brand/SkyArt'
 import { OpenAccessibilityButton } from '@/components/AccessibilityPanel'
-import { reviewsSite, socialLinks, type SocialLink } from '@/lib/data'
+import { reviewsSite, socialLinks, storeSite, type SocialLink } from '@/lib/data'
 import { cn } from '@/lib/utils'
 
 // Every page links to every main page from here — the paths search engines
@@ -17,7 +17,7 @@ const PAGES_NAV = [
   { label: 'Websites', href: '/studio' },
   { label: 'Reviews', href: reviewsSite.url, external: true },
   { label: 'Side Quests', href: '/side-quests' },
-  { label: 'Store', href: gumroad.href, external: true },
+  { label: 'Shop', href: storeSite.url, external: true },
 ]
 
 const SOCIALS: SocialLink[] = [...socialLinks.content, ...socialLinks.listen]
@@ -76,6 +76,7 @@ export default function SiteFooter() {
             <span className="sm:hidden">Ko-fi</span>
             <span className="hidden sm:inline">Support me on Ko-fi</span>
           </a>
+          <a href={gumroad.href} target="_blank" rel={externalRel(gumroad)} className={LINK}>Gumroad</a>
           <a href="/sanctum" className={LINK}>The Sanctum</a>
           <OpenAccessibilityButton className={cn(LINK, 'cursor-pointer')} />
           <a href="/privacy" className={LINK}>Privacy</a>
